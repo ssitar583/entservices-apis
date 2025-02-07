@@ -1,0 +1,328 @@
+{
+    "$schema": "interface.schema.json",
+    "jsonrpc": "2.0",
+    "info": {
+        "title": "HomeKitTV API",
+        "class": "HomeKitTVJSONRPC",
+        "description": "HomeKitTV service JSON-RPC interface"
+    },
+    "common": {
+    "$ref": "../common.json"
+    },
+    "include": {
+        "statecontrol": {
+            "$ref": "../StateControl/StateControl.json#"
+        }
+    },
+    "definitions": {
+        "requestapplaunch": {
+            "summary": "HomeKitTV command to bring HomeKitTV to foreground",
+            "type": "string",
+            "enum": [
+                "HomeScreenButton",
+                "InputSourceSelected"
+            ]
+        },
+        "state": {
+            "summary": "Daemon plugin state",
+            "type": "string",
+            "enum": [
+                "started",
+                "stopped"
+            ]
+        },
+        "success": {
+            "summary": "Legacy parameter (always true)",
+            "type": "boolean",
+            "default": true,
+            "example": true
+        }
+    },
+    "properties": {
+	"setAppContainerIPAddress": {
+		"summary": "Set the Airplay Application containers IP address to Daemon side",
+		"params": {
+			"type": "object",
+			"properties": {
+				"ipaddress": {
+					"description": "IP Address of Application container",
+					"type": "string",
+					"example": "127.0.0.1"
+				}
+			},
+			"required": [
+				"ipaddress"
+			]
+		},
+		"errors": [
+			{
+				"description": "General error",
+				"$ref": "#/common/errors/general"
+			}
+		]
+	}		
+    },
+    "methods": {
+        "setCurrentInputSource": {
+            "summary": "Request Airplay to set the current Input-Source",
+            "params": {
+                "type": "object",
+                "properties": {
+                    "sourceName": {
+                        "description": "Selected Input-Source using IR Remote.",
+                        "type": "string",
+                        "example": "HDMI1,AirPlay,ImmersiveUI"
+                    }
+                },
+		"required": [
+		    "sourceName"
+		]
+            },
+            "result": {
+		"type": "object",
+		"properties": {
+	             "success": {
+			  "type": "boolean",
+		          "example": true
+			}
+		    },
+		"required": [
+			"success"
+		]
+            },
+            "errors": [
+                {
+                    "description": "Airplay is unavailable",
+                    "$ref": "#/common/errors/unavailable"
+                },
+                {
+                    "description": "Command is not set",
+                    "$ref": "#/common/errors/unknownkey"
+                }
+            ]
+        },
+    	"getEnabledStatus": {
+    		"summary": "Return the status of Airplay On/Off",
+    		"result": {
+    			"type": "object",
+    			"properties":{
+    				"enabled": {
+    					"type": "boolean",
+    					"example": true
+    				},
+    				"success": {
+    					"$ref": "#/definitions/success"
+    				}
+    			},
+    			"required": [
+    				"enabled",
+    				"success"
+    			]
+    		},
+    		"errors": [
+    			{
+    				"description": "General error",
+    				"$ref": "#/common/errors/general"
+        			}
+    		]
+    	},
+    	"getConnectionStatus": {
+    		"summary": "Request whether the AirPlay capable Apple companion device is paired (true) or unpaired (false) with this HomeKit Television Accessory device.",
+    		"result": {
+    			"type": "object",
+    			"properties":{
+    				"paired": {
+    					"type": "boolean",
+    					"example": true
+    				},
+    				"success": {
+    					"$ref": "#/definitions/success"
+    				}
+    			},
+    			"required": [
+    				"paired",
+    				"success"
+    			]
+    		},
+    		"errors": [
+    			{
+    				"description": "General error",
+    				"$ref": "#/common/errors/general"
+    			}
+    		]
+	},
+	"requestAppLaunch": {
+		"summary": "Requests Airplay Daemon to launch specific page of Airplay App",
+		"params": {
+			"type": "object",
+			"properties": {
+			"origin": {
+				"description": "Origin of the launch Request",
+				"type": "string",
+				"example": "EPG"
+			},
+			"reason": {
+				"description": "Reason to request Airplay app UI, e.g., to display Airplay curtain page or Airlay & HomeKit settings",
+				"type": "string",
+				"example": "HomeScreenButton"
+			}
+		},
+		"required": [
+			"origin",
+			"reason"
+		]
+	},
+	"result": {
+		"type": "object",
+		"properties": {
+			"success": {
+				"type": "boolean",
+				"example": true
+			}
+		},
+		"required": [
+			"success"
+		]
+	},
+	"errors": [
+		{
+			"description": "Airplay is unavailable",
+			"$ref": "#/common/errors/unavailable"
+		},
+		{
+			"description": "Command is not set",
+			"$ref": "#/common/errors/unknownkey"
+		}
+	]
+	}
+    },
+    "events": {
+        "onAppStateChangeRequest": {
+            "summary": "Event raised to request state change of the Airplay Application to starting-section, resuming-section, suspending-close, and stopping-destroy",
+                "params": {
+                    "type": "object",
+                    "properties": {
+			"origin": {
+			    "description": "Origin of app state change request",
+			    "type": "string",
+			    "example": "EPG, Airplay"
+			},
+			"intent": {
+			    "description": "App State change intent object",
+			    "type": "object",
+			    "properties": {
+				"action": {
+				    "description": "Intent action",
+				    "type": "string",
+				    "example": "section"
+				},
+				"data": {
+				    "description": "Intent's data",
+				    "type": "object",
+				    "properties": {
+					"sectionName": {
+					     "description": "String representing launch parameters",
+					     "type": "string",
+					     "example": "argv0:--cwd=/tmp"
+					}
+				    }
+				},
+				"context": {
+				    "description": "App State Change Intent Context Object",
+				    "type": "object",
+				    "properties": {
+					"source": {
+					    "description": "String representing the reason for triggering the section",
+					    "type": "string",
+					    "example": "HomeScreenButton, InputSourceSelected"
+					}
+				    }
+			        }
+			    }
+                        }
+		    },
+                    "required": [
+                        "origin",
+                        "intent"
+                    ]
+                }
+	    },
+            "onEnabledStatusChanged": {
+                "summary": "Event raised to send Airplay status changed to On or Off",
+                "params": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "description": "Airplay setting status changed between On or Off",
+                            "type": "boolean",
+                            "example": "true"
+                        }
+                    },
+                    "required": [
+                        "enabled"
+                    ]
+                }
+            },
+            "onInputSourceChanged": {
+                "summary": "Event raised to send selected Inputsource details",
+                "params": {
+                    "type": "object",
+                    "properties": {
+                        "sourceType": {
+                            "description": "Type of inputsource hdmi, composite, Airplay",
+                            "type": "string",
+                            "example": "HDMI, COMPOSITE, AIRPLAY"
+                        },
+                        "portId": {
+                            "description": "Port ID of Input source",
+                            "type": "number",
+                            "example": 1
+                        }
+                    },
+                    "required": [
+                        "sourceType",
+                        "portId"
+                    ]
+                }
+            },
+            "onairplayerror": {
+                "summary": "Event raised to send failure events",
+                "params": {
+                    "type": "object",
+                    "properties": {
+                        "errordata": {
+                            "description": "Details of the failure",
+                            "type": "string",
+                            "example": "Network lost"
+                        },
+                        "errorid": {
+                            "description": "Failure code",
+                            "type": "number",
+                            "example": 10
+                        }
+                    },
+                    "required": [
+                        "errordata",
+                        "errorid"
+                    ]
+                }
+            },
+            "onConnectionStatusChanged": {
+                "summary": "Event raised to notify pairing status changed",
+                "params": {
+                    "type": "object",
+                    "properties": {
+                        "paired": {
+                            "description": "HomeKit Pairing status",
+                            "type": "boolean",
+                            "example": "true, false"
+                        }
+                    },
+                    "required": [
+                        "paired"
+                    ]
+                }
+            }
+     }
+}
+

@@ -1,0 +1,202 @@
+{
+    "$schema": "https://raw.githubusercontent.com/rdkcentral/rdkservices/main/Tools/json_generator/schemas/interface.schema.json",
+    "jsonrpc": "2.0",
+    "info": {
+        "title": "USBMassStorage API",
+        "class": "org.rdk.UsbMassStorage",
+        "description": "The `USBMassStorage` plugin is using For mounting the file system on mass storage and enumeration of mount points."
+    },
+    "common": {
+        "$ref": "../common/common.json"
+    },
+    "definitions": {
+            "USBStorageDeviceInfo": {
+            "summary": "Information about a USB storage device",
+            "type": "object",
+            "properties": {
+                "devicePath": {
+                    "summary": "The path to the USB device",
+                    "type": "string",
+                    "example": "/dev/sda1"
+                },
+                "deviceName": {
+                    "summary": "The name of the USB device",
+                    "type": "string",
+                    "example": "MyUSBDevice"
+                }
+            }
+        },
+        "USBStorageDeviceInfoIterator": {
+            "summary": "Information about a connected USB storage device.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "devicePath": {
+                        "summary": "The path to the USB storage device in the system.",
+                        "type": "string",
+                        "example": "/dev/sda1"
+                    },
+                    "deviceName": {
+                        "summary": "The name of the USB storage device.",
+                        "type": "string",
+                        "example": "USB Drive 1"
+                    }
+                }
+            }
+        },
+        "USBStorageMountInfoIterator": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "partitionName": {
+                        "summary": "The name of the partition being mounted",
+                        "type": "string",
+                        "example": "/dev/sda1"
+                    },
+                    "mountFlags": {
+                        "summary": "Flags indicating how the partition is mounted",
+                        "type": "string",
+                        "example": "READ_ONLY"
+                    },
+                    "mountPath": {
+                        "summary": "The mount point path in the file system",
+                        "type": "string",
+                        "example": "/mnt/usb1"
+                    }
+                },
+                "required": ["partitionName", "mountFlags", "mountPath"]
+            }
+        },
+        "USBStoragePartitionInfo": {
+            "type": "object",
+            "properties": {
+                "fileSystem": {
+                    "summary": "The file system of the partition",
+                    "type": "string",
+                    "example": "vfat"
+                },
+                "size": {
+                    "summary": "Total size of the partition in MB",
+                    "type": "integer",
+                    "example": 1024
+                },
+                "startSector": {
+                    "summary": "The starting sector of the partition",
+                    "type": "integer",
+                    "example": 2048
+                },
+                "numSectors": {
+                    "summary": "The number of sectors in the partition",
+                    "type": "integer",
+                    "example": 4096
+                },
+                "sectorSize": {
+                    "summary": "The size of each sector in bytes",
+                    "type": "integer",
+                    "example": 512
+                },
+                "totalSpace": {
+                    "summary": "Total space of the partition in MB",
+                    "type": "integer",
+                    "example": 1024
+                },
+                "usedSpace": {
+                    "summary": "Used space of the partition in MB",
+                    "type": "integer",
+                    "example": 512
+                },
+                "availableSpace": {
+                    "summary": "Available space in the partition in MB",
+                    "type": "integer",
+                    "example": 512
+                }
+            }
+        }
+    },
+    "methods": {
+        "getDeviceList": {
+            "summary": "Retrieve the list of connected USB storage devices.",
+            "result": {
+                "summary": "On success, a list of USB storage devices will be returned.",
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/USBStorageDeviceInfoIterator"
+                }
+            }
+        },
+        "getMountPoints": {
+            "summary": "Retrieve the mount info list by given USB storage device name.",
+            "params": {
+                "type": "object",
+                "properties": {
+                    "deviceName": {
+                        "summary": "Name of the USB storage device.",
+                        "type": "string",
+                        "example": "USB Drive 1"
+                    }
+                }
+            },
+            "result": {
+                "summary": "On success, mount info list of a USB storage device will be returned.",
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/USBStorageMountInfoIterator"
+                }
+            }
+        },
+        "getPartitionInfo": {
+            "summary": "Get the partition information for the given mount path.",
+            "params": {
+                "type": "object",
+                "properties": {
+                    "mountPath": {
+                        "summary": "Name of the USB storage device.",
+                        "type": "string",
+                        "example": "/mnt/usb/media1/"
+                    }
+                }
+            },
+            "result": {
+                "summary": "On success, mount info list of a USB storage device will be returned.",
+                "type": "array",
+                "items": {
+                    "$ref": "#/definitions/USBStoragePartitionInfo"
+                }
+            }
+        }
+    },
+    "events": {
+        "onDeviceMounted": {
+            "summary": "Triggered after the device partitions are mounted",
+            "params": {
+                "type": "object",
+                "properties": {
+                    "deviceList": {
+                        "summary": "mount info list of a USB storage device will be returned.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/USBStorageMountInfoIterator"
+                        }
+                    }
+                }
+            }
+        },
+        "onDeviceUnmounted": {
+            "summary": "Triggered after the device partitions are unmounted",
+            "params": {
+                "type": "object",
+                "properties": {
+                    "deviceList": {
+                        "summary": "mount info list of a USB storage device will be returned.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/USBStorageMountInfoIterator"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
