@@ -1,4 +1,4 @@
-# RDK Services Architecture
+# ENT Services Architecture
 
 Blah Blah Blah.....
 
