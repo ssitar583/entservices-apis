@@ -32,16 +32,16 @@ struct EXTERNAL IRuntimeManager : virtual public Core::IUnknown {
     using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
     using IValueIterator = RPC::IIteratorType<uint32_t, RPC::ID_VALUEITERATOR>;
 
-    enum ContainerState : uint8_t {
-        CONTAINER_STATE_UNKNOWN     = 0   /* @text CONTAINER_STATE_UNKNOWN */,
-        CONTAINER_STATE_STARTING    = 1   /* @text CONTAINER_STATE_STARTING */,
-        CONTAINER_STATE_RUNNING     = 2   /* @text CONTAINER_STATE_RUNNING */,
-        CONTAINER_STATE_SUSPENDED   = 3   /* @text CONTAINER_STATE_SUSPENDED */,
-        CONTAINER_STATE_HIBERNATING = 4   /* @text CONTAINER_STATE_HIBERNATING */,
-        CONTAINER_STATE_HIBERNATED  = 5   /* @text CONTAINER_STATE_HIBERNATED */,
-        CONTAINER_STATE_WAKING      = 6   /* @text CONTAINER_STATE_WAKING */,
-        CONTAINER_STATE_TERMINATING = 7   /* @text CONTAINER_STATE_TERMINATING */,
-        CONTAINER_STATE_TERMINATED  = 8   /* @text CONTAINER_STATE_TERMINATED */
+    enum RuntimeContainerState : uint8_t {
+        RUNTIME_CONTAINER_STATE_UNKNOWN     = 0   /* @text RUNTIME_CONTAINER_STATE_UNKNOWN */,
+        RUNTIME_CONTAINER_STATE_STARTING    = 1   /* @text RUNTIME_CONTAINER_STATE_STARTING */,
+        RUNTIME_CONTAINER_STATE_RUNNING     = 2   /* @text RUNTIME_CONTAINER_STATE_RUNNING */,
+        RUNTIME_CONTAINER_STATE_SUSPENDED   = 3   /* @text RUNTIME_CONTAINER_STATE_SUSPENDED */,
+        RUNTIME_CONTAINER_STATE_HIBERNATING = 4   /* @text RUNTIME_CONTAINER_STATE_HIBERNATING */,
+        RUNTIME_CONTAINER_STATE_HIBERNATED  = 5   /* @text RUNTIME_CONTAINER_STATE_HIBERNATED */,
+        RUNTIME_CONTAINER_STATE_WAKING      = 6   /* @text RUNTIME_CONTAINER_STATE_WAKING */,
+        RUNTIME_CONTAINER_STATE_TERMINATING = 7   /* @text RUNTIME_CONTAINER_STATE_TERMINATING */,
+        RUNTIME_CONTAINER_STATE_TERMINATED  = 8   /* @text RUNTIME_CONTAINER_STATE_TERMINATED */
     };
 
     // @event 
@@ -69,7 +69,7 @@ struct EXTERNAL IRuntimeManager : virtual public Core::IUnknown {
         // @text onStateChanged
         // @param appInstanceId App identifier for the application/container
         // @param state state of the container
-        virtual void OnStateChanged(const string& appInstanceId, const ContainerState state) {};
+        virtual void OnStateChanged(const string& appInstanceId, const RuntimeContainerState state) {};
     };
 
     /** Register notification interface */
