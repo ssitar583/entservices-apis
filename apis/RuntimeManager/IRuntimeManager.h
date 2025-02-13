@@ -99,8 +99,8 @@ struct EXTERNAL IRuntimeManager : virtual public Core::IUnknown {
     /** @brief Wake the application to given state */
     // @text wake
     // @param appInstanceId App identifier for the application/container
-    // @param state state of the container
-    virtual Core::hresult Wake(const string& appInstanceId, const ContainerState state) = 0;
+    // @param state state of the lifecycle manager ILifecycleManager::LifecycleState enum
+    virtual Core::hresult Wake(const string& appInstanceId, const uint8_t lifecycleState) = 0;
 
     /** @brief Suspend the application */
     // @text suspend
