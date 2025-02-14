@@ -32,16 +32,16 @@ struct EXTERNAL IRuntimeManager : virtual public Core::IUnknown {
     using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
     using IValueIterator = RPC::IIteratorType<uint32_t, RPC::ID_VALUEITERATOR>;
 
-    enum RuntimeContainerState : uint8_t {
-        RUNTIME_CONTAINER_STATE_UNKNOWN     = 0   /* @text RUNTIME_CONTAINER_STATE_UNKNOWN */,
-        RUNTIME_CONTAINER_STATE_STARTING    = 1   /* @text RUNTIME_CONTAINER_STATE_STARTING */,
-        RUNTIME_CONTAINER_STATE_RUNNING     = 2   /* @text RUNTIME_CONTAINER_STATE_RUNNING */,
-        RUNTIME_CONTAINER_STATE_SUSPENDED   = 3   /* @text RUNTIME_CONTAINER_STATE_SUSPENDED */,
-        RUNTIME_CONTAINER_STATE_HIBERNATING = 4   /* @text RUNTIME_CONTAINER_STATE_HIBERNATING */,
-        RUNTIME_CONTAINER_STATE_HIBERNATED  = 5   /* @text RUNTIME_CONTAINER_STATE_HIBERNATED */,
-        RUNTIME_CONTAINER_STATE_WAKING      = 6   /* @text RUNTIME_CONTAINER_STATE_WAKING */,
-        RUNTIME_CONTAINER_STATE_TERMINATING = 7   /* @text RUNTIME_CONTAINER_STATE_TERMINATING */,
-        RUNTIME_CONTAINER_STATE_TERMINATED  = 8   /* @text RUNTIME_CONTAINER_STATE_TERMINATED */
+    enum RuntimeState : uint8_t {
+        RUNTIME_STATE_UNKNOWN     = 0   /* @text RUNTIME_STATE_UNKNOWN */,
+        RUNTIME_STATE_STARTING    = 1   /* @text RUNTIME_STATE_STARTING */,
+        RUNTIME_STATE_RUNNING     = 2   /* @text RUNTIME_STATE_RUNNING */,
+        RUNTIME_STATE_SUSPENDED   = 3   /* @text RUNTIME_STATE_SUSPENDED */,
+        RUNTIME_STATE_HIBERNATING = 4   /* @text RUNTIME_STATE_HIBERNATING */,
+        RUNTIME_STATE_HIBERNATED  = 5   /* @text RUNTIME_STATE_HIBERNATED */,
+        RUNTIME_STATE_WAKING      = 6   /* @text RUNTIME_STATE_WAKING */,
+        RUNTIME_STATE_TERMINATING = 7   /* @text RUNTIME_STATE_TERMINATING */,
+        RUNTIME_STATE_TERMINATED  = 8   /* @text RUNTIME_STATE_TERMINATED */
     };
 
     // @event 
@@ -68,8 +68,8 @@ struct EXTERNAL IRuntimeManager : virtual public Core::IUnknown {
         // @brief Notifies state of container
         // @text onStateChanged
         // @param appInstanceId App identifier for the application/container
-        // @param state state of the container
-        virtual void OnStateChanged(const string& appInstanceId, const RuntimeContainerState state) {};
+        // @param state state of the application/container
+        virtual void OnStateChanged(const string& appInstanceId, const RuntimeState state) {};
     };
 
     /** Register notification interface */
@@ -99,8 +99,8 @@ struct EXTERNAL IRuntimeManager : virtual public Core::IUnknown {
     /** @brief Wake the application to given state */
     // @text wake
     // @param appInstanceId App identifier for the application/container
-    // @param state state of the lifecycle manager ILifecycleManager::LifecycleState enum
-    virtual Core::hresult Wake(const string& appInstanceId, const uint8_t lifecycleState) = 0;
+    // @param runtimeState state of runtime application/container
+    virtual Core::hresult Wake(const string& appInstanceId, const RuntimeState runtimeState) = 0;
 
     /** @brief Suspend the application */
     // @text suspend
