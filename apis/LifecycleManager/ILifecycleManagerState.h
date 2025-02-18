@@ -20,6 +20,7 @@
 #pragma once
 
 #include "Module.h"
+#include "ILifecycleManager.h"
 // @stubgen:include "ILifecycleManager.h"
 
 namespace WPEFramework {
@@ -42,7 +43,11 @@ struct EXTERNAL ILifecycleManagerState : virtual public Core::IUnknown {
         /** Notifies the new state */
         // @json:omit
         // @brief Notifies the new state
-        virtual void OnAppLifecycleStateChanged(const string& appId, const string& appInstanceId, LifecycleState oldState, LifecycleState newState, const string& navigationIntent) {}
+        virtual void OnAppLifecycleStateChanged(const string& appId,
+                                                const string& appInstanceId,
+                                                const ILifecycleManager::LifecycleState oldState,
+                                                const ILifecycleManager::LifecycleState newState,
+                                                const string& navigationIntent) {}
     };
 
     /** Register notification interface */
