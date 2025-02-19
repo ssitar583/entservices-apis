@@ -78,7 +78,7 @@ struct EXTERNAL IOCIContainer : virtual public Core::IUnknown {
     /** Get the information about container */
     // @text getContainerInfo
     // @param containerId Identifier of container
-    virtual Core::hresult GetContainerInfo(const string& containerId /* @in */, string& info /* @out */, bool& success /* @out */, string& errorReason /* @out */) = 0;
+    virtual Core::hresult GetContainerInfo(const string& containerId /* @in */, string& info /* @out @opaque */, bool& success /* @out */, string& errorReason /* @out */) = 0;
 
     /** Get the state of container */
     // @text getContainerState
