@@ -56,7 +56,7 @@ namespace WPEFramework
             // @brief Gets the values associated with the corresponding property names
             // @param names - in - String array of property names
             // @param paramList - out - specified properties and their values
-            virtual Core::hresult GetConfiguration(IStringIterator* const& names /* @in */, ParamList &paramList) = 0;
+            virtual Core::hresult GetConfiguration(IStringIterator* const& names /* @in */, ParamList &paramList /* @out */) = 0;
 
             // @text getMilestones
             // @brief Returns the list of milestones
