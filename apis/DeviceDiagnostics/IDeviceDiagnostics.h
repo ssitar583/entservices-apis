@@ -26,12 +26,17 @@ namespace WPEFramework
 {
     namespace Exchange
     {
-        /* @json @text:keep */
+        /* @json 1.0.0 @text:keep */
         struct EXTERNAL IDeviceDiagnostics : virtual public Core::IUnknown
         {
             enum { ID = ID_DEVICE_DIAGNOSTICS };
 
             using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
+
+            struct EXTERNAL ParamList {
+                string name /* @text name */;
+                string value /* @text value */;
+            };
 
             // @event
             struct EXTERNAL INotification : virtual public Core::IUnknown 
@@ -41,33 +46,32 @@ namespace WPEFramework
                 // @text onAVDecoderStatusChanged
                 // @brief Triggered when the most active status of audio/video decoder/pipeline changes
                 // @param AVDecoderStatus - in - string
-                virtual void OnAVDecoderStatusChanged(const string& AVDecoderStatus /* @in */) = 0;
+                virtual void OnAVDecoderStatusChanged(const string& AVDecoderStatus) {};
             };
 
-            virtual uint32_t Register(IDeviceDiagnostics::INotification* notification /* @in */) = 0;
-            virtual uint32_t Unregister(IDeviceDiagnostics::INotification* notification /* @in */) = 0;
+            virtual Core::hresult Register(IDeviceDiagnostics::INotification* notification /* @in */) = 0;
+            virtual Core::hresult Unregister(IDeviceDiagnostics::INotification* notification /* @in */) = 0;
 
             // @text getConfiguration
             // @brief Gets the values associated with the corresponding property names
             // @param names - in - String array of property names
-            // @param name - out - String property name
-            // @param value - out - String property value
-            virtual uint32_t GetConfiguration(IStringIterator* const& names /* @in */, string& name /* @out */, string& value /* @out */) = 0;
+            // @param paramList - out - specified properties and their values
+            virtual Core::hresult GetConfiguration(IStringIterator* const& names /* @in */, ParamList &paramList) = 0;
 
             // @text getMilestones
             // @brief Returns the list of milestones
             // @param milestones - out - A string [] of milestones
-            virtual uint32_t GetMilestones(IStringIterator*& milestones /* @out */) = 0;
+            virtual Core::hresult GetMilestones(IStringIterator*& milestones /* @out */) = 0;
 
             // @text logMilestone
             // @brief Log marker string to rdk milestones log
             // @param marker - in - string
-            virtual uint32_t LogMilestone(const string& marker /* @in */) = 0;
+            virtual Core::hresult LogMilestone(const string& marker /* @in */) = 0;
 
             // @text getAVDecoderStatus
             // @brief Gets the most active status of audio/video decoder/pipeline
             // @param AVDecoderStatus - out - string
-            virtual uint32_t GetAVDecoderStatus(string& AVDecoderStatus /* @out */) = 0;
+            virtual Core::hresult GetAVDecoderStatus(string& AVDecoderStatus /* @out */) = 0;
         };
     } // namespace Exchange
 } // namespace WPEFramework
