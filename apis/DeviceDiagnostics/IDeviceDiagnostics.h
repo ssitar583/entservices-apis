@@ -38,6 +38,8 @@ namespace WPEFramework
                 string value /* @text value */;
             };
 
+            using IDeviceDiagnosticsParamListIterator = RPC::IIteratorType<ParamList, ID_DEVICE_DIAGNOSTICS_PARAM_LIST_ITERATOR>;
+
             // @event
             struct EXTERNAL INotification : virtual public Core::IUnknown 
             {
@@ -56,7 +58,7 @@ namespace WPEFramework
             // @brief Gets the values associated with the corresponding property names
             // @param names - in - String array of property names
             // @param paramList - out - specified properties and their values
-            virtual Core::hresult GetConfiguration(IStringIterator* const& names /* @in */, ParamList &paramList /* @out */) = 0;
+            virtual Core::hresult GetConfiguration(IStringIterator* const& names /* @in */, IDeviceDiagnosticsParamListIterator*& paramList /* @out */) = 0;
 
             // @text getMilestones
             // @brief Returns the list of milestones
