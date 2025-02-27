@@ -224,6 +224,10 @@ namespace Exchange {
 
         ID_OCICONTAINER                              = ID_ENTOS_OFFSET + 0x250,
         ID_OCICONTAINER_NOTIFICATION                 = ID_OCICONTAINER + 1,
+
+        ID_TELEMETRY                                 = ID_ENTOS_OFFSET + 0x260,
+        ID_TELEMETRY_NOTIFICATION                    = ID_TELEMETRY + 1,
+
     };
 }
 }
