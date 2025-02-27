@@ -156,6 +156,8 @@ namespace Exchange {
 
         ID_USER_SETTINGS                             = ID_ENTOS_OFFSET + 0x150,
         ID_USER_SETTINGS_NOTIFICATION                = ID_USER_SETTINGS + 1,
+	ID_USER_SETTINGS_INSPECTOR                   = ID_USER_SETTINGS + 2,
+	ID_USER_SETTINGS_MIGRATION_STATE_ITERATOR    = ID_USER_SETTINGS + 3,
 
 	ID_ANALYTICS                                 = ID_ENTOS_OFFSET + 0x160,
 
@@ -224,6 +226,7 @@ namespace Exchange {
 
         ID_OCICONTAINER                              = ID_ENTOS_OFFSET + 0x250,
         ID_OCICONTAINER_NOTIFICATION                 = ID_OCICONTAINER + 1,
+
     };
 }
 }

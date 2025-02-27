@@ -20,11 +20,68 @@
 #pragma once
 
 #include "Module.h"
-
+ // @stubgen:include <com/IIteratorType.h>
 namespace WPEFramework {
 namespace Exchange {
 
-// @json @text:keep
+/**
+ * If a setting was owned by an other component prior to being migrated into UserSettings,
+ * we require the ability to detect when this migration has completed.
+ * The component which was the previous owner of a given setting has the responsibility
+ * to always set the setting on UserSettings interface (During migration AND during first time install).
+ * Until this is done the setting is not considered valid, meaning the the MigrationState will contain requiresMigration=true
+ * All settings not requiring migration would immediately be valid.
+ */
+
+    /* @json 1.0.0 @text:keep */
+    struct EXTERNAL IUserSettingsInspector : virtual public Core::IUnknown {
+      enum { ID = ID_USER_SETTINGS_INSPECTOR };
+
+      ~IUserSettingsInspector() override = default;
+
+      enum SettingsKey : uint32_t {
+          PREFERRED_AUDIO_LANGUAGES = 0 /* @text PREFERRED_AUDIO_LANGUAGES */ ,
+          AUDIO_DESCRIPTION = 1 /* @text AUDIO_DESCRIPTION */,
+          CAPTIONS = 2 /* @text CAPTIONS */,
+         PREFERRED_CAPTIONS_LANGUAGES = 3 /* @text PREFERRED_CAPTIONS_LANGUAGES */,
+          PREFERRED_CLOSED_CAPTION_SERVICE = 4 /* @text PREFERRED_CLOSED_CAPTION_SERVICE */,
+          PRESENTATION_LANGUAGE = 5 /* @text PRESENTATION_LANGUAGE */,
+          HIGH_CONTRAST = 6 /* @text HIGH_CONTRAST */,
+         PIN_CONTROL = 7 /* @text PIN_CONTROL */,
+          VIEWING_RESTRICTIONS = 8 /* @text VIEWING_RESTRICTIONS */,
+          VIEWING_RESTRICTIONS_WINDOW = 9 /* @text VIEWING_RESTRICTIONS_WINDOW */,
+          LIVE_WATERSHED = 10 /* @text LIVE_WATERSHED */,
+          PLAYBACK_WATERSHED = 11 /* @text PLAYBACK_WATERSHED */,
+          BLOCK_NOT_RATED_CONTENT = 12 /* @text BLOCK_NOT_RATED_CONTENT */,
+          PIN_ON_PURCHASE = 13 /* @text PIN_ON_PURCHASE */,
+          VOICE_GUIDANCE = 14 /* @text VOICE_GUIDANCE */,
+          VOICE_GUIDANCE_RATE = 15 /* @text VOICE_GUIDANCE_RATE */,
+          VOICE_GUIDANCE_HINTS = 16 /* @text VOICE_GUIDANCE_HINTS */
+      };
+
+      struct SettingsMigrationState {
+          SettingsKey key /* @text key */ ;
+          bool requiresMigration /* @text requiresMigration */;
+      };
+
+     using IUserSettingsMigrationStateIterator = RPC::IIteratorType<SettingsMigrationState, ID_USER_SETTINGS_MIGRATION_STATE_ITERATOR>;
+
+        /** Get the migration state of the respective key */
+        // @text getMigrationState
+        // @brief Get the migration state of the respective key
+        // @param key: one of UserSettingsKey
+        // @param requiresMigration: true if migration is required, false otherwise.
+      virtual Core::hresult GetMigrationState(const SettingsKey key, bool &requiresMigration/* @out */) const = 0;
+
+        /** Get the migration state of all the defined keys */
+       // @text getMigrationStates
+        // @brief Get the migration state of all the defined keys
+        // @param states: array of migration status.
+      virtual Core::hresult GetMigrationStates(IUserSettingsMigrationStateIterator*& states /* @out */) const = 0;
+
+    };
+
+  // @json @text:keep
 struct EXTERNAL IUserSettings : virtual public Core::IUnknown
 {
     enum { ID = ID_USER_SETTINGS };
