@@ -350,23 +350,23 @@ struct EXTERNAL IUserSettingsInspector : virtual public Core::IUnknown
 
     enum SettingsKey : uint32_t
     {
-        PREFERRED_AUDIO_LANGUAGES = 0           /* @text PREFERRED_AUDIO_LANGUAGES */ ,
-        AUDIO_DESCRIPTION = 1                   /* @text AUDIO_DESCRIPTION */,
-        CAPTIONS = 2                            /* @text CAPTIONS */,
-        PREFERRED_CAPTIONS_LANGUAGES = 3        /* @text PREFERRED_CAPTIONS_LANGUAGES */,
-        PREFERRED_CLOSED_CAPTION_SERVICE = 4    /* @text PREFERRED_CLOSED_CAPTION_SERVICE */,
-        PRESENTATION_LANGUAGE = 5               /* @text PRESENTATION_LANGUAGE */,
-        HIGH_CONTRAST = 6                       /* @text HIGH_CONTRAST */,
-        PIN_CONTROL = 7                         /* @text PIN_CONTROL */,
-        VIEWING_RESTRICTIONS = 8                /* @text VIEWING_RESTRICTIONS */,
-        VIEWING_RESTRICTIONS_WINDOW = 9         /* @text VIEWING_RESTRICTIONS_WINDOW */,
-        LIVE_WATERSHED = 10                     /* @text LIVE_WATERSHED */,
-        PLAYBACK_WATERSHED = 11                 /* @text PLAYBACK_WATERSHED */,
-        BLOCK_NOT_RATED_CONTENT = 12            /* @text BLOCK_NOT_RATED_CONTENT */,
-        PIN_ON_PURCHASE = 13                    /* @text PIN_ON_PURCHASE */,
-        VOICE_GUIDANCE = 14                     /* @text VOICE_GUIDANCE */,
-        VOICE_GUIDANCE_RATE = 15                /* @text VOICE_GUIDANCE_RATE */,
-        VOICE_GUIDANCE_HINTS = 16               /* @text VOICE_GUIDANCE_HINTS */
+        PREFERRED_AUDIO_LANGUAGES = 1           /* @text PREFERRED_AUDIO_LANGUAGES */ ,
+        AUDIO_DESCRIPTION = 2                   /* @text AUDIO_DESCRIPTION */,
+        CAPTIONS = 3                            /* @text CAPTIONS */,
+        PREFERRED_CAPTIONS_LANGUAGES = 4        /* @text PREFERRED_CAPTIONS_LANGUAGES */,
+        PREFERRED_CLOSED_CAPTION_SERVICE = 5    /* @text PREFERRED_CLOSED_CAPTION_SERVICE */,
+        PRESENTATION_LANGUAGE = 6               /* @text PRESENTATION_LANGUAGE */,
+        HIGH_CONTRAST = 7                       /* @text HIGH_CONTRAST */,
+        PIN_CONTROL = 8                         /* @text PIN_CONTROL */,
+        VIEWING_RESTRICTIONS = 9                /* @text VIEWING_RESTRICTIONS */,
+        VIEWING_RESTRICTIONS_WINDOW = 10        /* @text VIEWING_RESTRICTIONS_WINDOW */,
+        LIVE_WATERSHED = 11                     /* @text LIVE_WATERSHED */,
+        PLAYBACK_WATERSHED = 12                 /* @text PLAYBACK_WATERSHED */,
+        BLOCK_NOT_RATED_CONTENT = 13            /* @text BLOCK_NOT_RATED_CONTENT */,
+        PIN_ON_PURCHASE = 14                    /* @text PIN_ON_PURCHASE */,
+        VOICE_GUIDANCE = 15                     /* @text VOICE_GUIDANCE */,
+        VOICE_GUIDANCE_RATE = 16                /* @text VOICE_GUIDANCE_RATE */,
+        VOICE_GUIDANCE_HINTS = 17               /* @text VOICE_GUIDANCE_HINTS */
     };
 
     struct SettingsMigrationState
