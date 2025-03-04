@@ -350,29 +350,29 @@ struct EXTERNAL IUserSettingsInspector : virtual public Core::IUnknown
 
     enum SettingsKey : uint32_t
     {
-        PREFERRED_AUDIO_LANGUAGES = 1           /* @text PREFERRED_AUDIO_LANGUAGES */ ,
-        AUDIO_DESCRIPTION = 2                   /* @text AUDIO_DESCRIPTION */,
-        CAPTIONS = 3                            /* @text CAPTIONS */,
-        PREFERRED_CAPTIONS_LANGUAGES = 4        /* @text PREFERRED_CAPTIONS_LANGUAGES */,
-        PREFERRED_CLOSED_CAPTION_SERVICE = 5    /* @text PREFERRED_CLOSED_CAPTION_SERVICE */,
-        PRESENTATION_LANGUAGE = 6               /* @text PRESENTATION_LANGUAGE */,
-        HIGH_CONTRAST = 7                       /* @text HIGH_CONTRAST */,
-        PIN_CONTROL = 8                         /* @text PIN_CONTROL */,
-        VIEWING_RESTRICTIONS = 9                /* @text VIEWING_RESTRICTIONS */,
-        VIEWING_RESTRICTIONS_WINDOW = 10        /* @text VIEWING_RESTRICTIONS_WINDOW */,
-        LIVE_WATERSHED = 11                     /* @text LIVE_WATERSHED */,
-        PLAYBACK_WATERSHED = 12                 /* @text PLAYBACK_WATERSHED */,
-        BLOCK_NOT_RATED_CONTENT = 13            /* @text BLOCK_NOT_RATED_CONTENT */,
-        PIN_ON_PURCHASE = 14                    /* @text PIN_ON_PURCHASE */,
-        VOICE_GUIDANCE = 15                     /* @text VOICE_GUIDANCE */,
-        VOICE_GUIDANCE_RATE = 16                /* @text VOICE_GUIDANCE_RATE */,
-        VOICE_GUIDANCE_HINTS = 17               /* @text VOICE_GUIDANCE_HINTS */
+        PREFERRED_AUDIO_LANGUAGES = 1,
+        AUDIO_DESCRIPTION = 2,
+        CAPTIONS = 3,
+        PREFERRED_CAPTIONS_LANGUAGES = 4,
+        PREFERRED_CLOSED_CAPTION_SERVICE = 5,
+        PRESENTATION_LANGUAGE = 6,
+        HIGH_CONTRAST = 7,
+        PIN_CONTROL = 8,
+        VIEWING_RESTRICTIONS = 9,
+        VIEWING_RESTRICTIONS_WINDOW = 10,
+        LIVE_WATERSHED = 11,
+        PLAYBACK_WATERSHED = 12,
+        BLOCK_NOT_RATED_CONTENT = 13,
+        PIN_ON_PURCHASE = 14,
+        VOICE_GUIDANCE = 15,
+        VOICE_GUIDANCE_RATE = 16,
+        VOICE_GUIDANCE_HINTS = 17
     };
 
     struct SettingsMigrationState
     {
-        SettingsKey key             /* @text key */ ;
-        bool requiresMigration      /* @text requiresMigration */;
+        SettingsKey key             /* @text key which needs the migration information */ ;
+        bool requiresMigration      /* @text whether the key requires migration or not */;
     };
 
     using IUserSettingsMigrationStateIterator = RPC::IIteratorType<SettingsMigrationState, ID_USER_SETTINGS_MIGRATION_STATE_ITERATOR>;
@@ -382,7 +382,7 @@ struct EXTERNAL IUserSettingsInspector : virtual public Core::IUnknown
     // @brief Get the migration state of the respective key
     // @param key: one of UserSettingsKey
     // @param migrationState: key and it's migration state.
-    virtual Core::hresult GetMigrationState(const SettingsKey key, SettingsMigrationState &migrationState/* @out */) const = 0;
+    virtual Core::hresult GetMigrationState(const SettingsKey key, bool &requiresMigration /* @out */) const = 0;
 
     /** Get the migration state of all the defined keys */
     // @text getMigrationStates
