@@ -49,7 +49,7 @@ namespace WPEFramework {
 namespace Exchange {
 
     enum IDS : uint32_t {
-        ID_ENTOS_OFFSET				     = RPC::IDS::ID_EXTERNAL_CC_INTERFACE_OFFSET,
+        ID_ENTOS_OFFSET				     = RPC::IDS::ID_EXTERNAL_INTERFACE_OFFSET,
         ID_BROWSER                                   = ID_ENTOS_OFFSET,
         ID_WEB_BROWSER                               = ID_BROWSER + 1,
         ID_BROWSER_NOTIFICATION                      = ID_BROWSER + 2,
