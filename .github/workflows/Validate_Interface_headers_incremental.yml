@@ -1,4 +1,4 @@
-name: Validate Code
+name: Validate Interface header on PR
 
 on: [pull_request]
 
