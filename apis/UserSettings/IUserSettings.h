@@ -395,4 +395,3 @@ struct EXTERNAL IUserSettingsInspector : virtual public Core::IUnknown
 } // namespace Exchange
 } // namespace WPEFramework
 
-
