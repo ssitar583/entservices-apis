@@ -198,39 +198,25 @@ def validate_header(file_path, issues, ids_lines):
 
     # Find all method declarations
     method_pattern = re.compile(r'virtual\s+([\w:]+)\s+\w+\s*\([^)]*\)\s*(const\s*)?\s*(\{\s*\}\s*;|=\s*0\s*;)')
-    matches = method_pattern.finditer(content)
-    
-    # inside_inotification = False
-    # for i, line in enumerate(lines):
-    #     if re.match(r'struct\s+(EXTERNAL\s+)?INotification\s*:\s*virtual\s+public\s+Core::IUnknown\s*', line.strip()):
-    #         inside_inotification = True
-    #     if inside_inotification and line.strip().startswith('};'):
-    #         inside_inotification = False
-    #     if inside_inotification:
-    #         continue
-    inside_inotification = False
-    brace_stack = []
+    interface_ranges = []
+    for match in interface_pattern.finditer(content):
+        start_index = match.start()
+        end_index = find_matching_brace(content, start_index) + 1
+        interface_ranges.append((start_index, end_index))
+
     for i, line in enumerate(lines):
-        if re.match(r'^\s*struct\s+(EXTERNAL\s+)?INotification\s*:\s*virtual\s+public\s+Core::IUnknown\s*', line.strip()):
-            inside_inotification = True
-            brace_stack.append('{')
-        
-        if inside_inotification:
-            # Track braces only within the INotification interface
-            brace_stack.extend(c for c in line if c in '{}')
-            if brace_stack and brace_stack[-1] == '}':
-                brace_stack.pop()
-                if not brace_stack:
-                    inside_inotification = False
-                    continue
-        
-        if inside_inotification:
+        is_inside_interface = False
+        line_start = content.find(line)
+        for start, end in interface_ranges:
+            if start <= line_start < end:
+                is_inside_interface = True
+                break
+        if is_inside_interface:
             continue
-        
+
         for match in method_pattern.finditer(line):
             return_type = match.group(1)
             method_declaration = match.group(0)
-            
             # Check if the return type is Core::hresult
             if return_type != 'Core::hresult':
                 issues.append(f"Line {i + 1}: Method in file '{file_path}' SHALL return Core::hresult: {method_declaration.strip()}")
