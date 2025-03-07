@@ -21,27 +21,27 @@
 
 // This file holds all the identifiers (uint32_t) used to identify an interface. From this
 // identifier, the comrpc framework can find the proper proxy/stub in case of communicating
-// over a process boundary.
-// Some users do not "fully" rebuild the system in case of changes. If this means that the
+// over a process boundary. 
+// Some users do not "fully" rebuild the system in case of changes. If this means that the 
 // Proxy/Stub code is not always rebuild in case of new releases, the identifier associated
 // with an interface becomes as important as the interface syntax and as interfaces are not
 // allowed to be changed, the ID associated with the interface should also not be changed
-// and thus should be "fixed".
+// and thus should be "fixed". 
 
 // So if you extend this file by defining a new interface ID make sure it is defined (has
 // an actual value) and once the enum label has a value, never change it again.
 
-// As some interfaces might be grouped, the first ID of the group is assigned a value, the
-// other interfaces belonging to this group use the enum value of label that has an assigned
-// value and just increment that label by the proper amount.
+// As some interfaces might be grouped, the first ID of the group is assigned a value, the 
+// other interfaces belonging to this group use the enum value of label that has an assigned 
+// value and just increment that label by the proper amount. 
 
 // Using this system, all interfaces will have an assigned number. If numbers overlap, the
-// compiler, your best friend, will start complaining. Time to reassign the value, before we
+// compiler, your best friend, will start complaining. Time to reassign the value, before we 
 // deploy.
 
-// NOTE: Default the gap between each group of interface is 16. If you need more and the new
+// NOTE: Default the gap between each group of interface is 16. If you need more and the new 
 //       addition is add the end, write a comment with your interface that you might need more
-//       than 16 interface in that group so that the next ID is indeed elevated (and rounded
+//       than 16 interface in that group so that the next ID is indeed elevated (and rounded 
 //       up to a multiple of 16) if the next entry is made in the future.
 
 namespace WPEFramework {
@@ -64,14 +64,14 @@ namespace Exchange {
         ID_MEMORYEXTENDED                            = ID_BROWSER + 11,
 	ID_APPLICATION				     = ID_BROWSER + 12,
 	ID_APPLICATION_NOTIFICATION		     = ID_BROWSER + 13,
-
+	
 	ID_DICTIONARY                                = ID_ENTOS_OFFSET + 0x010,
         ID_DICTIONARY_NOTIFICATION                   = ID_DICTIONARY + 1,
         ID_DICTIONARY_ITERATOR                       = ID_DICTIONARY + 2,
-
+  
         ID_NETFLIX                                   = ID_ENTOS_OFFSET + 0x020,
         ID_NETFLIX_NOTIFICATION                      = ID_NETFLIX + 1,
-
+  
         ID_CONTENTDECRYPTION                         = ID_ENTOS_OFFSET + 0x030,
         ID_CONTENTDECRYPTION_NOTIFICATION            = ID_CONTENTDECRYPTION + 1,
 
@@ -156,8 +156,6 @@ namespace Exchange {
 
         ID_USER_SETTINGS                             = ID_ENTOS_OFFSET + 0x150,
         ID_USER_SETTINGS_NOTIFICATION                = ID_USER_SETTINGS + 1,
-        ID_USER_SETTINGS_INSPECTOR                   = ID_USER_SETTINGS + 2,
-        ID_USER_SETTINGS_MIGRATION_STATE_ITERATOR    = ID_USER_SETTINGS + 3,
 
 	ID_ANALYTICS                                 = ID_ENTOS_OFFSET + 0x160,
 
@@ -165,8 +163,13 @@ namespace Exchange {
 	ID_XCAST_NOTIFICATION                        = ID_XCAST + 1,
 	ID_XCAST_APPLICATION_INFO_ITERATOR           = ID_XCAST + 2,
 
-	ID_POWER_MANAGER                             = ID_ENTOS_OFFSET + 0x180,
-	ID_POWER_MANAGER_NOTIFICATION                = ID_POWER_MANAGER + 1,
+        ID_POWER_MANAGER                                        = ID_ENTOS_OFFSET + 0x180,
+        ID_POWER_MANAGER_NOTIFICATION_REBOOT                    = ID_POWER_MANAGER + 1,
+        ID_POWER_MANAGER_NOTIFICATION_MODEPRECHANGE             = ID_POWER_MANAGER + 2,
+        ID_POWER_MANAGER_NOTIFICATION_MODECHANGE                = ID_POWER_MANAGER + 3,
+        ID_POWER_MANAGER_NOTIFICATION_DEEPSLEEPTIMEOUT          = ID_POWER_MANAGER + 4,
+        ID_POWER_MANAGER_NOTIFICATION_NETWORKSTANDBYMODECHANGED = ID_POWER_MANAGER + 5,
+        ID_POWER_MANAGER_NOTIFICATION_THERMALMODECHANGED        = ID_POWER_MANAGER + 6,
 
 	ID_TEXT_TRACK                                = ID_ENTOS_OFFSET + 0x190,
 	ID_TEXT_TRACK_CLOSED_CAPTIONS_STYLE          = ID_TEXT_TRACK + 1,
@@ -192,12 +195,13 @@ namespace Exchange {
         ID_LIFECYCLE_MANAGER                         = ID_ENTOS_OFFSET + 0x1E0,
         ID_LIFECYCLE_MANAGER_NOTIFICATION            = ID_LIFECYCLE_MANAGER + 1,
         ID_LIFECYCLE_MANAGER_STATE                   = ID_LIFECYCLE_MANAGER + 2,
-        ID_LIFECYCLE_MANAGER_STATE_NOTIFICATION      = ID_LIFECYCLE_MANAGER + 3,
+        ID_LIFECYCLE_MANAGER_RUNTIME                 = ID_LIFECYCLE_MANAGER + 3,
+        ID_LIFECYCLE_MANAGER_STATE_HOOK              = ID_LIFECYCLE_MANAGER + 4,
 
-	ID_APPMANAGER                                = ID_ENTOS_OFFSET + 0x1F0,
+	ID_APPMANAGER                                = ID_ENTOS_OFFSET + 0x200,
         ID_APPMANAGER_NOTIFICATION                   = ID_APPMANAGER + 1,
 
-        ID_LISA                                      = ID_ENTOS_OFFSET + 0x200,
+        ID_LISA                                      = ID_ENTOS_OFFSET + 0x1F0,
         ID_LISA_NOTIFICATION                         = ID_LISA + 1,
         ID_LISA_APP_VERSION                          = ID_LISA + 2,
         ID_LISA_APP_VERSION_ITERATOR                 = ID_LISA + 3,
@@ -213,34 +217,14 @@ namespace Exchange {
         ID_LISA_LOCK_INFO                            = ID_LISA + 13,
         ID_LISA_HANDLE_RESULT                        = ID_LISA + 14,
 
-        ID_SYSTEMAUDIOPLAYER                         = ID_ENTOS_OFFSET + 0x210,
+        ID_SYSTEMAUDIOPLAYER                         = ID_ENTOS_OFFSET + 0x200,
         ID_SYSTEMAUDIOPLAYER_NOTIFICATION            = ID_SYSTEMAUDIOPLAYER + 1,
 
-        ID_RUNTIME_MANAGER                           = ID_ENTOS_OFFSET + 0x220,
+        ID_RUNTIME_MANAGER                           = ID_ENTOS_OFFSET + 0x210,
         ID_RUNTIME_MANAGER_NOTIFICATION              = ID_RUNTIME_MANAGER + 1,
 
-        ID_DEVICE_OPTIMIZE_STATE_ACTIVATOR           = ID_ENTOS_OFFSET + 0x230,
-
-        ID_SYSTEM_MODE                               = ID_ENTOS_OFFSET + 0x240,
-        ID_SYSTEM_MODE_NOTIFICATION                  = ID_SYSTEM_MODE + 1,
-
-        ID_OCICONTAINER                              = ID_ENTOS_OFFSET + 0x250,
-        ID_OCICONTAINER_NOTIFICATION                 = ID_OCICONTAINER + 1,
-
-        ID_TELEMETRY                                 = ID_ENTOS_OFFSET + 0x260,
-        ID_TELEMETRY_NOTIFICATION                    = ID_TELEMETRY + 1,
-
-        ID_APP_PACKAGE_MANAGER                       = ID_ENTOS_OFFSET + 0x300,
-        ID_PACKAGE_DOWNLOADER                        = ID_APP_PACKAGE_MANAGER + 1,
-        ID_PACKAGE_DOWNLOADER_NOTIFICATION           = ID_APP_PACKAGE_MANAGER + 2,
-        ID_PACKAGE_INSTALLER                         = ID_APP_PACKAGE_MANAGER + 3,
-        ID_PACKAGE_INSTALLER_NOTIFICATION            = ID_APP_PACKAGE_MANAGER + 4,
-        ID_PACKAGE_HANDLER                           = ID_APP_PACKAGE_MANAGER + 5,
-        ID_PACKAGE_INFO_ITERATOR                     = ID_APP_PACKAGE_MANAGER + 7,
-        ID_PACKAGE_ITERATOR                          = ID_APP_PACKAGE_MANAGER + 8,
-        ID_PACKAGE_KEY_VALUE_ITERATOR                = ID_APP_PACKAGE_MANAGER + 9,
-	
-	ID_STORAGEMANAGER                            = ID_ENTOS_OFFSET + 0x310
+        ID_OCICONTAINER                              = ID_ENTOS_OFFSET + 0x220,
+        ID_OCICONTAINER_NOTIFICATION                 = ID_OCICONTAINER + 1
 
     };
 }
