@@ -156,6 +156,8 @@ namespace Exchange {
 
         ID_USER_SETTINGS                             = ID_ENTOS_OFFSET + 0x150,
         ID_USER_SETTINGS_NOTIFICATION                = ID_USER_SETTINGS + 1,
+        ID_USER_SETTINGS_INSPECTOR                   = ID_USER_SETTINGS + 2,
+        ID_USER_SETTINGS_MIGRATION_STATE_ITERATOR    = ID_USER_SETTINGS + 3,
 
 	ID_ANALYTICS                                 = ID_ENTOS_OFFSET + 0x160,
 
@@ -195,13 +197,12 @@ namespace Exchange {
         ID_LIFECYCLE_MANAGER                         = ID_ENTOS_OFFSET + 0x1E0,
         ID_LIFECYCLE_MANAGER_NOTIFICATION            = ID_LIFECYCLE_MANAGER + 1,
         ID_LIFECYCLE_MANAGER_STATE                   = ID_LIFECYCLE_MANAGER + 2,
-        ID_LIFECYCLE_MANAGER_RUNTIME                 = ID_LIFECYCLE_MANAGER + 3,
-        ID_LIFECYCLE_MANAGER_STATE_HOOK              = ID_LIFECYCLE_MANAGER + 4,
+        ID_LIFECYCLE_MANAGER_STATE_NOTIFICATION      = ID_LIFECYCLE_MANAGER + 3,
 
-	ID_APPMANAGER                                = ID_ENTOS_OFFSET + 0x200,
+	ID_APPMANAGER                                = ID_ENTOS_OFFSET + 0x1F0,
         ID_APPMANAGER_NOTIFICATION                   = ID_APPMANAGER + 1,
 
-        ID_LISA                                      = ID_ENTOS_OFFSET + 0x1F0,
+        ID_LISA                                      = ID_ENTOS_OFFSET + 0x200,
         ID_LISA_NOTIFICATION                         = ID_LISA + 1,
         ID_LISA_APP_VERSION                          = ID_LISA + 2,
         ID_LISA_APP_VERSION_ITERATOR                 = ID_LISA + 3,
@@ -217,14 +218,34 @@ namespace Exchange {
         ID_LISA_LOCK_INFO                            = ID_LISA + 13,
         ID_LISA_HANDLE_RESULT                        = ID_LISA + 14,
 
-        ID_SYSTEMAUDIOPLAYER                         = ID_ENTOS_OFFSET + 0x200,
+        ID_SYSTEMAUDIOPLAYER                         = ID_ENTOS_OFFSET + 0x210,
         ID_SYSTEMAUDIOPLAYER_NOTIFICATION            = ID_SYSTEMAUDIOPLAYER + 1,
 
-        ID_RUNTIME_MANAGER                           = ID_ENTOS_OFFSET + 0x210,
+        ID_RUNTIME_MANAGER                           = ID_ENTOS_OFFSET + 0x220,
         ID_RUNTIME_MANAGER_NOTIFICATION              = ID_RUNTIME_MANAGER + 1,
 
-        ID_OCICONTAINER                              = ID_ENTOS_OFFSET + 0x220,
-        ID_OCICONTAINER_NOTIFICATION                 = ID_OCICONTAINER + 1
+        ID_DEVICE_OPTIMIZE_STATE_ACTIVATOR           = ID_ENTOS_OFFSET + 0x230,
+
+        ID_SYSTEM_MODE                               = ID_ENTOS_OFFSET + 0x240,
+        ID_SYSTEM_MODE_NOTIFICATION                  = ID_SYSTEM_MODE + 1,
+
+        ID_OCICONTAINER                              = ID_ENTOS_OFFSET + 0x250,
+        ID_OCICONTAINER_NOTIFICATION                 = ID_OCICONTAINER + 1,
+
+        ID_TELEMETRY                                 = ID_ENTOS_OFFSET + 0x260,
+        ID_TELEMETRY_NOTIFICATION                    = ID_TELEMETRY + 1,
+
+        ID_APP_PACKAGE_MANAGER                       = ID_ENTOS_OFFSET + 0x300,
+        ID_PACKAGE_DOWNLOADER                        = ID_APP_PACKAGE_MANAGER + 1,
+        ID_PACKAGE_DOWNLOADER_NOTIFICATION           = ID_APP_PACKAGE_MANAGER + 2,
+        ID_PACKAGE_INSTALLER                         = ID_APP_PACKAGE_MANAGER + 3,
+        ID_PACKAGE_INSTALLER_NOTIFICATION            = ID_APP_PACKAGE_MANAGER + 4,
+        ID_PACKAGE_HANDLER                           = ID_APP_PACKAGE_MANAGER + 5,
+        ID_PACKAGE_INFO_ITERATOR                     = ID_APP_PACKAGE_MANAGER + 7,
+        ID_PACKAGE_ITERATOR                          = ID_APP_PACKAGE_MANAGER + 8,
+        ID_PACKAGE_KEY_VALUE_ITERATOR                = ID_APP_PACKAGE_MANAGER + 9,
+	
+	ID_STORAGEMANAGER                            = ID_ENTOS_OFFSET + 0x310
 
     };
 }
