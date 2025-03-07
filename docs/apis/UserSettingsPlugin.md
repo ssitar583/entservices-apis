@@ -454,7 +454,7 @@ Setting ViewingRestrictions.
     "id": 42,
     "method": "org.rdk.UserSettings.setViewingRestrictions",
     "params": {
-        "viewingRestrictions": "{\\\"restrictions\\\": [{\\\"scheme\\\": \\\"US_TV\\\", \\\"restrict\\\": [\\\"TV-Y7/FV\\\"]}, {\\\"scheme\\\": \\\"MPAA\\\", \\\"restrict\\\": []}]}"
+        "viewingRestrictions": "{\"restrictions\": [{\"scheme\": \"US_TV\", \"restrict\": [\"TV-Y7/FV\"]}, {\"scheme\": \"MPAA\", \"restrict\": []}]}"
     }
 }
 ```
@@ -1225,7 +1225,7 @@ This method takes no parameters.
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": "..."
+    "result": "{\"restrictions\": [{\"scheme\": \"US_TV\", \"restrict\": [\"TV-Y7/FV\"]}, {\"scheme\": \"MPAA\", \"restrict\": []}]}"
 }
 ```
 
@@ -1897,7 +1897,7 @@ Triggered after the viewingRestrictions changes (see `setViewingRestrictions`).
     "jsonrpc": "2.0",
     "method": "client.events.onViewingRestrictionsChanged",
     "params": {
-    "viewingRestrictions": "{\\\"restrictions\\\": [{\\\"scheme\\\": \\\"US_TV\\\", \\\"restrict\\\": [\\\"TV-Y7/FV\\\"]}, {\\\"scheme\\\": \\\"MPAA\\\", \\\"restrict\\\": []}]}"
+    "viewingRestrictions": "{\"restrictions\": [{\"scheme\": \"US_TV\", \"restrict\": [\"TV-Y7/FV\"]}, {\"scheme\": \"MPAA\", \"restrict\": []}]}"
     }
 }
 ```
