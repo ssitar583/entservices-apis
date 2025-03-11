@@ -28,6 +28,7 @@ namespace Exchange {
     struct EXTERNAL IProvisioning : virtual public Core::IUnknown {
         enum { ID = ID_PROVISIONING };
 
+        // @event
         struct EXTERNAL INotification : virtual public Core::IUnknown {
             enum { ID = ID_PROVISIONING_NOTIFICATION };
 
