@@ -126,11 +126,13 @@ namespace Exchange {
             ScreenResolution_1080p30Hz = 15,
             ScreenResolution_1080p50Hz = 16,
             ScreenResolution_1080p60Hz = 17,
-            ScreenResolution_2160p30Hz = 18,
-            ScreenResolution_2160p50Hz = 19,
-            ScreenResolution_2160p60Hz = 20,
-            ScreenResolution_4320p30Hz = 21,
-            ScreenResolution_4320p60Hz = 22
+            ScreenResolution_2160p24Hz = 18,
+            ScreenResolution_2160p25Hz = 19,
+            ScreenResolution_2160p30Hz = 20,
+            ScreenResolution_2160p50Hz = 21,
+            ScreenResolution_2160p60Hz = 22,
+            ScreenResolution_4320p30Hz = 23,
+            ScreenResolution_4320p60Hz = 24
         };
 
         enum CopyProtection : uint8_t {
