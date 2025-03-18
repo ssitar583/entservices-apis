@@ -243,7 +243,7 @@ namespace Exchange {
 	ID_STORAGEMANAGER                            = ID_ENTOS_OFFSET + 0x310,
 
         ID_AUTHSERVICE                               = ID_ENTOS_OFFSET + 0x320,
-        ID_AUTHSERVICE_NOTIFICATION                  = ID_AUTHSERVICE + 1,
+        ID_AUTHSERVICE_NOTIFICATION                  = ID_AUTHSERVICE + 1
     };
 }
 }
