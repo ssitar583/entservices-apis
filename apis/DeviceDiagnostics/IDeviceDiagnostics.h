@@ -38,6 +38,10 @@ namespace WPEFramework
                 string value /* @text value */;
             };
 
+            struct EXTERNAL AvDecoderStatusResult {
+                string avDecoderStatus;
+            };
+
             using IDeviceDiagnosticsParamListIterator = RPC::IIteratorType<ParamList, ID_DEVICE_DIAGNOSTICS_PARAM_LIST_ITERATOR>;
 
             // @event
@@ -72,8 +76,8 @@ namespace WPEFramework
 
             // @text getAVDecoderStatus
             // @brief Gets the most active status of audio/video decoder/pipeline
-            // @param AVDecoderStatus - out - string
-            virtual Core::hresult GetAVDecoderStatus(string& AVDecoderStatus /* @out */) = 0;
+            // @param AVDecoderStatus - out
+            virtual Core::hresult GetAVDecoderStatus(AvDecoderStatusResult& AVDecoderStatus /* @out */) = 0;
         };
     } // namespace Exchange
 } // namespace WPEFramework
