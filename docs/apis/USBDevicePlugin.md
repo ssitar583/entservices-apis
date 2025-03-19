@@ -64,21 +64,18 @@ No Events
 
 ### Parameters
 
-| Name | Type | Description |
-| :-------- | :-------- | :-------- |
-| params | object |  |
+This method takes no parameters.
 
 ### Result
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | object |  |
-| result.devices | array | An array of USBDevice |
-| result.devices[#] | object |  |
-| result.devices[#].deviceClass | integer | USB class of the device |
-| result.devices[#].deviceSubclass | integer | USB Sub class of the device |
-| result.devices[#].deviceName | string | Name of the USB device |
-| result.devices[#].devicePath | string | The path to be used for the USB device |
+| result | array |  |
+| result[#] | object |  |
+| result[#].deviceClass | integer | USB class of the device |
+| result[#].deviceSubclass | integer | USB Sub class of the device |
+| result[#].deviceName | string | Name of the USB device |
+| result[#].devicePath | string | The path to be used for the USB device |
 
 ### Errors
 
@@ -94,8 +91,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "method": "org.rdk.UsbDevice.getDeviceList",
-    "params": {}
+    "method": "org.rdk.UsbDevice.getDeviceList"
 }
 ```
 
@@ -105,16 +101,14 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": {
-        "devices": [
-            {
-                "deviceClass": 8,
-                "deviceSubclass": 6,
-                "deviceName": "001/003",
-                "devicePath": "/dev/sdb"
-            }
-        ]
-    }
+    "result": [
+        {
+            "deviceClass": 8,
+            "deviceSubclass": 6,
+            "deviceName": "001/003",
+            "devicePath": "/dev/sdb"
+        }
+    ]
 }
 ```
 

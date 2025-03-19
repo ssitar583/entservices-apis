@@ -41,13 +41,6 @@
                 "devicePath"
             ]
         },
-        "USBDeviceList": {
-            "summary": "An array of USBDevice",
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/USBDevice"
-            }
-        },
         "USBProductInfo": {
             "type": "object",
             "properties": {
@@ -177,17 +170,10 @@
     "methods": {
         "getDeviceList": {
             "summary": "Gets the device information of the connected USB Devices",
-            "params": {
-                "type": "object",
-                "properties": {},
-                "required": []
-            },
             "result": {
-                "type": "object",
-                "properties": {
-                    "devices": {
-                        "$ref": "#/definitions/USBDeviceList"
-                    }
+                "type": "array",
+                "items": {
+                        "$ref": "#/definitions/USBDevice"
                 }
             },
             "errors": [
