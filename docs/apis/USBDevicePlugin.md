@@ -132,46 +132,45 @@ No Events
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | object |  |
-| result.deviceInfo | array | An array of USBDeviceInfo |
-| result.deviceInfo[#] | object |  |
-| result.deviceInfo[#].parentId | integer | Parent Node ID of the device |
-| result.deviceInfo[#].deviceStatus | integer | Current device status |
-| result.deviceInfo[#].deviceLevel | integer | Device level |
-| result.deviceInfo[#].portNumber | integer | Port number of USB on which the device is attached |
-| result.deviceInfo[#].vendorId | integer | Vendor ID of the device |
-| result.deviceInfo[#].productid | integer | Product ID of the device |
-| result.deviceInfo[#].protocol | integer | Protocol supported by the device |
-| result.deviceInfo[#].serialnumber | string | Serial number of the device |
-| result.deviceInfo[#].device | object |  |
-| result.deviceInfo[#].device.deviceClass | integer | USB class of the device |
-| result.deviceInfo[#].device.deviceSubclass | integer | USB Sub class of the device |
-| result.deviceInfo[#].device.deviceName | string | Name of the USB device |
-| result.deviceInfo[#].device.devicePath | string | The path to be used for the USB device |
-| result.deviceInfo[#].flags | string | Flags of the device |
-| result.deviceInfo[#]?.features | integer | <sup>*(optional)*</sup> Features supported by the device - reserved |
-| result.deviceInfo[#].busSpeed | string | Speed of the device |
-| result.deviceInfo[#]?.numLanguageIds | integer | <sup>*(optional)*</sup> Number of language IDs present on the device |
-| result.deviceInfo[#]?.productInfo1 | object | <sup>*(optional)*</sup>  |
-| result.deviceInfo[#]?.productInfo1?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
-| result.deviceInfo[#]?.productInfo1?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
-| result.deviceInfo[#]?.productInfo1?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
-| result.deviceInfo[#]?.productInfo1?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
-| result.deviceInfo[#]?.productInfo2 | object | <sup>*(optional)*</sup>  |
-| result.deviceInfo[#]?.productInfo2?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
-| result.deviceInfo[#]?.productInfo2?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
-| result.deviceInfo[#]?.productInfo2?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
-| result.deviceInfo[#]?.productInfo2?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
-| result.deviceInfo[#]?.productInfo3 | object | <sup>*(optional)*</sup>  |
-| result.deviceInfo[#]?.productInfo3?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
-| result.deviceInfo[#]?.productInfo3?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
-| result.deviceInfo[#]?.productInfo3?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
-| result.deviceInfo[#]?.productInfo3?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
-| result.deviceInfo[#]?.productInfo4 | object | <sup>*(optional)*</sup>  |
-| result.deviceInfo[#]?.productInfo4?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
-| result.deviceInfo[#]?.productInfo4?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
-| result.deviceInfo[#]?.productInfo4?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
-| result.deviceInfo[#]?.productInfo4?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
+| result | array | An array of USBDeviceInfo |
+| result[#] | object |  |
+| result[#].parentId | integer | Parent Node ID of the device |
+| result[#].deviceStatus | integer | Current device status |
+| result[#].deviceLevel | integer | Device level |
+| result[#].portNumber | integer | Port number of USB on which the device is attached |
+| result[#].vendorId | integer | Vendor ID of the device |
+| result[#].productid | integer | Product ID of the device |
+| result[#].protocol | integer | Protocol supported by the device |
+| result[#].serialnumber | string | Serial number of the device |
+| result[#].device | object |  |
+| result[#].device.deviceClass | integer | USB class of the device |
+| result[#].device.deviceSubclass | integer | USB Sub class of the device |
+| result[#].device.deviceName | string | Name of the USB device |
+| result[#].device.devicePath | string | The path to be used for the USB device |
+| result[#].flags | string | Flags of the device |
+| result[#]?.features | integer | <sup>*(optional)*</sup> Features supported by the device - reserved |
+| result[#].busSpeed | string | Speed of the device |
+| result[#]?.numLanguageIds | integer | <sup>*(optional)*</sup> Number of language IDs present on the device |
+| result[#]?.productInfo1 | object | <sup>*(optional)*</sup>  |
+| result[#]?.productInfo1?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
+| result[#]?.productInfo1?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
+| result[#]?.productInfo1?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
+| result[#]?.productInfo1?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
+| result[#]?.productInfo2 | object | <sup>*(optional)*</sup>  |
+| result[#]?.productInfo2?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
+| result[#]?.productInfo2?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
+| result[#]?.productInfo2?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
+| result[#]?.productInfo2?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
+| result[#]?.productInfo3 | object | <sup>*(optional)*</sup>  |
+| result[#]?.productInfo3?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
+| result[#]?.productInfo3?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
+| result[#]?.productInfo3?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
+| result[#]?.productInfo3?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
+| result[#]?.productInfo4 | object | <sup>*(optional)*</sup>  |
+| result[#]?.productInfo4?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
+| result[#]?.productInfo4?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
+| result[#]?.productInfo4?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
+| result[#]?.productInfo4?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
 
 ### Errors
 
@@ -200,54 +199,52 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": {
-        "deviceInfo": [
-            {
-                "parentId": 0,
-                "deviceStatus": 1,
-                "deviceLevel": 1,
-                "portNumber": 1,
-                "vendorId": 1921,
-                "productid": 21889,
-                "protocol": 0,
-                "serialnumber": "4C530000120309105565",
-                "device": {
-                    "deviceClass": 8,
-                    "deviceSubclass": 6,
-                    "deviceName": "001/003",
-                    "devicePath": "/dev/sdb"
-                },
-                "flags": "AVAILABLE",
-                "features": 0,
-                "busSpeed": "Super",
-                "numLanguageIds": 2,
-                "productInfo1": {
-                    "languageId": 10,
-                    "serialNumber": "B32FD507",
-                    "manufacturer": "Alcor Micro Corp",
-                    "product": "Flash Drive"
-                },
-                "productInfo2": {
-                    "languageId": 10,
-                    "serialNumber": "B32FD507",
-                    "manufacturer": "Alcor Micro Corp",
-                    "product": "Flash Drive"
-                },
-                "productInfo3": {
-                    "languageId": 10,
-                    "serialNumber": "B32FD507",
-                    "manufacturer": "Alcor Micro Corp",
-                    "product": "Flash Drive"
-                },
-                "productInfo4": {
-                    "languageId": 10,
-                    "serialNumber": "B32FD507",
-                    "manufacturer": "Alcor Micro Corp",
-                    "product": "Flash Drive"
-                }
+    "result": [
+        {
+            "parentId": 0,
+            "deviceStatus": 1,
+            "deviceLevel": 1,
+            "portNumber": 1,
+            "vendorId": 1921,
+            "productid": 21889,
+            "protocol": 0,
+            "serialnumber": "4C530000120309105565",
+            "device": {
+                "deviceClass": 8,
+                "deviceSubclass": 6,
+                "deviceName": "001/003",
+                "devicePath": "/dev/sdb"
+            },
+            "flags": "AVAILABLE",
+            "features": 0,
+            "busSpeed": "Super",
+            "numLanguageIds": 2,
+            "productInfo1": {
+                "languageId": 10,
+                "serialNumber": "B32FD507",
+                "manufacturer": "Alcor Micro Corp",
+                "product": "Flash Drive"
+            },
+            "productInfo2": {
+                "languageId": 10,
+                "serialNumber": "B32FD507",
+                "manufacturer": "Alcor Micro Corp",
+                "product": "Flash Drive"
+            },
+            "productInfo3": {
+                "languageId": 10,
+                "serialNumber": "B32FD507",
+                "manufacturer": "Alcor Micro Corp",
+                "product": "Flash Drive"
+            },
+            "productInfo4": {
+                "languageId": 10,
+                "serialNumber": "B32FD507",
+                "manufacturer": "Alcor Micro Corp",
+                "product": "Flash Drive"
             }
-        ]
-    }
+        }
+    ]
 }
 ```
 

@@ -197,12 +197,7 @@
                 "required": ["deviceName"]
             },
             "result": {
-                "type": "object",
-                "properties": {
-                    "deviceInfo": {
                         "$ref": "#/definitions/USBDeviceInfoList"
-                    }
-                }
             },
             "errors": [
                 {
