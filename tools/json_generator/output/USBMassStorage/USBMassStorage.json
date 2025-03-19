@@ -32,7 +32,7 @@
                     "partitionName": {
                         "summary": "The name of the partition being mounted",
                         "type": "string",
-                        "example": "/dev/sda1"
+                        "example": "\/dev\/sda1"
                     },
                     "mountFlags": {
                         "summary": "Flags indicating how the partition is mounted",
@@ -42,7 +42,7 @@
                     "mountPath": {
                         "summary": "The mount point path in the file system",
                         "type": "string",
-                        "example": "/mnt/usb1"
+                        "example": "\/tmp\/media\/usb2"
                     }
                 },
                 "required": ["partitionName", "mountFlags", "mountPath"]
@@ -132,7 +132,7 @@
                     "mountPath": {
                         "summary": "Name of the USB storage device.",
                         "type": "string",
-                        "example": "/mnt/usb/media1/"
+                        "example": "\/tmp\/media\/usb2"
                     }
                 }
             },

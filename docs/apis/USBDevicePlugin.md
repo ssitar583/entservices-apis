@@ -105,8 +105,8 @@ This method takes no parameters.
         {
             "deviceClass": 8,
             "deviceSubclass": 6,
-            "deviceName": "001/003",
-            "devicePath": "/dev/sdb"
+            "deviceName": "001/006",
+            "devicePath": "/dev/sda"
         }
     ]
 }
@@ -212,8 +212,8 @@ No Events
             "device": {
                 "deviceClass": 8,
                 "deviceSubclass": 6,
-                "deviceName": "001/003",
-                "devicePath": "/dev/sdb"
+                "deviceName": "001/006",
+                "devicePath": "/dev/sda"
             },
             "flags": "AVAILABLE",
             "features": 0,
@@ -395,8 +395,8 @@ Device Plugged in notification.
         "device": {
             "deviceClass": 8,
             "deviceSubclass": 6,
-            "deviceName": "001/003",
-            "devicePath": "/dev/sdb"
+            "deviceName": "001/006",
+            "devicePath": "/dev/sda"
         }
     }
 }
@@ -428,8 +428,8 @@ Device Plugged out notification.
         "device": {
             "deviceClass": 8,
             "deviceSubclass": 6,
-            "deviceName": "001/003",
-            "devicePath": "/dev/sdb"
+            "deviceName": "001/006",
+            "devicePath": "/dev/sda"
         }
     }
 }

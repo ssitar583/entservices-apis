@@ -26,12 +26,12 @@
                 "deviceName": {
                     "type": "string",
                     "description": "Name of the USB device",
-                    "example": "001/003"
+                    "example": "001\/006"
                 },
                 "devicePath": {
                     "type": "string",
                     "description": "The path to be used for the USB device",
-                    "example": "/dev/sdb"
+                    "example": "\/dev\/sda"
                 }
             },
             "required":[
@@ -191,7 +191,7 @@
                     "deviceName": {
                         "summary": "Get the extended USB device information for the provided device name",
                         "type": "string",
-                        "example": "001/012"
+                        "example": "001\/012"
                     }
                 },
                 "required": ["deviceName"]
@@ -214,7 +214,7 @@
                     "deviceName": {
                         "summary": "Name of the device",
                         "type": "string",
-                        "example": "001/012"
+                        "example": "001\/012"
                     }
                 },
                 "required": ["deviceName"]
@@ -239,7 +239,7 @@
                     "deviceName": {
                         "summary": "Name of the device",
                         "type": "string",
-                        "example": "001/012"
+                        "example": "001\/012"
                     }
                 },
                 "required": ["deviceName"]

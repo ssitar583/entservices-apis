@@ -152,7 +152,7 @@ No Events
         {
             "partitionName": "/dev/sda1",
             "mountFlags": "READ_ONLY",
-            "mountPath": "/mnt/usb1"
+            "mountPath": "/tmp/media/usb2"
         }
     ]
 }
@@ -199,7 +199,7 @@ No Events
     "id": 42,
     "method": "org.rdk.UsbMassStorage.getPartitionInfo",
     "params": {
-        "mountPath": "/mnt/usb/media1/"
+        "mountPath": "/tmp/media/usb2"
     }
 }
 ```
@@ -267,7 +267,7 @@ Triggered after the device partitions are mounted.
             {
                 "partitionName": "/dev/sda1",
                 "mountFlags": "READ_ONLY",
-                "mountPath": "/mnt/usb1"
+                "mountPath": "/tmp/media/usb2"
             }
         ]
     }
@@ -301,7 +301,7 @@ Triggered after the device partitions are unmounted.
             {
                 "partitionName": "/dev/sda1",
                 "mountFlags": "READ_ONLY",
-                "mountPath": "/mnt/usb1"
+                "mountPath": "/tmp/media/usb2"
             }
         ]
     }
