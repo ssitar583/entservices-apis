@@ -73,8 +73,13 @@ No Events
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | object |  |
-| result.success | boolean | Whether the request succeeded |
+| result | null | Always null |
+
+### Errors
+
+| Code | Message | Description |
+| :-------- | :-------- | :-------- |
+| 1 | ```ERROR_GENERAL``` | General error |
 
 ### Example
 
@@ -97,9 +102,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": {
-        "success": true
-    }
+    "result": null
 }
 ```
 
@@ -124,8 +127,7 @@ No Events
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | object |  |
-| result.success | boolean | Whether the request succeeded |
+| result | null | Always null |
 
 ### Example
 
@@ -149,9 +151,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": {
-        "success": true
-    }
+    "result": null
 }
 ```
 
@@ -291,4 +291,3 @@ Triggered by callback from Telemetry after report uploading.
     }
 }
 ```
-
