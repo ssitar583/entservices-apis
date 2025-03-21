@@ -129,6 +129,12 @@ No Events
 | :-------- | :-------- | :-------- |
 | result | null | Always null |
 
+### Errors
+
+| Code | Message | Description |
+| :-------- | :-------- | :-------- |
+| 1 | ```ERROR_GENERAL``` | General error |
+
 ### Example
 
 #### Request
