@@ -33,8 +33,14 @@
                 ]
             },
             "result": {
-                "$ref": "#/common/result"
-            }
+                "$ref": "#/common/results/void"
+            },
+	    "errors": [
+                {
+                    "description": "General error",
+                    "$ref": "#/common/errors/general"
+                }
+            ]
         },
         "logApplicationEvent": {
             "summary": "Logs an application event",
@@ -58,7 +64,7 @@
                 ]
             },
             "result": {
-                "$ref": "#/common/result"
+                "$ref": "#/common/results/void"
             }
         },
         "uploadReport": {
