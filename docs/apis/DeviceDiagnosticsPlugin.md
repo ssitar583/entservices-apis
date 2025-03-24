@@ -276,7 +276,7 @@ Triggered when the most active status of audio/video decoder/pipeline changes.
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | params | object |  |
-| params.AVDecoderStatus | string | The status. If AV decoder status is not supported, the default state will always be IDLE. (must be one of the following: *ACTIVE*, *PAUSED*, *IDLE*) |
+| params.avDecoderStatusChange | string | The status. If AV decoder status is not supported, the default state will always be IDLE. (must be one of the following: *ACTIVE*, *PAUSED*, *IDLE*) |
 
 ### Example
 
@@ -285,7 +285,7 @@ Triggered when the most active status of audio/video decoder/pipeline changes.
     "jsonrpc": "2.0",
     "method": "client.events.onAVDecoderStatusChanged",
     "params": {
-        "AVDecoderStatus": "ACTIVE"
+        "avDecoderStatusChange": "ACTIVE"
     }
 }
 ```
