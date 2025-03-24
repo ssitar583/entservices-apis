@@ -132,12 +132,12 @@
             "params": {
                 "type": "object",
                 "properties": {
-                    "AVDecoderStatus": {
+                    "avDecoderStatusChange": {
                         "$ref": "#/definitions/AVDecoderStatus"
                     }
                 },
                 "required": [
-                    "AVDecoderStatus"
+                    "avDecoderStatusChange"
                 ]
             }
         }
