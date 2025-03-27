@@ -36,6 +36,10 @@ struct EXTERNAL IRDKWindowManager : virtual public Core::IUnknown {
     // @param minutes: notify how long user is inactive state
     virtual void OnUserInactivity(const double minutes){};
 
+    // @brief Notifies when an application is disconnected
+    // @text onDisconnected
+    // @param client: the identifier of the disconnected application
+    virtual void OnDisconnected(const std::string& client){};
   };
 
   /** Register notification interface */
