@@ -126,7 +126,7 @@ No Events
 | result[#].partitionName | string | The name of the partition being mounted |
 | result[#].mountFlags | string | Flags indicating how the partition is mounted |
 | result[#].mountPath | string | The mount point path in the file system |
-| result[#]?.fileSystem | string | <sup>*(optional)*</sup> File system |
+| result[#].fileSystem | string | File system |
 
 ### Example
 
@@ -138,7 +138,7 @@ No Events
     "id": 42,
     "method": "org.rdk.UsbMassStorage.getMountPoints",
     "params": {
-        "deviceName": "USB Drive 1"
+        "deviceName": "001/006"
     }
 }
 ```
@@ -180,16 +180,15 @@ No Events
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | array | On success, mount info list of a USB storage device will be returned |
-| result[#] | object |  |
-| result[#]?.fileSystem | string | <sup>*(optional)*</sup> The file system of the partition |
-| result[#]?.size | integer | <sup>*(optional)*</sup> Total size of the partition in MB |
-| result[#]?.startSector | integer | <sup>*(optional)*</sup> The starting sector of the partition |
-| result[#]?.numSectors | integer | <sup>*(optional)*</sup> The number of sectors in the partition |
-| result[#]?.sectorSize | integer | <sup>*(optional)*</sup> The size of each sector in bytes |
-| result[#]?.totalSpace | integer | <sup>*(optional)*</sup> Total space of the partition in MB |
-| result[#]?.usedSpace | integer | <sup>*(optional)*</sup> Used space of the partition in MB |
-| result[#]?.availableSpace | integer | <sup>*(optional)*</sup> Available space in the partition in MB |
+| result | object |  |
+| result?.fileSystem | string | <sup>*(optional)*</sup> The file system of the partition |
+| result?.size | integer | <sup>*(optional)*</sup> Total size of the partition in MB |
+| result?.startSector | integer | <sup>*(optional)*</sup> The starting sector of the partition |
+| result?.numSectors | integer | <sup>*(optional)*</sup> The number of sectors in the partition |
+| result?.sectorSize | integer | <sup>*(optional)*</sup> The size of each sector in bytes |
+| result?.totalSpace | integer | <sup>*(optional)*</sup> Total space of the partition in MB |
+| result?.usedSpace | integer | <sup>*(optional)*</sup> Used space of the partition in MB |
+| result?.availableSpace | integer | <sup>*(optional)*</sup> Available space in the partition in MB |
 
 ### Example
 
@@ -212,18 +211,16 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": [
-        {
-            "fileSystem": "vfat",
-            "size": 1024,
-            "startSector": 2048,
-            "numSectors": 4096,
-            "sectorSize": 512,
-            "totalSpace": 1024,
-            "usedSpace": 512,
-            "availableSpace": 512
-        }
-    ]
+    "result": {
+        "fileSystem": "VFAT",
+        "size": 1024,
+        "startSector": 2048,
+        "numSectors": 4096,
+        "sectorSize": 512,
+        "totalSpace": 1024,
+        "usedSpace": 512,
+        "availableSpace": 512
+    }
 }
 ```
 
@@ -260,7 +257,7 @@ Triggered after the device partitions are mounted.
 | params.mountPoints[#].partitionName | string | The name of the partition being mounted |
 | params.mountPoints[#].mountFlags | string | Flags indicating how the partition is mounted |
 | params.mountPoints[#].mountPath | string | The mount point path in the file system |
-| params.mountPoints[#]?.fileSystem | string | <sup>*(optional)*</sup> File system |
+| params.mountPoints[#].fileSystem | string | File system |
 
 ### Example
 
@@ -303,7 +300,7 @@ Triggered after the device partitions are unmounted.
 | params.mountPoints[#].partitionName | string | The name of the partition being mounted |
 | params.mountPoints[#].mountFlags | string | Flags indicating how the partition is mounted |
 | params.mountPoints[#].mountPath | string | The mount point path in the file system |
-| params.mountPoints[#]?.fileSystem | string | <sup>*(optional)*</sup> File system |
+| params.mountPoints[#].fileSystem | string | File system |
 
 ### Example
 

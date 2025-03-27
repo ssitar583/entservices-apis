@@ -51,7 +51,7 @@
                         "example": "VFAT"
                     }
                 },
-                "required": ["partitionName", "mountFlags", "mountPath"]
+                "required": ["partitionName", "mountFlags", "mountPath", "fileSystem"]
         },
         "USBDeviceInfo": {
             "type": "object",
@@ -75,7 +75,7 @@
                 "fileSystem": {
                     "summary": "The file system of the partition",
                     "type": "string",
-                    "example": "vfat"
+                    "example": "VFAT"
                 },
                 "size": {
                     "summary": "Total size of the partition in MB",
@@ -134,7 +134,7 @@
                     "deviceName": {
                         "summary": "Name of the USB storage device.",
                         "type": "string",
-                        "example": "USB Drive 1"
+                        "example": "001\/006"
                     }
                 }
             },
@@ -159,11 +159,7 @@
                 }
             },
             "result": {
-                "summary": "On success, mount info list of a USB storage device will be returned.",
-                "type": "array",
-                "items": {
                     "$ref": "#/definitions/USBStoragePartitionInfo"
-                }
             }
         }
     },
