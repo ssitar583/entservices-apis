@@ -152,25 +152,25 @@ No Events
 | result[#].busSpeed | string | Speed of the device |
 | result[#]?.numLanguageIds | integer | <sup>*(optional)*</sup> Number of language IDs present on the device |
 | result[#]?.productInfo1 | object | <sup>*(optional)*</sup>  |
-| result[#]?.productInfo1?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
-| result[#]?.productInfo1?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
-| result[#]?.productInfo1?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
-| result[#]?.productInfo1?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
+| result[#]?.productInfo1.languageId | integer | Language ID present on the device |
+| result[#]?.productInfo1.serialNumber | string | Unicode string representing the serial number of the device |
+| result[#]?.productInfo1.manufacturer | string | Unicode string representing the manufacturer of the device |
+| result[#]?.productInfo1.product | string | Unicode string representing the product |
 | result[#]?.productInfo2 | object | <sup>*(optional)*</sup>  |
-| result[#]?.productInfo2?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
-| result[#]?.productInfo2?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
-| result[#]?.productInfo2?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
-| result[#]?.productInfo2?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
+| result[#]?.productInfo2.languageId | integer | Language ID present on the device |
+| result[#]?.productInfo2.serialNumber | string | Unicode string representing the serial number of the device |
+| result[#]?.productInfo2.manufacturer | string | Unicode string representing the manufacturer of the device |
+| result[#]?.productInfo2.product | string | Unicode string representing the product |
 | result[#]?.productInfo3 | object | <sup>*(optional)*</sup>  |
-| result[#]?.productInfo3?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
-| result[#]?.productInfo3?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
-| result[#]?.productInfo3?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
-| result[#]?.productInfo3?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
+| result[#]?.productInfo3.languageId | integer | Language ID present on the device |
+| result[#]?.productInfo3.serialNumber | string | Unicode string representing the serial number of the device |
+| result[#]?.productInfo3.manufacturer | string | Unicode string representing the manufacturer of the device |
+| result[#]?.productInfo3.product | string | Unicode string representing the product |
 | result[#]?.productInfo4 | object | <sup>*(optional)*</sup>  |
-| result[#]?.productInfo4?.languageId | integer | <sup>*(optional)*</sup> Language ID present on the device |
-| result[#]?.productInfo4?.serialNumber | string | <sup>*(optional)*</sup> Unicode string representing the serial number of the device |
-| result[#]?.productInfo4?.manufacturer | string | <sup>*(optional)*</sup> Unicode string representing the manufacturer of the device |
-| result[#]?.productInfo4?.product | string | <sup>*(optional)*</sup> Unicode string representing the product |
+| result[#]?.productInfo4.languageId | integer | Language ID present on the device |
+| result[#]?.productInfo4.serialNumber | string | Unicode string representing the serial number of the device |
+| result[#]?.productInfo4.manufacturer | string | Unicode string representing the manufacturer of the device |
+| result[#]?.productInfo4.product | string | Unicode string representing the product |
 
 ### Errors
 
@@ -220,28 +220,28 @@ No Events
             "busSpeed": "Super",
             "numLanguageIds": 2,
             "productInfo1": {
-                "languageId": 10,
-                "serialNumber": "B32FD507",
-                "manufacturer": "Alcor Micro Corp",
-                "product": "Flash Drive"
+                "languageId": 1033,
+                "serialNumber": "04011a1ac241414372e459026efb4429e88c8b51d9f5d101fb0c73505a872c1cc9ae0000000000000000000020c9773500885a1881558107882f26a7",
+                "manufacturer": "USB",
+                "product": "SanDisk 3.2Gen1"
             },
             "productInfo2": {
-                "languageId": 10,
-                "serialNumber": "B32FD507",
-                "manufacturer": "Alcor Micro Corp",
-                "product": "Flash Drive"
+                "languageId": 0,
+                "serialNumber": "...",
+                "manufacturer": "...",
+                "product": "..."
             },
             "productInfo3": {
-                "languageId": 10,
-                "serialNumber": "B32FD507",
-                "manufacturer": "Alcor Micro Corp",
-                "product": "Flash Drive"
+                "languageId": 0,
+                "serialNumber": "...",
+                "manufacturer": "...",
+                "product": "..."
             },
             "productInfo4": {
-                "languageId": 10,
-                "serialNumber": "B32FD507",
-                "manufacturer": "Alcor Micro Corp",
-                "product": "Flash Drive"
+                "languageId": 0,
+                "serialNumber": "...",
+                "manufacturer": "...",
+                "product": "..."
             }
         }
     ]

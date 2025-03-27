@@ -41,30 +41,129 @@
                 "devicePath"
             ]
         },
-        "USBProductInfo": {
+        "USBProductInfo1": {
             "type": "object",
             "properties": {
                 "languageId": {
                     "type": "integer",
                     "description": "Language ID present on the device",
-                    "example": 10
+                    "example": 1033
                 },
                 "serialNumber": {
                     "type": "string",
                     "description": "Unicode string representing the serial number of the device",
-                    "example": "B32FD507"
+                    "example": "04011a1ac241414372e459026efb4429e88c8b51d9f5d101fb0c73505a872c1cc9ae0000000000000000000020c9773500885a1881558107882f26a7"
                 },
                 "manufacturer": {
                     "type": "string",
                     "description": "Unicode string representing the manufacturer of the device",
-                    "example": "Alcor Micro Corp"
+                    "example": "USB"
                 },
                 "product": {
                     "type": "string",
                     "description": "Unicode string representing the product",
-                    "example": "Flash Drive"
+                    "example": "SanDisk 3.2Gen1"
                 }
-            }
+            },
+            "required":[
+                "languageId",
+                "serialNumber",
+                "manufacturer",
+                "product"
+            ]
+        },
+		"USBProductInfo2": {
+            "type": "object",
+            "properties": {
+                "languageId": {
+                    "type": "integer",
+                    "description": "Language ID present on the device",
+                    "example": 0
+                },
+                "serialNumber": {
+                    "type": "string",
+                    "description": "Unicode string representing the serial number of the device",
+                    "example": ""
+                },
+                "manufacturer": {
+                    "type": "string",
+                    "description": "Unicode string representing the manufacturer of the device",
+                    "example": ""
+                },
+                "product": {
+                    "type": "string",
+                    "description": "Unicode string representing the product",
+                    "example": ""
+                }
+            },
+            "required":[
+                "languageId",
+                "serialNumber",
+                "manufacturer",
+                "product"
+            ]
+        },
+	    "USBProductInfo3": {
+            "type": "object",
+            "properties": {
+                "languageId": {
+                    "type": "integer",
+                    "description": "Language ID present on the device",
+                    "example": 0
+                },
+                "serialNumber": {
+                    "type": "string",
+                    "description": "Unicode string representing the serial number of the device",
+                    "example": ""
+                },
+                "manufacturer": {
+                    "type": "string",
+                    "description": "Unicode string representing the manufacturer of the device",
+                    "example": ""
+                },
+                "product": {
+                    "type": "string",
+                    "description": "Unicode string representing the product",
+                    "example": ""
+                }
+            },
+            "required":[
+                "languageId",
+                "serialNumber",
+                "manufacturer",
+                "product"
+            ]
+        },
+		"USBProductInfo4": {
+            "type": "object",
+            "properties": {
+                "languageId": {
+                    "type": "integer",
+                    "description": "Language ID present on the device",
+                    "example": 0
+                },
+                "serialNumber": {
+                    "type": "string",
+                    "description": "Unicode string representing the serial number of the device",
+                    "example": ""
+                },
+                "manufacturer": {
+                    "type": "string",
+                    "description": "Unicode string representing the manufacturer of the device",
+                    "example": ""
+                },
+                "product": {
+                    "type": "string",
+                    "description": "Unicode string representing the product",
+                    "example": ""
+                }
+            },
+            "required":[
+                "languageId",
+                "serialNumber",
+                "manufacturer",
+                "product"
+            ]
         },
         "USBDeviceInfo": {
             "type": "object",
@@ -133,16 +232,16 @@
                     "example": 2
                 },
                 "productInfo1": {
-                    "$ref": "#/definitions/USBProductInfo"
+                    "$ref": "#/definitions/USBProductInfo1"
                 },
                 "productInfo2": {
-                    "$ref": "#/definitions/USBProductInfo"
+                    "$ref": "#/definitions/USBProductInfo2"
                 },
                 "productInfo3": {
-                    "$ref": "#/definitions/USBProductInfo"
+                    "$ref": "#/definitions/USBProductInfo3"
                 },
                 "productInfo4": {
-                    "$ref": "#/definitions/USBProductInfo"
+                    "$ref": "#/definitions/USBProductInfo4"
                 }
             },
             "required":[

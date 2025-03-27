@@ -252,15 +252,15 @@ Triggered after the device partitions are mounted.
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | params | object |  |
+| params.deviceinfo | object |  |
+| params.deviceinfo.devicePath | string | The device path |
+| params.deviceinfo.deviceName | string | The name of the device |
 | params.mountPoints | array | mount info list of a USB storage device will be returned |
 | params.mountPoints[#] | object |  |
 | params.mountPoints[#].partitionName | string | The name of the partition being mounted |
 | params.mountPoints[#].mountFlags | string | Flags indicating how the partition is mounted |
 | params.mountPoints[#].mountPath | string | The mount point path in the file system |
 | params.mountPoints[#]?.fileSystem | string | <sup>*(optional)*</sup> File system |
-| params.deviceinfo | object |  |
-| params.deviceinfo.devicePath | string | The device path |
-| params.deviceinfo.deviceName | string | The name of the device |
 
 ### Example
 
@@ -269,6 +269,10 @@ Triggered after the device partitions are mounted.
     "jsonrpc": "2.0",
     "method": "client.events.onDeviceMounted",
     "params": {
+        "deviceinfo": {
+            "devicePath": "/dev/sda",
+            "deviceName": "001/022"
+        },
         "mountPoints": [
             {
                 "partitionName": "/dev/sda1",
@@ -276,11 +280,7 @@ Triggered after the device partitions are mounted.
                 "mountPath": "/tmp/media/usb2",
                 "fileSystem": "VFAT"
             }
-        ],
-        "deviceinfo": {
-            "devicePath": "/dev/sda",
-            "deviceName": "001/022"
-        }
+        ]
     }
 }
 ```
@@ -295,15 +295,15 @@ Triggered after the device partitions are unmounted.
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | params | object |  |
+| params.deviceinfo | object |  |
+| params.deviceinfo.devicePath | string | The device path |
+| params.deviceinfo.deviceName | string | The name of the device |
 | params.mountPoints | array | mount info list of a USB storage device will be returned |
 | params.mountPoints[#] | object |  |
 | params.mountPoints[#].partitionName | string | The name of the partition being mounted |
 | params.mountPoints[#].mountFlags | string | Flags indicating how the partition is mounted |
 | params.mountPoints[#].mountPath | string | The mount point path in the file system |
 | params.mountPoints[#]?.fileSystem | string | <sup>*(optional)*</sup> File system |
-| params.deviceinfo | object |  |
-| params.deviceinfo.devicePath | string | The device path |
-| params.deviceinfo.deviceName | string | The name of the device |
 
 ### Example
 
@@ -312,6 +312,10 @@ Triggered after the device partitions are unmounted.
     "jsonrpc": "2.0",
     "method": "client.events.onDeviceUnmounted",
     "params": {
+        "deviceinfo": {
+            "devicePath": "/dev/sda",
+            "deviceName": "001/022"
+        },
         "mountPoints": [
             {
                 "partitionName": "/dev/sda1",
@@ -319,11 +323,7 @@ Triggered after the device partitions are unmounted.
                 "mountPath": "/tmp/media/usb2",
                 "fileSystem": "VFAT"
             }
-        ],
-        "deviceinfo": {
-            "devicePath": "/dev/sda",
-            "deviceName": "001/022"
-        }
+        ]
     }
 }
 ```
