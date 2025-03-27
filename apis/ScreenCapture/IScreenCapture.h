@@ -29,6 +29,10 @@ namespace WPEFramework
         {
             enum { ID = ID_SCREEN_CAPTURE };
 
+            struct EXTERNAL Result {
+                bool success /* @text success */;
+            };
+
             // @event
             struct EXTERNAL INotification : virtual public Core::IUnknown 
             {
@@ -51,7 +55,8 @@ namespace WPEFramework
             // @brief Takes a screenshot and uploads it to the specified URL
             // @param url - in - string
             // @param callGUID - in - string
-            virtual Core::hresult UploadScreenCapture(const string& url /* @in */, const string& callGUID /* @in */) = 0;
+            // @returns Core::hresult
+            virtual Core::hresult UploadScreenCapture(const string& url /* @in */, const string& callGUID /* @in */, Result &result /* @out  */ ) = 0;
             /**********************uploadScreenCapture() - end*********************************/
         };
     } // namespace Exchange
