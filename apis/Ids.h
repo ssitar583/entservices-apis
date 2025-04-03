@@ -259,7 +259,10 @@ namespace Exchange {
         ID_AMAZONPRIME                               = ID_ENTOS_OFFSET + 0x350,
         ID_AMAZONPRIME_NOTIFICATION                  = ID_AMAZONPRIME + 1,
 
-        ID_DEVICE_DIAGNOSTICS                        = ID_ENTOS_OFFSET + 0x360,
+        ID_SCREEN_CAPTURE                            = ID_ENTOS_OFFSET + 0x360,
+        ID_SCREEN_CAPTURE_NOTIFICATION               = ID_SCREEN_CAPTURE + 1,
+      
+        ID_DEVICE_DIAGNOSTICS                        = ID_ENTOS_OFFSET + 0x370,
         ID_DEVICE_DIAGNOSTICS_PARAM_LIST_ITERATOR    = ID_DEVICE_DIAGNOSTICS + 1,
         ID_DEVICE_DIAGNOSTICS_NOTIFICATION           = ID_DEVICE_DIAGNOSTICS + 2
     };
