@@ -1,3 +1,22 @@
+#!/usr/bin/env python3
+
+# If not stated otherwise in this file or this component's LICENSE file the
+# following copyright and licenses apply:
+
+# Copyright 2024 RDK Management
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+# http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import json
 import re
 
@@ -121,6 +140,9 @@ EXAMPLE_RESPONSE_TEMPLATE = """
 """
 
 def generate_header_toc(classname, document_object, version="1.0.0"):
+    """
+    Generate the header table of contents for the markdown file.
+    """
     toc = HEADER_TOC_TEMPLATE.format(classname=classname, version=version)
     if len(document_object.methods.values()) > 0:
         toc += "- [Methods](#head.Methods)\n"
@@ -131,9 +153,15 @@ def generate_header_toc(classname, document_object, version="1.0.0"):
     return toc
 
 def generate_header_description_markdown(classname): 
+    """
+    Generate the header description markdown for the file.
+    """
     return HEADER_DESCRIPTION_TEMPLATE.format(classname=classname)
 
 def generate_methods_toc(methods, classname): 
+    """
+    Generate the methods table of contents for the markdown file.
+    """
     toc = METHODS_TOC_TEMPLATE.format(classname=classname) 
     for method in methods:
         method_body = methods[method]
@@ -141,6 +169,9 @@ def generate_methods_toc(methods, classname):
     return toc
 
 def generate_method_markdown(method_name, method_info, symbol_registry): 
+    """
+    Generate the markdown for a specific method.
+    """
     markdown = METHOD_MARKDOWN_TEMPLATE.format(method_name=method_name, method_description=method_info['brief'] or method_info['details']) 
     markdown += generate_events_section(method_info['events'])
     markdown += generate_parameters_section(method_info['params'], symbol_registry)
@@ -151,6 +182,9 @@ def generate_method_markdown(method_name, method_info, symbol_registry):
     return markdown
 
 def generate_events_section(events):
+    """
+    Generate the events section for a method.
+    """
     markdown = "### Events\n"
     if events:
         markdown += """| Event | Description |\n| :-------- | :-------- |\n"""
@@ -161,6 +195,9 @@ def generate_events_section(events):
     return markdown
 
 def generate_parameters_section(params, symbol_registry):
+    """
+    Generate the parameters section for a method.
+    """
     markdown = "### Parameters\n"
     if params:
         markdown += """| Name | Type | Description |\n| :-------- | :-------- | :-------- |\n"""
@@ -173,6 +210,9 @@ def generate_parameters_section(params, symbol_registry):
     return markdown
 
 def generate_results_section(results, symbol_registry):
+    """
+    Generate the results section for a method.
+    """
     markdown = "### Results\n"
     if results:
         markdown += """| Name | Type | Description |\n| :-------- | :-------- | :-------- |\n"""
@@ -184,31 +224,28 @@ def generate_results_section(results, symbol_registry):
         markdown += "This method returns no results.\n"
     return markdown
 
-def generate_values_section(values, symbol_registry):
-    markdown = "### Values\n"
-    if values:
-        markdown += """| Name | Type | Description |\n| :-------- | :-------- | :-------- |\n"""
-        for value in values:
-            flattened_values = symbol_registry[f"{value['name']}-{value['type']}"]['flattened_description']
-            for value_name, value_data in flattened_values.items():
-                markdown += f"| (property){value_name} | {value_data['type']} | {re.sub(r'e\.g\.\s*".*?(?<!\\)"|ex\:\s*.*?(?=\.|$)', '', value_data['description'])} |\n"
-    else:
-        markdown += "This property has no values.\n"
-    return markdown
-
 def generate_request_section(request, method_type):
+    """
+    Generate the request section for a method.
+    """
     request_json = json.dumps(request, indent=4)
     markdown = EXAMPLE_REQUEST_TEMPLATE.format(request_json=request_json, method_type=method_type)
     markdown += "````"
     return markdown
 
 def generate_response_section(response, method_type):
+    """
+    Generate the response section for a method.
+    """
     response_json = json.dumps(response, indent=4)
     markdown = EXAMPLE_RESPONSE_TEMPLATE.format(response_json=response_json, method_type=method_type)
     markdown += "````"
     return markdown
 
 def generate_properties_toc(properties, classname):
+    """
+    Generate the properties table of contents for the markdown file.
+    """
     toc = PROPERTIES_TOC_TEMPLATE.format(classname=classname)
     for prop in properties:
         property_body = properties[prop]
@@ -221,6 +258,9 @@ def generate_properties_toc(properties, classname):
     return toc
 
 def generate_property_markdown(property_name, property_info, symbol_registry):
+    """
+    Generate the markdown for a specific property.
+    """
     markdown = PROPERTY_MARKDOWN_TEMPLATE.format(property_name=property_name, property_description=property_info['brief'] or property_info['details'])
     if property_info['property'] == 'read':
         markdown += "> This property is read-only.\n"
@@ -237,7 +277,25 @@ def generate_property_markdown(property_name, property_info, symbol_registry):
         markdown += generate_response_section(property_info['set_response'], 'Set ')
     return markdown
 
+def generate_values_section(values, symbol_registry):
+    """
+    Generate the values section for a property.
+    """
+    markdown = "### Values\n"
+    if values:
+        markdown += """| Name | Type | Description |\n| :-------- | :-------- | :-------- |\n"""
+        for value in values:
+            flattened_values = symbol_registry[f"{value['name']}-{value['type']}"]['flattened_description']
+            for value_name, value_data in flattened_values.items():
+                markdown += f"| (property){value_name} | {value_data['type']} | {re.sub(r'e\.g\.\s*".*?(?<!\\)"|ex\:\s*.*?(?=\.|$)', '', value_data['description'])} |\n"
+    else:
+        markdown += "This property has no values.\n"
+    return markdown
+
 def generate_notifications_toc(events, classname): 
+    """
+    Generate the notifications table of contents for the markdown file.
+    """
     toc = EVENTS_TOC_TEMPLATE.format(classname=classname) 
     for event in events:
         event_body = events[event]
@@ -245,6 +303,9 @@ def generate_notifications_toc(events, classname):
     return toc
 
 def generate_notification_markdown(event_name, event_info, symbol_registry): 
+    """
+    Generate the markdown for a specific event.
+    """
     markdown = EVENT_MARKDOWN_TEMPLATE.format(event_name=event_name, event_description=event_info['brief'] or event_info['details']) 
     markdown += generate_parameters_section(event_info['params'], symbol_registry)
     markdown += "\n### Examples\n"

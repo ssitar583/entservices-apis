@@ -1,3 +1,22 @@
+#!/usr/bin/env python3
+
+# If not stated otherwise in this file or this component's LICENSE file the
+# following copyright and licenses apply:
+
+# Copyright 2024 RDK Management
+
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+# http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 # header_file_parser.py
 
 import re
@@ -11,7 +30,7 @@ class HeaderFileParser:
         ('brief',    'doxygen', re.compile(r'(?:\/\*+|\*|//) @brief\s*(.*?)(?=\s*\*\/|$)')),
         ('details',  'doxygen', re.compile(r'(?:\/\*+|\*|//) @details\s*(.*?)(?=\s*\*\/|$)')),
         ('params',   'doxygen', re.compile(r'(?:\/\*+|\*|//) @param(?:\[.*\])?\s+(\w+)\s*\:?\s*(.*?)(?=\s*\*\/|$)')),
-        ('return',   'doxygen', re.compile(r'(?:\/\*+|\*|//) @returns\s*(.*?)(?=\s*\*\/|$)')),
+        ('return',   'doxygen', re.compile(r'(?:\/\*+|\*|//) @return(?:s)?\s*(.*?)(?=\s*\*\/|$)')),
         ('see',      'doxygen', re.compile(r'(?:\/\*+|\*|//) @see\s*(.*?)(?=\s*\*\/|$)')),
         ('omit',     'doxygen', re.compile(r'(?:\/\*+|\*|//)\s*(@json:omit|@omit)')),
         ('property', 'doxygen', re.compile(r'(?:\/\*+|\*|//) @property\s*(.*)')), 
@@ -83,9 +102,9 @@ class HeaderFileParser:
         and linking methods to events.
         """
         self.parse_header_file()
-        # self.methods = self.sort_dict(self.methods)
-        # self.properties = self.sort_dict(self.properties)
-        # self.events = self.sort_dict(self.events)
+        self.methods = self.sort_dict(self.methods)
+        self.properties = self.sort_dict(self.properties)
+        self.events = self.sort_dict(self.events)
         self.link_method_to_event()
 
 
@@ -365,7 +384,8 @@ class HeaderFileParser:
 
     def build_method_info(self, method_return_type, method_parameters, doxy_tags):
         """
-        Helper to build a method info object. Also registers method parameters in the symbol registry.
+        Helper to build a method info object. Also registers method parameters in the symbol 
+        registry.
         """
         doxy_tag_param_info = doxy_tags.get('params', {})
         params, results = self.process_and_register_params(method_parameters, doxy_tag_param_info)
@@ -387,8 +407,8 @@ class HeaderFileParser:
     
     def process_and_register_params(self, method_parameters, doxy_tag_param_info):
         """
-        Helper to build params and results data structures, using the parameter declaration list and 
-        doxygen tags.
+        Helper to build params and results data structures, using the parameter declaration list 
+        and doxygen tags.
         """
         param_list_info = self.get_info_from_param_declaration(method_parameters)
         params = []
@@ -577,7 +597,7 @@ class HeaderFileParser:
 
     def generate_example_from_symbol_type(self, symbol_type):
         """
-        Creates an example parameter based on the symbol type
+        Creates an example parameter based on the symbol type.
         """
         if symbol_type in self.structs_registry:
             struct = self.structs_registry[symbol_type]
@@ -593,7 +613,8 @@ class HeaderFileParser:
     
     def wrap_example_if_iterator(self, unique_id, example):
         """
-        Wrap the example in a list if the symbol is an iterator, otherwise simply return the example.
+        Wrap the example in a list if the symbol is an iterator, otherwise simply return the 
+        example.
         """
         if self.symbols_registry[unique_id]['type'] in self.iterators_registry:
             return [example]
@@ -657,8 +678,8 @@ class HeaderFileParser:
         
     def log_missing_method_info(self):
         """
-        At the end of parsing, if there is still information missing for methods, events, and symbols,
-        log it. 
+        At the end of parsing, if there is still information missing for methods, events, and 
+        symbols, log it. 
         """
         for method in self.methods:
             method_info = self.methods[method]
