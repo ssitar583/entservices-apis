@@ -115,7 +115,7 @@ struct EXTERNAL IUSBDevice : virtual public Core::IUnknown {
   // @brief Get the extended USB device information for the provided device name
   // @param deviceName: device name
   // @param deviceInfo: Detailed device information
-  virtual uint32_t GetDeviceInfo(const string &deviceName /* @in @text deviceName */, IUSBDeviceInfoIterator*& deviceInfo /* @out */) const = 0;
+  virtual uint32_t GetDeviceInfo(const string &deviceName /* @in @text deviceName */, USBDeviceInfo& deviceInfo /* @out */) const = 0;
 
   /** Binds the respective driver for the device */
   // @text bindDriver
