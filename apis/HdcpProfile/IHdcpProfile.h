@@ -48,7 +48,7 @@
                 // @text onDisplayConnectionChanged
                 // @brief Triggered if HDMI was connected or disconnected upon receiving onHdmiOutputHotPlug
                 // @param HDCPStatus: Contains HDCP-related data as separate properties
-                virtual void OnDisplayConnectionChanged(const HDCPStatus hdcpstatus) {};
+                virtual void OnDisplayConnectionChanged(const HDCPStatus hdcpStatus) {};
             };
             virtual Core::hresult Register(IHdcpProfile::INotification* notification /* @in */) = 0;
             virtual Core::hresult Unregister(IHdcpProfile::INotification* notification /* @in */) = 0;
@@ -58,7 +58,7 @@
             // @brief Returns HDCP-related data.
             // @param HDCPStatus: Contains HDCP-related data as separate properties
             // @param success: Indicates whether the operation was successful
-            virtual Core::hresult GetHDCPStatus(HDCPStatus &hdcpStatus /* @out @text HDCPStatus*/,bool& success  /* @out */) = 0;
+            virtual Core::hresult GetHDCPStatus(HDCPStatus& hdcpStatus /* @out @text HDCPStatus*/,bool& success  /* @out */) = 0;
             /**********************getHDCPStatus() - end******************************/
              
             /**********************getSettopHDCPSupport() - start*********************************/
