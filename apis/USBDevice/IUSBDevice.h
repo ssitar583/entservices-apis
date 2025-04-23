@@ -127,7 +127,7 @@ struct EXTERNAL IUSBDevice : virtual public Core::IUnknown {
     // @text unbindDriver
     // @brief Unbind the respective driver for the device
     // @param deviceName: Name of the device
-    virtual uint32_t UnbindDriver(const string &deviceName /* @in @text deviceName */) const = 0;
+    virtual Core::hresult UnbindDriver(const string &deviceName /* @in @text deviceName */) const = 0;
 };
 
 } // namespace Exchange
