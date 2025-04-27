@@ -266,7 +266,11 @@ namespace Exchange {
         ID_DEVICE_DIAGNOSTICS_PARAM_LIST_ITERATOR    = ID_DEVICE_DIAGNOSTICS + 1,
         ID_DEVICE_DIAGNOSTICS_NOTIFICATION           = ID_DEVICE_DIAGNOSTICS + 2,
 
-	ID_HDCPPROFILE                               = ID_ENTOS_OFFSET + 0x380,
+      
+        ID_WAREHOUSE                                 = ID_ENTOS_OFFSET + 0x380,
+	ID_WAREHOUSE_NOTIFICATION                    = ID_WAREHOUSE + 1,
+
+	ID_HDCPPROFILE                               = ID_ENTOS_OFFSET + 0x390,
 	ID_HDCPPROFILE_NOTIFICATION                  = ID_HDCPPROFILE + 1
     };
 }
