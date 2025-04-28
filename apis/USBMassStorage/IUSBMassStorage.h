@@ -96,9 +96,9 @@ struct EXTERNAL IUSBMassStorage : virtual public Core::IUnknown
     };
 
     // @json:omit
-    virtual uint32_t Register(Exchange::IUSBMassStorage::INotification *notification) = 0;
+    virtual Core::hresult Register(Exchange::IUSBMassStorage::INotification *notification) = 0;
     // @json:omit
-    virtual uint32_t Unregister(Exchange::IUSBMassStorage::INotification *notification) = 0;
+    virtual Core::hresult Unregister(Exchange::IUSBMassStorage::INotification *notification) = 0;
 
     /** Get list of devices that are currently mounted in the system */
     // @text getDeviceList

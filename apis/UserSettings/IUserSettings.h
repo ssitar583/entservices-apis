@@ -130,8 +130,8 @@ struct EXTERNAL IUserSettings : virtual public Core::IUnknown
         virtual void OnVoiceGuidanceHintsChanged(const bool hints) {};
     };
 
-    virtual uint32_t Register(Exchange::IUserSettings::INotification* notification /* @in */) = 0;
-    virtual uint32_t Unregister(Exchange::IUserSettings::INotification* notification /* @in */) = 0;
+    virtual Core::hresult Register(Exchange::IUserSettings::INotification* notification /* @in */) = 0;
+    virtual Core::hresult Unregister(Exchange::IUserSettings::INotification* notification /* @in */) = 0;
 
     // @text setAudioDescription
     // @brief Sets AudioDescription ON/OFF. Players should preferred Audio Descriptive tracks over normal audio track when enabled
@@ -148,7 +148,7 @@ struct EXTERNAL IUserSettings : virtual public Core::IUnknown
     // expressed as a comma separated lists of languages of zero of more elements.
     // The players will pick the audio track that has the best match compared with
     // this list. In the absence of a matching track, the player should by best
-    // effort select the preferred audio track.*/
+    // effort select the preferred audio track.
     // @param preferredLanguages: PreferredLanguages
     virtual Core::hresult SetPreferredAudioLanguages(const string& preferredLanguages  /* @in @text preferredLanguages */) = 0;
 

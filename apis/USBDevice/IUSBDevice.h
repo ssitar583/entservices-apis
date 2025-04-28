@@ -53,9 +53,9 @@ struct EXTERNAL IUSBDevice : virtual public Core::IUnknown {
     };
 
     /** Register notification interface */
-    virtual uint32_t Register(Exchange::IUSBDevice::INotification *notification) = 0;
+    virtual Core::hresult Register(Exchange::IUSBDevice::INotification *notification) = 0;
     /** Unregister notification interface */
-    virtual uint32_t Unregister(Exchange::IUSBDevice::INotification *notification) = 0;
+    virtual Core::hresult Unregister(Exchange::IUSBDevice::INotification *notification) = 0;
 
     struct USBProductInfo {
         uint16_t languageId    /* @brief language id present on the device */;
