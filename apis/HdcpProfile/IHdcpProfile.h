@@ -31,7 +31,6 @@
 
             enum HDCPReason
             {
-                HDCP_REASON_UNKNOWN = -1,
                 HDCP_REASON_CABLE_NOT_CONNECTED = 0,
                 HDCP_REASON_CABLE_CONNECTED = 1,
                 HDCP_REASON_SUCCESS = 2,
