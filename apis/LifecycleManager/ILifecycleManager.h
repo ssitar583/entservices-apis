@@ -27,20 +27,13 @@ namespace Exchange {
 struct EXTERNAL ILifecycleManager : virtual public Core::IUnknown {
 
     enum LifecycleState : uint8_t {
+        UNLOADED,
         LOADING,
         INITIALIZING,
-        RUNREQUESTED,
-        RUNNING,
-        ACTIVATEREQUESTED,
+        PAUSED,
         ACTIVE,
-        DEACTIVATEREQUESTED,
-        SUSPENDREQUESTED,
         SUSPENDED,
-        RESUMEREQUESTED,
-        HIBERNATEREQUESTED,
         HIBERNATED,
-        WAKEREQUESTED,
-        TERMINATEREQUESTED,
         TERMINATING
     };
 
