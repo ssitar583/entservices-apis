@@ -7,6 +7,28 @@
 namespace WPEFramework {
 namespace Exchange {
 
+#ifndef RUNTIME_CONFIG
+    struct RuntimeConfig
+    {
+        bool dial;
+        bool wanLanAccess;
+        bool thunder;
+        int32_t systemMemoryLimit;
+        int32_t gpuMemoryLimit;
+        std::string envVars;
+        uint32_t userId;
+        uint32_t groupId;
+        uint32_t dataImageSize;
+        bool resourceManagerClientEnabled;
+        string dialId;
+        string command;
+        uint32_t appType;
+        string appPath;
+        string runtimePath;
+    };
+#define RUNTIME_CONFIG
+#endif
+
     // @json 1.0.0 @text:keep
     struct EXTERNAL IPackageDownloader : virtual public Core::IUnknown {
         enum { ID = ID_PACKAGE_DOWNLOADER };
@@ -191,7 +213,7 @@ namespace Exchange {
         virtual Core::hresult Config(
             const string &packageId,
             const string &version,
-            string &config /* @out */   // XXX: JsonObject ?!
+            RuntimeConfig &configMetadata /* @out */
             ) = 0;
 
         // @brief PackageState
@@ -232,7 +254,7 @@ namespace Exchange {
             const LockReason &lockReason,
             uint32_t &lockId /* @out */,
             string &unpackedPath /* @out */,
-            string &configMetadata /* @out */,
+            RuntimeConfig &configMetadata /* @out */,
             string &appMetadata /* @out */
             // XXX: appContextPath ?!
             ) = 0;
@@ -253,7 +275,7 @@ namespace Exchange {
             const string &packageId,
             const string &version,
             string &unpackedPath /* @out */,
-            string &configMetadata /* @out */,
+            RuntimeConfig &configMetadata /* @out */,
             string &gatewayMetadataPath /* @out */,
             bool &locked /* @out */
             ) = 0;
