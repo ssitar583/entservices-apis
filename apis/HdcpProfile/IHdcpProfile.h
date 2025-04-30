@@ -29,21 +29,12 @@
          {
             enum { ID = ID_HDCPPROFILE };
 
-            enum HDCPReason
-            {
-                HDCP_REASON_CABLE_NOT_CONNECTED = 0,
-                HDCP_REASON_CABLE_CONNECTED = 1,
-                HDCP_REASON_SUCCESS = 2,
-                HDCP_REASON_AUTHENTICATION_FAILED = 3,
-                HDCP_REASON_AUTHENTICATION_IN_PROGRESS = 4,
-                HDCP_REASON_HDMI_PORT_DISABLED = 5
-            };
             struct EXTERNAL HDCPStatus
             {
                 bool isConnected /* @text isConnected */ /* @brief Indicates whether a display is connected */;
                 bool isHDCPCompliant  /* @text isHDCPCompliant */ /* @brief Indicates whether the display is HDCP compliant */;
                 bool isHDCPEnabled  /* @text isHDCPEnabled *//* @brief Indicates whether content is protected */;
-                HDCPReason hdcpReason  /* @text hdcpReason *//* @brief The HDCP status reason */;
+                uint32_t hdcpReason  /* @text hdcpReason *//* @brief The HDCP status reason */;
                 string supportedHDCPVersion  /* @text supportedHDCPVersion */ /* @brief Supported HDCP protocol version by the host device */;
                 string receiverHDCPVersion  /* @text receiverHDCPVersion */ /* @brief Supported HDCP protocol version by the receiver device (display) */;
                 string currentHDCPVersion  /* @text currentHDCPVersion */ /* @brief Currently used HDCP protocol version */;
@@ -57,7 +48,7 @@
                 // @text onDisplayConnectionChanged
                 // @brief Triggered if HDMI was connected or disconnected upon receiving onHdmiOutputHotPlug
                 // @param HDCPStatus: Contains HDCP-related data as separate properties
-                virtual void OnDisplayConnectionChanged(const HDCPStatus hdcpStatus) {};
+                virtual void OnDisplayConnectionChanged(const HDCPStatus hdcpStatus/* @text HDCPStatus*/) {};
             };
             virtual Core::hresult Register(IHdcpProfile::INotification* notification /* @in */) = 0;
             virtual Core::hresult Unregister(IHdcpProfile::INotification* notification /* @in */) = 0;
