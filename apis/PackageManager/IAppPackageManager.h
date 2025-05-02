@@ -6,6 +6,30 @@
 
 namespace WPEFramework {
 namespace Exchange {
+#ifndef RUNTIME_CONFIG
+    struct RuntimeConfig {
+        bool dial;
+        bool wanLanAccess;
+        bool thunder;
+        int32_t systemMemoryLimit;
+        int32_t gpuMemoryLimit;
+        std::string envVars;
+        uint32_t userId;
+        uint32_t groupId;
+        uint32_t dataImageSize;
+
+        bool resourceManagerClientEnabled;
+        std::string dialId;
+        std::string command;
+        uint32_t appType;
+        std::string appPath;
+        std::string runtimePath;
+
+        std::string fireboltVersion;
+        bool enableDebugger;
+    };
+    #define RUNTIME_CONFIG
+#endif
 
 #ifndef RUNTIME_CONFIG
     struct RuntimeConfig
@@ -70,7 +94,7 @@ namespace Exchange {
         virtual Core::hresult Initialize(PluginHost::IShell* service) = 0;
 
         // @json:omit
-        virtual void Deinitialize(PluginHost::IShell* service) = 0;
+        virtual Core::hresult  Deinitialize(PluginHost::IShell* service) = 0;
 
 
 	    // @brief Download
