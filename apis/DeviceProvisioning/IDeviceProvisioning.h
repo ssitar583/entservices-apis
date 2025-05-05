@@ -46,7 +46,7 @@ namespace Exchange {
 
         /** Allow the plugin to deinitialize to use service object */
         // @json:omit
-        virtual void Deinitialize(PluginHost::IShell* service) = 0;
+        virtual Core::hresult Deinitialize(PluginHost::IShell* service) = 0;
 
         /**********************getSOCId() - start****************************/
         // @text getSOCId
