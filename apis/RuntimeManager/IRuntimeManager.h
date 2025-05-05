@@ -38,6 +38,13 @@ struct RuntimeConfig
     uint32_t userId;
     uint32_t groupId;
     uint32_t dataImageSize;
+    //NEWLY ADDED BELOW
+    bool resourceManagerClientEnabled;
+    string dialId;
+    string command;
+    uint32_t appType;
+    string appPath;
+    string runtimePath;
 };
 #define RUNTIME_CONFIG
 #endif
