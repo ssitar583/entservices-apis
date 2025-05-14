@@ -182,6 +182,14 @@ struct EXTERNAL IRDKWindowManager : virtual public Core::IUnknown {
   // @param client: client name or application instance ID
   // @param enable: flag to true/false for controlling the wayland render
   virtual Core::hresult EnableDisplayRender(const string& client, bool enable) = 0;
+
+  /** Sets the visibility of the given client or appInstanceId */
+  // @text setVisible
+  // @brief Sets the visibility of the given client or appInstanceId
+  // @param client: client name or application instance ID
+  // @param visible: boolean indicating the visibility status: `true` for visible, `false` for hide.
+  virtual Core::hresult SetVisible(const std::string &client, bool visible) = 0;
+
 };
 } // namespace Exchange
 } // namespace WPEFramework
