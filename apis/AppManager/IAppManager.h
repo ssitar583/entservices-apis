@@ -32,7 +32,7 @@ struct RuntimeConfig
     bool thunder;
     int32_t systemMemoryLimit;
     int32_t gpuMemoryLimit;
-    std::string envVars;
+    std::string envVariables;
     uint32_t userId;
     uint32_t groupId;
     uint32_t dataImageSize;
@@ -66,10 +66,10 @@ struct EXTERNAL IAppManager : virtual public Core::IUnknown {
           APP_ERROR_ABORT            = 2     /* @text APP_ERROR_ABORT */
       };
 
-  // @event 
+  // @event
   struct EXTERNAL INotification : virtual public Core::IUnknown {
     enum { ID = ID_APPMANAGER_NOTIFICATION };
- 
+
     // @text onAppInstalled
     // @brief Triggered whenever the App is installed.
     // @param appId:App identifier for the application.

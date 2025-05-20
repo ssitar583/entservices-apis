@@ -34,7 +34,7 @@ struct RuntimeConfig
     bool thunder;
     int32_t systemMemoryLimit;
     int32_t gpuMemoryLimit;
-    std::string envVars;
+    std::string envVariables;
     uint32_t userId;
     uint32_t groupId;
     uint32_t dataImageSize;
@@ -68,27 +68,27 @@ struct EXTERNAL IRuntimeManager : virtual public Core::IUnknown {
         RUNTIME_STATE_TERMINATED  = 8   /* @text RUNTIME_STATE_TERMINATED */
     };
 
-    // @event 
+    // @event
     struct EXTERNAL INotification : virtual public Core::IUnknown
     {
         enum { ID = ID_RUNTIME_MANAGER_NOTIFICATION };
- 
+
         // @brief Notifies container is started
         // @text onStarted
         // @param appInstanceId App identifier for the application/container
         virtual void OnStarted(const string& appInstanceId) {};
- 
+
         // @brief Notifies container is shutdown
         // @text onTerminated
         // @param appInstanceId App identifier for the application/container
         virtual void OnTerminated(const string& appInstanceId) {};
- 
+
         // @brief Notifies failure in container execution
         // @text onFailure
         // @param appInstanceId App identifier for the application/container
         // @param error error string will send if there is failure
         virtual void OnFailure(const string& appInstanceId, const string& error) {};
- 
+
         // @brief Notifies state of container
         // @text onStateChanged
         // @param appInstanceId App identifier for the application/container
