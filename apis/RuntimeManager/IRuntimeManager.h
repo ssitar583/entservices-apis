@@ -45,6 +45,7 @@ struct RuntimeConfig
     uint32_t appType;
     string appPath;
     string runtimePath;
+    std::string unpackedPath;
 };
 #define RUNTIME_CONFIG
 #endif

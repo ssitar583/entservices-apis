@@ -25,6 +25,7 @@ namespace Exchange {
         uint32_t appType;
         std::string appPath;
         std::string runtimePath;
+        std::string unpackedPath;
 
         std::string fireboltVersion;
         bool enableDebugger;
