@@ -62,14 +62,14 @@ struct EXTERNAL ISystemMode : virtual public Core::IUnknown {
   // @param[in] callsign       callsign of client.
   // @param[in] systemMode       The system mode.
   // @returns uint32_t
-  virtual uint32_t ClientActivated(const string& callsign /* @in @text callsign*/ ,const string& systemMode) = 0;
+  virtual Core::hresult ClientActivated(const string& callsign /* @in @text callsign*/ ,const string& systemMode) = 0;
 
   // @text clientDeactivated
   // @brief To put client plugin entry in map.
   // @param[in] callsign       callsign of client.
   // @param[in] systemMode       The system mode.
   // @returns uint32_t
-  virtual uint32_t ClientDeactivated(const string& callsign /* @in @text callsign*/, const string& systemMode) = 0;
+  virtual Core::hresult ClientDeactivated(const string& callsign /* @in @text callsign*/, const string& systemMode) = 0;
 };
 } // namespace Exchange
 } // namespace WPEFramework
