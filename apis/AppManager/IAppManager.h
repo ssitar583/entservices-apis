@@ -36,13 +36,23 @@ struct RuntimeConfig
     uint32_t userId;
     uint32_t groupId;
     uint32_t dataImageSize;
-    //NEWLY ADDED BELOW
+
     bool resourceManagerClientEnabled;
-    string dialId;
-    string command;
-    uint32_t appType;
-    string appPath;
-    string runtimePath;
+    std::string dialId;
+    std::string command;
+    std::string appType;
+    std::string appPath;
+    std::string runtimePath;
+
+    std::string logFilePath;
+    uint32_t logFileMaxSize;
+    std::string logLevels;          //json array of strings
+    bool mapi;
+    std::string fkpsFiles;          //json array of strings
+
+    std::string fireboltVersion;
+    bool enableDebugger;
+    string unpackedPath;
 };
 #define RUNTIME_CONFIG
 #endif
