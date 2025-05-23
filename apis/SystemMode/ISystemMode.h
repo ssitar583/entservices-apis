@@ -61,14 +61,14 @@ struct EXTERNAL ISystemMode : virtual public Core::IUnknown {
   // @brief To put client plugin entry in map.
   // @param[in] callsign       callsign of client.
   // @param[in] systemMode       The system mode.
-  // @returns uint32_t
+  // @returns Core::hresult
   virtual Core::hresult ClientActivated(const string& callsign /* @in @text callsign*/ ,const string& systemMode) = 0;
 
   // @text clientDeactivated
   // @brief To put client plugin entry in map.
   // @param[in] callsign       callsign of client.
   // @param[in] systemMode       The system mode.
-  // @returns uint32_t
+  // @returns Core::hresult
   virtual Core::hresult ClientDeactivated(const string& callsign /* @in @text callsign*/, const string& systemMode) = 0;
 };
 } // namespace Exchange
