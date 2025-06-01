@@ -44,6 +44,11 @@ struct EXTERNAL ILifecycleManagerState : virtual public Core::IUnknown {
         /** Notifies the new state */
         // @text onAppLifecycleStateChanged
         // @brief Notifies the new state
+        // @param appId:App identifier for the application.
+        // @param appInstanceId:A numerical identifier for a specific instance of the application.
+        // @param newState:The new state to transition the application.
+        // @param oldState:The previous state of the application instance before the update.
+        // @param navigationIntent:navigation intent during active state
         virtual void OnAppLifecycleStateChanged(const string& appId,
                                                 const string& appInstanceId,
                                                 const ILifecycleManager::LifecycleState oldState,
