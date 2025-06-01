@@ -65,16 +65,21 @@ struct EXTERNAL ILifecycleManagerState : virtual public Core::IUnknown {
     /** Response api call to appInitializing API */
     // @text appReady
     // @brief Response api call to appInitializing API
+    // @param appId:App identifier for the application.
     virtual Core::hresult AppReady(const string& appId /* @in */) = 0;
 
     /** Response api call to appLifecycleStateChanged API */
     // @text stateChangeComplete
     // @brief Response api call to appLifecycleStateChanged API
+    // @param appId:App identifier for the application.
+    // @param stateChangedId: state changed identifier
     virtual Core::hresult StateChangeComplete(const string& appId /* @in */, const uint32_t stateChangedId /* @in */, const bool success /* @in */) = 0;
 
     /** close the app */
     // @text closeApp
     // @brief close the app
+    // @param appId:App identifier for the application.
+    // @param closeReason: closed reason for application
     virtual Core::hresult CloseApp(const string& appId /* @in */, const AppCloseReason closeReason /* @in */) = 0;
 
 };
