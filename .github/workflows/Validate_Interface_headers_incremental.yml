@@ -33,7 +33,7 @@ jobs:
           if [ -f "$file" ]; then
             echo "$file" >> existing_files.txt
           else
-            echo "This file has been removed in the PR: $file"
+            echo " $file file has been removed in your PR,hence skipping validation for the removed file"
           fi
         done < changed_files.txt
         
@@ -42,7 +42,7 @@ jobs:
         if [ -s existing_files.txt ]; then
           python .github/workflows/validate_interface_headers_incremental.py existing_files.txt
         else
-          echo "No valid files to validate."
+          echo "No valid changed files to validate."
         fi
 
     - name: Remove changed_files.txt
