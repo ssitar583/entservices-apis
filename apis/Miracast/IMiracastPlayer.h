@@ -53,10 +53,10 @@ namespace WPEFramework
 
 			struct EXTERNAL DeviceParameters
 			{
-				string SourceDeviceIP  /* @text source_dev_ip */ /* @brief IP Address of Source Device */;
-				string SourceDeviceMac /* @text source_dev_mac */ /* @brief MAC Address of Source Device */;
-				string SourceDeviceName /* @text source_dev_name */ /* @brief Name of Source Device */;
-				string SinkDeviceIP  /* @text sink_dev_ip */ /* @brief IP Address of Sink Device */;
+				string sourceDeviceIP  /* @text source_dev_ip */ /* @brief IP Address of Source Device */;
+				string sourceDeviceMac /* @text source_dev_mac */ /* @brief MAC Address of Source Device */;
+				string sourceDeviceName /* @text source_dev_name */ /* @brief Name of Source Device */;
+				string sinkDeviceIP  /* @text sink_dev_ip */ /* @brief IP Address of Sink Device */;
 			};
 
 			struct EXTERNAL VideoRectangle
