@@ -252,6 +252,37 @@
                 ]
             }
         },
+	"getVRRFrameRate":{
+            "summary": "Returns the VRR FrameRate.",
+            "params": {
+                "type":"object",
+                "properties": {
+                    "portId":{
+                        "$ref": "#/definitions/portId"
+                    }
+                },
+                "required": [
+                    "portid"
+                ]
+            },
+            "result": {
+                "type": "object",
+                "properties": {
+                    "currentVRRVideoFrameRate": {
+                        "summary": "The VRR FrameRate.",
+                        "type": "number",
+                        "example": 48.6
+                    },
+                    "success": {
+                        "$ref": "#/common/success"
+                    }
+                },
+                "required": [
+                    "currentVRRVideoFrameRate",
+                    "success"
+                ]
+            }
+        },
 	"getEdidVersion":{
             "summary": "Returns the EDID version.",
             "params": {
