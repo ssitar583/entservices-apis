@@ -34,15 +34,15 @@ namespace WPEFramework
 
 			enum PlayerReasonCode : uint32_t
 			{
-				MIRACAST_PLAYER_REASON_CODE_SUCCESS	= 200  /* @text SUCCESS */,
-				MIRACAST_PLAYER_REASON_CODE_APP_REQ_TO_STOP = 201  /* @text APP REQUESTED TO STOP. */,
-				MIRACAST_PLAYER_REASON_CODE_SRC_DEV_REQ_TO_STOP = 202  /* @text SRC DEVICE REQUESTED TO STOP. */,
-				MIRACAST_PLAYER_REASON_CODE_RTSP_ERROR = 203  /* @text RTSP Failure. */,
-				MIRACAST_PLAYER_REASON_CODE_RTSP_TIMEOUT = 204  /* @text RTSP Timeout. */,
-				MIRACAST_PLAYER_REASON_CODE_RTSP_METHOD_NOT_SUPPORTED = 205  /* @text RTSP Method Not Supported. */,
-				MIRACAST_PLAYER_REASON_CODE_GST_ERROR = 206  /* @text GStreamer Failure. */,
-				MIRACAST_PLAYER_REASON_CODE_INT_FAILURE = 207  /* @text Internal Failure. */,
-				MIRACAST_PLAYER_REASON_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text APP REQ TO STOP FOR NEW CONNECTION. */,
+				REASON_CODE_SUCCESS	= 200  /* @text SUCCESS */,
+				REASON_CODE_APP_REQ_TO_STOP = 201  /* @text APP_REQ_TO_STOP */,
+				REASON_CODE_SRC_DEV_REQ_TO_STOP = 202  /* @text SRC_DEV_REQ_TO_STOP */,
+				REASON_CODE_RTSP_ERROR = 203  /* @text RTSP_FAILURE */,
+				REASON_CODE_RTSP_TIMEOUT = 204  /* @text RTSP_TIMEOUT */,
+				REASON_CODE_RTSP_METHOD_NOT_SUPPORTED = 205  /* @text RTSP_NOT_SUPPORTED */,
+				REASON_CODE_GST_ERROR = 206  /* @text GST_FAILURE */,
+				REASON_CODE_INT_FAILURE = 207  /* @text INTERNAL_FAILURE */,
+				REASON_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text NEW_SRC_DEV_CONNECT_REQ */,
 			};
 
 			enum PlayerStopReasonCode : uint32_t
@@ -115,7 +115,7 @@ namespace WPEFramework
 			// @param deviceParam: Contains Source and Sink Device related properties
 			// @param videoRect: Video rectangle to be used for Miracast playback (x, y, width, height)
 			// @param success: Is the operation successful or not
-			virtual Core::hresult PlayRequest(const DeviceParameters &deviceParam /* @in @text device_parameters */, const VideoRectangle &videoRect /* @in @text video_rectangle */, Result &success /* @out */) = 0;
+			virtual Core::hresult PlayRequest(const DeviceParameters &deviceParam /* @in @text device_parameters */, const VideoRectangle &videoRect /* @in @text video_rectangle */, Result &returnPayload /* @out */) = 0;
 
 			// @brief To stop the Miracast Player to tear down the RTSP communication, stop/close the GStreamer pipeline, clean up, and reset the player state
 			// @text stopRequest
@@ -124,7 +124,7 @@ namespace WPEFramework
 			// @param reasonCode: Reason code for the player stop request
 			// @param reason: Reason for the player stop request
 			// @param success: Is the operation successful or not
-			virtual Core::hresult StopRequest(const string &clientMac /* @in @text mac */, const string &clientName /* @in @text name */, const PlayerStopReasonCode &reasonCode /* @in @text reason_code */, Result &success /* @out */) = 0;
+			virtual Core::hresult StopRequest(const string &clientMac /* @in @text mac */, const string &clientName /* @in @text name */, const PlayerStopReasonCode &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
 
 			// @brief Set the Video Rectangle.
 			// @text setVideoRectangle
@@ -133,25 +133,25 @@ namespace WPEFramework
 			// @param width: Width of the rectangle
 			// @param height: Height of the rectangle
 			// @param success: Is the operation successful or not
-			virtual Core::hresult SetVideoRectangle(const int32_t &startX /* @in @text X */, const int32_t &startY /* @in @text Y */, const int32_t &width /* @in @text W */, const int32_t &height /* @in @text H */, Result &success /* @out */) = 0;
+			virtual Core::hresult SetVideoRectangle(const int32_t &startX /* @in @text X */, const int32_t &startY /* @in @text Y */, const int32_t &width /* @in @text W */, const int32_t &height /* @in @text H */, Result &returnPayload /* @out */) = 0;
 
 			// @brief To Enable/Disable/Reduce the Logging level for Miracast
 			// @text setLogging
 			// @param clienMac: MacAddress of the client device
 			// @param clienName: Name of the client device
 			// @param success: Is the operation successful or not
-			virtual Core::hresult SetLogging(const string &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &success /* @out */) = 0;
+			virtual Core::hresult SetLogging(const string &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &returnPayload /* @out */) = 0;
 
 			// @brief To configure the westeros environment arguments for the Miracast Player
 			// @text setWesterosEnvironment
 			// @param westerosArgs: Westeros environment arguments to be set
 			// @param success: Is the operation successful or not
-			virtual Core::hresult SetWesterosEnvironment( IWesterosEnvArgumentsIterator * const westerosArgs /* @in @text westerosArgs */, Result &success /* @out */) = 0;
+			virtual Core::hresult SetWesterosEnvironment( IWesterosEnvArgumentsIterator * const westerosArgs /* @in @text westerosArgs */, Result &returnPayload /* @out */) = 0;
 
 			// @brief To reset the westeros environment arguments for the Miracast Player
 			// @text unsetWesterosEnvironment
 			// @param success: Is the operation successful or not
-			virtual Core::hresult UnsetWesterosEnvironment(bool &success /* @out */) = 0;
+			virtual Core::hresult UnsetWesterosEnvironment(Result &returnPayload /* @out */) = 0;
 		};
 	} // namespace Exchange
 } // namespace WPEFramework

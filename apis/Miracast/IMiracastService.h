@@ -32,17 +32,17 @@ namespace WPEFramework
 		{
 			enum { ID = ID_MIRACAST_SERVICE };
 
-			enum PlayerReasonCode : uint8_t
+			enum PlayerReasonCode : uint32_t
 			{
 				REASON_CODE_SUCCESS	= 200  /* @text SUCCESS */,
-				REASON_CODE_APP_REQ_TO_STOP = 201  /* @text APP REQUESTED TO STOP. */,
-				REASON_CODE_SRC_DEV_REQ_TO_STOP = 202  /* @text SRC DEVICE REQUESTED TO STOP. */,
-				REASON_CODE_RTSP_ERROR = 203  /* @text RTSP Failure. */,
-				REASON_CODE_RTSP_TIMEOUT = 204  /* @text RTSP Timeout. */,
-				REASON_CODE_RTSP_METHOD_NOT_SUPPORTED = 205  /* @text RTSP Method Not Supported. */,
-				REASON_CODE_GST_ERROR = 206  /* @text GStreamer Failure. */,
-				REASON_CODE_INT_FAILURE = 207  /* @text Internal Failure. */,
-				REASON_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text APP REQ TO STOP FOR NEW CONNECTION. */,
+				REASON_CODE_APP_REQ_TO_STOP = 201  /* @text APP_REQ_TO_STOP */,
+				REASON_CODE_SRC_DEV_REQ_TO_STOP = 202  /* @text SRC_DEV_REQ_TO_STOP */,
+				REASON_CODE_RTSP_ERROR = 203  /* @text RTSP_FAILURE */,
+				REASON_CODE_RTSP_TIMEOUT = 204  /* @text RTSP_TIMEOUT */,
+				REASON_CODE_RTSP_METHOD_NOT_SUPPORTED = 205  /* @text RTSP_NOT_SUPPORTED */,
+				REASON_CODE_GST_ERROR = 206  /* @text GST_FAILURE */,
+				REASON_CODE_INT_FAILURE = 207  /* @text INTERNAL_FAILURE */,
+				REASON_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text NEW_SRC_DEV_CONNECT_REQ */,
 			};
 
 			struct EXTERNAL DeviceParameters
