@@ -120,7 +120,7 @@ namespace WPEFramework
 			// @brief To abort the ongoing connection after accepted connection request
 			// @text stopClientConnection
 			// @param clientMac: MacAddress of the client device
-			// @param clienName: Name of the client device
+			// @param clientName: Name of the client device
 			// @param success: Is the operation successful or not
 			virtual Core::hresult StopClientConnection(const string &clientMac /* @in @text mac */, const string &clientName /* @in @text name */, Result &returnPayload /* @out */) = 0;
 
