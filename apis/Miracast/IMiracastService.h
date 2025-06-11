@@ -59,7 +59,8 @@ namespace WPEFramework
 				string logStatus /* @text status */ /* @brief Whether ENABLE or DISABLE the separate logging */;
 			};
 
-			struct EXTERNAL Result {
+			struct EXTERNAL Result
+			{
 				string message	/* @text message */ /* @brief reason for success or failure */;
 				bool success;
 			};
@@ -69,13 +70,13 @@ namespace WPEFramework
 			{
 				enum { ID = ID_MIRACAST_SERVICE_NOTIFICATION };
 
-				// @brief Notifies when a Miracast source device wants to connect
+				// @brief Triggered when the Miracast Service plugin receives a new connection request from a client
 				// @text onClientConnectionRequest
 				// @param clientMac: MacAddress of the client device
 				// @param clientName: Name of the client device
 				virtual void OnClientConnectionRequest(const string &clientMac /* @text mac */, const string &clientName /* @text name */) {};
 
-				// @brief Notifies when a Miracast source device wants to connect
+				// @brief It is triggered when the Miracast Service plugin failed to connect with the source streaming device due to some error, like P2P related errors during activation or while streaming
 				// @text onClientConnectionError
 				// @param clientMac: MacAddress of the client device
 				// @param clientName: Name of the client device
@@ -83,8 +84,8 @@ namespace WPEFramework
 				// @param reason: Reason for the connection failure
 				virtual void OnClientConnectionError(const string &clientMac /* @text mac */, const string &clientName /* @text name */, const string &errorCode /* @text error_code */, const string &reason /* @text reason */) {};
 
+				// @brief Miracast Service Plugin raises this Event to request RA or MiracastWidget to launch the Miracast Player
 				// @text onLaunchRequest
-				// @brief Triggered once P2P Group Started event received and further need to trigger MiracastPlayer's playRequest method
 				// @param DeviceParameters: Contains Source and Sink Device related properties
 				virtual void OnLaunchRequest(const DeviceParameters deviceParameters/* @text device_parameters*/) {};
 			};
@@ -98,52 +99,52 @@ namespace WPEFramework
 			// @json:omit
 			virtual Core::hresult Deinitialize(PluginHost::IShell* service) = 0;
 
-			// @brief Sets the status of the MiracastService discovery
-			// @text setEnabled
+			// @brief To enable or disable the Miracast feature
+			// @text setEnable
 			// @param enabled: Is the MiracastService discovery enabled or not
 			// @param success: Is the operation successful or not
-			virtual Core::hresult SetEnabled(const bool &enabled /* @in */, Result &success /* @out */) = 0;
+			virtual Core::hresult SetEnabled(const bool &enabled /* @in @text enabled */, Result &returnPayload /* @out */) = 0;
 
-			// @brief Gets the status of the MiracastService discovery
+			// @brief To get the enable status of the Miracast feature
 			// @text getEnable
 			// @param enabled: Is the MiracastService discovery enabled or not
 			// @param success: Is the operation successful or not
-			virtual Core::hresult GetEnabled(bool &enabled /* @out */, bool &success /* @out */) = 0;
+			virtual Core::hresult GetEnabled(bool &enabled /* @out @text enabled */, bool &success /* @out */) = 0;
 
-			// @brief To accept or reject client connection requests for the Miracast
+			// @brief To accept or reject new client connection requests for the Miracast feature
 			// @text acceptClientConnection
 			// @param requestStatus: It should be "Accept" or "Reject"
 			// @param success: Is the operation successful or not
-			virtual Core::hresult AcceptClientConnection(const string &requestStatus /* @in */, Result &success /* @out */) = 0;
+			virtual Core::hresult AcceptClientConnection(const string &requestStatus /* @in @text requestStatus */, Result &returnPayload /* @out */) = 0;
 
 			// @brief To abort the ongoing connection after accepted connection request
 			// @text stopClientConnection
-			// @param clienMac: MacAddress of the client device
+			// @param clientMac: MacAddress of the client device
 			// @param clienName: Name of the client device
 			// @param success: Is the operation successful or not
-			virtual Core::hresult StopClientConnection(const string &clienMac /* @in @text mac */, const string &clienName /* @in @text name */, Result &success /* @out */) = 0;
+			virtual Core::hresult StopClientConnection(const string &clientMac /* @in @text mac */, const string &clientName /* @in @text name */, Result &returnPayload /* @out */) = 0;
 
-			// @brief To Update the Miracast Player State to the Miracast Service Plugin
+			// @brief Update the Miracast Player State to the Miracast Service Plugin
 			// @text updatePlayerState
-			// @param clienMac: MacAddress of the client device
+			// @param clientMac: MacAddress of the client device
 			// @param playerState: Player state to be updated
 			// @param reasonCode: Reason code for the player state update
 			// @param reason: Reason for the player state update
 			// @param success: Is the operation successful or not
-			virtual Core::hresult UpdatePlayerState(const string &clienMac /* @in @text mac */, const string &playerState /* @in @text state */, const PlayerReasonCode &reasonCode /* @in @text reason_code */, const string &reason /* @in @text reason */, Result &success /* @out */) = 0;
+			virtual Core::hresult UpdatePlayerState(const string &clientMac /* @in @text mac */, const string &playerState /* @in @text state */, const PlayerReasonCode &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
 
-			// @brief To Enable/Disable/Reduce the Logging level for Miracast
+			// @brief Enable or Disable or Reduce the Logging level for Miracast
 			// @text setLogging
-			// @param clienMac: MacAddress of the client device
-			// @param clienName: Name of the client device
+			// @param logLevel: The logging level to be set (e.g., "DEBUG", "INFO", "WARN", "ERROR")
+			// @param separateLogger: Contains the separate logger properties
 			// @param success: Is the operation successful or not
-			virtual Core::hresult SetLogging(const string &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &success /* @out */) = 0;
+			virtual Core::hresult SetLogging(const string &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &returnPayload /* @out */) = 0;
 
 			// @brief Sets the status of the MiracastService backend discovery
 			// @text setP2PBackendDiscovery
 			// @param enabled: Is the MiracastService backend discovery enabled or not
 			// @param success: Is the operation successful or not
-			virtual Core::hresult SetP2PBackendDiscovery(const bool &enabled /* @in */, Result &success /* @out */) = 0;
+			virtual Core::hresult SetP2PBackendDiscovery(const bool &enabled /* @in @text enabled */, Result &returnPayload /* @out */) = 0;
 		};
 	} // namespace Exchange
 } // namespace WPEFramework
