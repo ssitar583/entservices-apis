@@ -48,7 +48,7 @@ namespace WPEFramework {
 				~INotification() override = default;
 
 				virtual void OnApplicationLaunchRequestWithLaunchParam(const string& appName, const string& strPayLoad, const string& strQuery, const string& strAddDataUrl) {};
-				virtual void onApplicationLaunchRequest(const string& appName, const string& parameter)  {};
+				virtual void OnApplicationLaunchRequest(const string& appName, const string& parameter)  {};
 				virtual void OnApplicationStopRequest(const string& appName, const string& appID)  {};
 				virtual void OnApplicationHideRequest(const string& appName, const string& appID)  {};
 				virtual void OnApplicationStateRequest(const string& appName, const string& appID)  {};
