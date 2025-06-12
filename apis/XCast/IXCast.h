@@ -26,6 +26,7 @@
 
 namespace WPEFramework {
 	namespace Exchange {
+		/* @json 1.0.0 @text:keep */
 		struct EXTERNAL IXCast : virtual public Core::IUnknown {
 			enum { ID = ID_XCAST };
 
@@ -39,8 +40,9 @@ namespace WPEFramework {
 			};
 
 			using IApplicationInfoIterator = RPC::IIteratorType<ApplicationInfo,ID_XCAST_APPLICATION_INFO_ITERATOR>;
-
-			struct INotification : virtual public Core::IUnknown {
+			
+			//@event
+			struct EXTERNAL INotification : virtual public Core::IUnknown {
 				enum { ID = ID_XCAST_NOTIFICATION };
 
 				~INotification() override = default;
@@ -56,21 +58,26 @@ namespace WPEFramework {
 
 			~IXCast() override = default;
 
-			virtual void Register(IXCast::INotification* sink) = 0;
-			virtual void Unregister(IXCast::INotification* sink) = 0;
-
-			virtual uint32_t Initialize(bool networkStandbyMode) = 0;
-			virtual void Deinitialize(void) = 0;
+			virtual uint32_t Register(IXCast::INotification* sink /* @in */) = 0;
+			virtual uint32_t Unregister(IXCast::INotification* sink /* @in */) = 0;
 
 			virtual uint32_t applicationStateChanged(const string& applicationName, const string& state, const string& applicationId, const string& error) const = 0;
-			virtual uint32_t enableCastService(string friendlyname,bool enableService) const = 0;
 			virtual uint32_t getProtocolVersion(string &protocolVersion /* @out */ ) const = 0;
-			virtual uint32_t registerApplications(IApplicationInfoIterator * const appInfoList /* @in */ ) = 0;
 			virtual uint32_t setNetworkStandbyMode(bool networkStandbyMode) = 0;
 			virtual uint32_t setManufacturerName(string manufacturername) const = 0;
 			virtual uint32_t getManufacturerName(string &manufacturername /* @out */ ) const = 0;
 			virtual uint32_t setModelName(string modelname) const = 0;
 			virtual uint32_t getModelName(string &modelname /* @out */ ) const = 0;
+
+			virtual uint32_t setEnabled(bool enabled)const = 0;
+			virtual uint32_t getEnabled(bool &enabled /* @out */, bool &success /* @out */)const = 0;
+			virtual uint32_t setStandbyBehavior(string standbybehavior)const = 0;
+			virtual uint32_t getStandbyBehavior(string &standbybehavior /* @out */, bool &success /* @out */ )const = 0;
+			virtual uint32_t setFriendlyName(string friendlyname)const = 0;
+			virtual uint32_t getFriendlyName(string &friendlyname /* @out */, bool &success /* @out */)const = 0;
+			virtual uint32_t getApiVersionNumber(uint32_t &version /* @out */, bool &success/* @out */)const = 0;
+
+			virtual uint32_t registerApplications(const std::string& appInfoList /* @in @opaque */) = 0;
 		};
 
 	} // Exchange
