@@ -61,23 +61,23 @@ namespace WPEFramework {
 			virtual Core::hresult Register(IXCast::INotification* sink /* @in */) = 0;
 			virtual Core::hresult Unregister(IXCast::INotification* sink /* @in */) = 0;
 
-			virtual Core::hresult applicationStateChanged(const string& applicationName, const string& state, const string& applicationId, const string& error) = 0;
-			virtual Core::hresult getProtocolVersion(string &protocolVersion /* @out */ ) = 0;
-			virtual Core::hresult setNetworkStandbyMode(bool networkStandbyMode) = 0;
-			virtual Core::hresult setManufacturerName(string manufacturername) = 0;
-			virtual Core::hresult getManufacturerName(string &manufacturername /* @out */ ) = 0;
-			virtual Core::hresult setModelName(string modelname) = 0;
-			virtual Core::hresult getModelName(string &modelname /* @out */ ) = 0;
+			virtual Core::hresult ApplicationStateChanged(const string& applicationName, const string& state, const string& applicationId, const string& error) = 0;
+			virtual Core::hresult GetProtocolVersion(string &protocolVersion /* @out */ ) = 0;
+			virtual Core::hresult SetNetworkStandbyMode(bool networkStandbyMode) = 0;
+			virtual Core::hresult SetManufacturerName(string manufacturername) = 0;
+			virtual Core::hresult GetManufacturerName(string &manufacturername /* @out */ ) = 0;
+			virtual Core::hresult SetModelName(string modelname) = 0;
+			virtual Core::hresult GetModelName(string &modelname /* @out */ ) = 0;
 
-			virtual Core::hresult setEnabled(bool enabled) = 0;
-			virtual Core::hresult getEnabled(bool &enabled /* @out */, bool &success /* @out */) = 0;
-			virtual Core::hresult setStandbyBehavior(string standbybehavior) = 0;
-			virtual Core::hresult getStandbyBehavior(string &standbybehavior /* @out */, bool &success /* @out */ ) = 0;
-			virtual Core::hresult setFriendlyName(string friendlyname) = 0;
-			virtual Core::hresult getFriendlyName(string &friendlyname /* @out */, bool &success /* @out */) = 0;
-			virtual Core::hresult getApiVersionNumber(uint32_t &version /* @out */, bool &success/* @out */) = 0;
+			virtual Core::hresult SetEnabled(bool enabled) = 0;
+			virtual Core::hresult GetEnabled(bool &enabled /* @out */, bool &success /* @out */) = 0;
+			virtual Core::hresult SetStandbyBehavior(string standbybehavior) = 0;
+			virtual Core::hresult GetStandbyBehavior(string &standbybehavior /* @out */, bool &success /* @out */ ) = 0;
+			virtual Core::hresult SetFriendlyName(string friendlyname) = 0;
+			virtual Core::hresult GetFriendlyName(string &friendlyname /* @out */, bool &success /* @out */) = 0;
+			virtual Core::hresult GetApiVersionNumber(uint32_t &version /* @out */, bool &success/* @out */) = 0;
 
-			virtual Core::hresult registerApplications(const std::string& appInfoList /* @in @opaque */) = 0;
+			virtual Core::hresult RegisterApplications(const std::string& appInfoList /* @in @opaque */) = 0;
 		};
 
 	} // Exchange
