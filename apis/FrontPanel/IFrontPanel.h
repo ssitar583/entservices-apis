@@ -58,9 +58,9 @@ namespace WPEFramework
 
 
             // @json:omit
-            virtual Core::hresult Register(Exchange::IFrontPanel::INotification *notification) = 0;
+            virtual Core::hresult Register() = 0;
             // @json:omit
-            virtual Core::hresult Unregister(Exchange::IFrontPanel::INotification *notification) = 0;
+            virtual Core::hresult Unregister() = 0;
             // @json:omit
             virtual Core::hresult Configure(PluginHost::IShell* service) = 0;
 
@@ -81,7 +81,8 @@ namespace WPEFramework
             // @text getFrontPanelLights
             // @param supportedLights: List of supported front panel lights
             // @param supportedLightsInfo: Information about the supported front panel lights
-            virtual Core::hresult getFrontPanelLights(IFrontPanelLightsListIterator &supportedLights /* @out */, string &supportedLightsInfo /* @out */) = 0;
+            // @param success: Is the operation successful or not
+            virtual Core::hresult getFrontPanelLights(IFrontPanelLightsListIterator &supportedLights /* @out */, string &supportedLightsInfo /* @out */, bool &success) = 0;
 
             // @brief Gets the front panel light preferences
             // @text getPreferences
