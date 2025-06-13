@@ -45,7 +45,7 @@ namespace WPEFramework {
 			struct EXTERNAL INotification : virtual public Core::IUnknown {
 				enum { ID = ID_XCAST_NOTIFICATION };
 
-				~INotification() override = default;
+				// ~INotification() override = default;
 
 				virtual void OnApplicationLaunchRequestWithLaunchParam(const string& appName, const string& strPayLoad, const string& strQuery, const string& strAddDataUrl) {};
 				virtual void OnApplicationLaunchRequest(const string& appName, const string& parameter)  {};
@@ -56,10 +56,10 @@ namespace WPEFramework {
 				virtual void OnUpdatePowerStateRequest(const string& powerState)  {};
 			};
 
-			~IXCast() override = default;
+			// ~IXCast() override = default;
 
 			virtual Core::hresult Register(IXCast::INotification* sink /* @in */) = 0;
-			virtual Core::hresult Unregister(IXCast::INotification* sink /* @in */) = 0;
+			virtual Core::hresult Unregister(IXCast::INotification* sink /* @in */) = 0;	
 
 			virtual Core::hresult ApplicationStateChanged(const string& applicationName, const string& state, const string& applicationId, const string& error) = 0;
 			virtual Core::hresult GetProtocolVersion(string &protocolVersion /* @out */ ) = 0;
@@ -77,7 +77,8 @@ namespace WPEFramework {
 			virtual Core::hresult GetFriendlyName(string &friendlyname /* @out */, bool &success /* @out */) = 0;
 			virtual Core::hresult GetApiVersionNumber(uint32_t &version /* @out */, bool &success/* @out */) = 0;
 
-			virtual Core::hresult RegisterApplications(const std::string& appInfoList /* @in @opaque */) = 0;
+			virtual Core::hresult RegisterApplications(IApplicationInfoIterator* const appInfoList /* @in @opaque */) = 0;
+
 		};
 
 	} // Exchange
