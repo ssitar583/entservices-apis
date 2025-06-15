@@ -20,9 +20,6 @@
 #pragma once
 
 #include "Module.h"
-#include "IMiracastPlayer.h"
-// @stubgen:include "IMiracastPlayer.h"
-// @stubgen:include <com/IIteratorType.h>
 
 namespace WPEFramework
 {
@@ -40,6 +37,38 @@ namespace WPEFramework
 				ERROR_CODE_P2P_GROUP_NEGOTIATION_FAILURE = 102  /* @text P2P_GROUP_NEGOTIATION_FAILURE */,
 				ERROR_CODE_P2P_GROUP_FORMATION_FAILURE = 103  /* @text P2P_GROUP_FORMATION_FAILURE */,
 				ERROR_CODE_GENERIC_FAILURE = 104  /* @text GENERIC_FAILURE */
+			};
+
+			enum PlayerState : uint8_t
+			{
+				STATE_IDLE = 0  /* @text IDLE */,
+				STATE_INITIATED = 1  /* @text INITIATED */,
+				STATE_INPROGRESS = 2  /* @text INPROGRESS */,
+				STATE_PLAYING = 3  /* @text PLAYING */,
+				STATE_STOPPED = 4  /* @text STOPPED */
+			};
+
+			enum PlayerErrorCode : uint8_t
+			{
+				ERROR_CODE_SUCCESS	= 200  /* @text SUCCESS */,
+				ERROR_CODE_APP_REQ_TO_STOP = 201  /* @text APP_REQ_TO_STOP */,
+				ERROR_CODE_SRC_DEV_REQ_TO_STOP = 202  /* @text SRC_DEV_REQ_TO_STOP */,
+				ERROR_CODE_RTSP_ERROR = 203  /* @text RTSP_FAILURE */,
+				ERROR_CODE_RTSP_TIMEOUT = 204  /* @text RTSP_TIMEOUT */,
+				ERROR_CODE_RTSP_METHOD_NOT_SUPPORTED = 205  /* @text RTSP_NOT_SUPPORTED */,
+				ERROR_CODE_GST_ERROR = 206  /* @text GST_FAILURE */,
+				ERROR_CODE_INT_FAILURE = 207  /* @text INTERNAL_FAILURE */,
+				ERROR_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text NEW_SRC_DEV_CONNECT_REQ */,
+			};
+
+			enum LogLevel : uint8_t
+			{
+				LOG_LEVEL_FATAL = 0  /* @text FATAL */,
+				LOG_LEVEL_ERROR = 1  /* @text ERROR */,
+				LOG_LEVEL_WARNING = 2  /* @text WARNING */,
+				LOG_LEVEL_INFO = 3  /* @text INFO */,
+				LOG_LEVEL_VERBOSE = 4  /* @text VERBOSE */,
+				LOG_LEVEL_TRACE = 5  /* @text TRACE */
 			};
 
 			struct EXTERNAL DeviceParameters
@@ -128,14 +157,14 @@ namespace WPEFramework
 			// @param reasonCode: Reason code for the player state update
 			// @param reason: Reason for the player state update
 			// @param success: Is the operation successful or not
-			virtual Core::hresult UpdatePlayerState(const string &clientMac /* @in @text mac */, const IMiracastPlayer::State &playerState /* @in @text state */, const IMiracastPlayer::ErrorCode &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
+			virtual Core::hresult UpdatePlayerState(const string &clientMac /* @in @text mac */, const PlayerState &playerState /* @in @text state */, const PlayerErrorCode &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
 
 			// @brief Enable or Disable or Reduce the Logging level for Miracast
 			// @text setLogging
 			// @param logLevel: The logging level to be set (e.g., "DEBUG", "INFO", "WARN", "ERROR")
 			// @param separateLogger: Contains the separate logger properties
 			// @param success: Is the operation successful or not
-			virtual Core::hresult SetLogging(const IMiracastPlayer::LogLevel &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &returnPayload /* @out */) = 0;
+			virtual Core::hresult SetLogging(const LogLevel &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &returnPayload /* @out */) = 0;
 
 			// @brief Sets the status of the MiracastService backend discovery
 			// @text setP2PBackendDiscovery
