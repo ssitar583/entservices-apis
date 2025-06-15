@@ -20,7 +20,8 @@
 #pragma once
 
 #include "Module.h"
-
+#include "IMiracastPlayer.h"
+// @stubgen:include "IMiracastPlayer.h"
 // @stubgen:include <com/IIteratorType.h>
 
 namespace WPEFramework
@@ -32,17 +33,13 @@ namespace WPEFramework
 		{
 			enum { ID = ID_MIRACAST_SERVICE };
 
-			enum PlayerReasonCode : uint32_t
+			enum ErrorCode : uint8_t
 			{
-				REASON_CODE_SUCCESS	= 200  /* @text SUCCESS */,
-				REASON_CODE_APP_REQ_TO_STOP = 201  /* @text APP_REQ_TO_STOP */,
-				REASON_CODE_SRC_DEV_REQ_TO_STOP = 202  /* @text SRC_DEV_REQ_TO_STOP */,
-				REASON_CODE_RTSP_ERROR = 203  /* @text RTSP_FAILURE */,
-				REASON_CODE_RTSP_TIMEOUT = 204  /* @text RTSP_TIMEOUT */,
-				REASON_CODE_RTSP_METHOD_NOT_SUPPORTED = 205  /* @text RTSP_NOT_SUPPORTED */,
-				REASON_CODE_GST_ERROR = 206  /* @text GST_FAILURE */,
-				REASON_CODE_INT_FAILURE = 207  /* @text INTERNAL_FAILURE */,
-				REASON_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text NEW_SRC_DEV_CONNECT_REQ */,
+				ERROR_CODE_SUCCESS = 100  /* @text SUCCESS */,
+				ERROR_CODE_P2P_CONNECT_FAILURE = 101  /* @text P2P_CONNECT_FAILURE */,
+				ERROR_CODE_P2P_GROUP_NEGOTIATION_FAILURE = 102  /* @text P2P_GROUP_NEGOTIATION_FAILURE */,
+				ERROR_CODE_P2P_GROUP_FORMATION_FAILURE = 103  /* @text P2P_GROUP_FORMATION_FAILURE */,
+				ERROR_CODE_GENERIC_FAILURE = 104  /* @text GENERIC_FAILURE */
 			};
 
 			struct EXTERNAL DeviceParameters
@@ -82,7 +79,7 @@ namespace WPEFramework
 				// @param clientName: Name of the client device
 				// @param errorCode: Error code for the connection failure
 				// @param reason: Reason for the connection failure
-				virtual void OnClientConnectionError(const string &clientMac /* @text mac */, const string &clientName /* @text name */, const string &errorCode /* @text error_code */, const string &reason /* @text reason */) {};
+				virtual void OnClientConnectionError(const string &clientMac /* @text mac */, const string &clientName /* @text name */, const ErrorCode &reason /* @text reason */, const string &errorCodeStr /* @text error_code */) {};
 
 				// @brief Miracast Service Plugin raises this Event to request RA or MiracastWidget to launch the Miracast Player
 				// @text onLaunchRequest
@@ -131,14 +128,14 @@ namespace WPEFramework
 			// @param reasonCode: Reason code for the player state update
 			// @param reason: Reason for the player state update
 			// @param success: Is the operation successful or not
-			virtual Core::hresult UpdatePlayerState(const string &clientMac /* @in @text mac */, const string &playerState /* @in @text state */, const PlayerReasonCode &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
+			virtual Core::hresult UpdatePlayerState(const string &clientMac /* @in @text mac */, const IMiracastPlayer::State &playerState /* @in @text state */, const IMiracastPlayer::ErrorCode &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
 
 			// @brief Enable or Disable or Reduce the Logging level for Miracast
 			// @text setLogging
 			// @param logLevel: The logging level to be set (e.g., "DEBUG", "INFO", "WARN", "ERROR")
 			// @param separateLogger: Contains the separate logger properties
 			// @param success: Is the operation successful or not
-			virtual Core::hresult SetLogging(const string &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &returnPayload /* @out */) = 0;
+			virtual Core::hresult SetLogging(const IMiracastPlayer::LogLevel &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &returnPayload /* @out */) = 0;
 
 			// @brief Sets the status of the MiracastService backend discovery
 			// @text setP2PBackendDiscovery

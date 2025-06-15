@@ -32,23 +32,42 @@ namespace WPEFramework
 		{
 			enum { ID = ID_MIRACAST_PLAYER };
 
-			enum PlayerReasonCode : uint32_t
+			enum State : uint8_t
 			{
-				REASON_CODE_SUCCESS	= 200  /* @text SUCCESS */,
-				REASON_CODE_APP_REQ_TO_STOP = 201  /* @text APP_REQ_TO_STOP */,
-				REASON_CODE_SRC_DEV_REQ_TO_STOP = 202  /* @text SRC_DEV_REQ_TO_STOP */,
-				REASON_CODE_RTSP_ERROR = 203  /* @text RTSP_FAILURE */,
-				REASON_CODE_RTSP_TIMEOUT = 204  /* @text RTSP_TIMEOUT */,
-				REASON_CODE_RTSP_METHOD_NOT_SUPPORTED = 205  /* @text RTSP_NOT_SUPPORTED */,
-				REASON_CODE_GST_ERROR = 206  /* @text GST_FAILURE */,
-				REASON_CODE_INT_FAILURE = 207  /* @text INTERNAL_FAILURE */,
-				REASON_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text NEW_SRC_DEV_CONNECT_REQ */,
+				STATE_IDLE = 0  /* @text IDLE */,
+				STATE_INITIATED = 1  /* @text INITIATED */,
+				STATE_INPROGRESS = 2  /* @text INPROGRESS */,
+				STATE_PLAYING = 3  /* @text PLAYING */,
+				STATE_STOPPED = 4  /* @text STOPPED */
 			};
 
-			enum PlayerStopReasonCode : uint32_t
+			enum ErrorCode : uint8_t
 			{
-				MIRACAST_PLAYER_APP_REQ_TO_STOP_ON_EXIT = 301  /* @text APP_REQ_TO_STOP_ON_EXIT */,
-				MIRACAST_PLAYER_APP_REQ_TO_STOP_ON_NEW_CONNECTION = 302  /* @text APP_REQ_TO_STOP_ON_NEW_CONNECTION */
+				ERROR_CODE_SUCCESS	= 200  /* @text SUCCESS */,
+				ERROR_CODE_APP_REQ_TO_STOP = 201  /* @text APP_REQ_TO_STOP */,
+				ERROR_CODE_SRC_DEV_REQ_TO_STOP = 202  /* @text SRC_DEV_REQ_TO_STOP */,
+				ERROR_CODE_RTSP_ERROR = 203  /* @text RTSP_FAILURE */,
+				ERROR_CODE_RTSP_TIMEOUT = 204  /* @text RTSP_TIMEOUT */,
+				ERROR_CODE_RTSP_METHOD_NOT_SUPPORTED = 205  /* @text RTSP_NOT_SUPPORTED */,
+				ERROR_CODE_GST_ERROR = 206  /* @text GST_FAILURE */,
+				ERROR_CODE_INT_FAILURE = 207  /* @text INTERNAL_FAILURE */,
+				ERROR_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text NEW_SRC_DEV_CONNECT_REQ */,
+			};
+
+			enum StopReasonCode : uint16_t
+			{
+				STOP_REASON_APP_REQ_FOR_EXIT = 301  /* @text APP_REQ_TO_STOP_ON_EXIT */,
+				STOP_REASON_APP_REQ_FOR_NEW_CONNECTION = 302  /* @text APP_REQ_TO_STOP_ON_NEW_CONNECTION */
+			};
+
+			enum LogLevel : uint8_t
+			{
+				LOG_LEVEL_FATAL = 0  /* @text FATAL */,
+				LOG_LEVEL_ERROR = 1  /* @text ERROR */,
+				LOG_LEVEL_WARNING = 2  /* @text WARNING */,
+				LOG_LEVEL_INFO = 3  /* @text INFO */,
+				LOG_LEVEL_VERBOSE = 4  /* @text VERBOSE */,
+				LOG_LEVEL_TRACE = 5  /* @text TRACE */
 			};
 
 			struct EXTERNAL DeviceParameters
@@ -98,7 +117,7 @@ namespace WPEFramework
 				// @param playerState: Current state of the player (e.g., INITIATED | INPROGRESS | PLAYING | STOPPED/IDLE(Default State).)
 				// @param reasonCode: Reason code for the player state update
 				// @param reason: reason code Decription
-				virtual void OnStateChange(const string &clientName /* @text name */, const string &clientMac /* @text mac */, const string &playerState /* @text state */, const PlayerReasonCode &reasonCode /* @text reason_code */, const string &reason /* @text reason */) {};
+				virtual void OnStateChange(const string &clientName /* @text name */, const string &clientMac /* @text mac */, const State &playerState /* @text state */, const ErrorCode &reasonCode /* @text reason_code */, const string &reason /* @text reason */) {};
 			};
 
 			// @json:omit
@@ -124,7 +143,7 @@ namespace WPEFramework
 			// @param reasonCode: Reason code for the player stop request
 			// @param reason: Reason for the player stop request
 			// @param success: Is the operation successful or not
-			virtual Core::hresult StopRequest(const string &clientMac /* @in @text mac */, const string &clientName /* @in @text name */, const PlayerStopReasonCode &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
+			virtual Core::hresult StopRequest(const string &clientMac /* @in @text mac */, const string &clientName /* @in @text name */, const StopReasonCode &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
 
 			// @brief Set the Video Rectangle.
 			// @text setVideoRectangle
@@ -140,7 +159,7 @@ namespace WPEFramework
 			// @param clienMac: MacAddress of the client device
 			// @param clienName: Name of the client device
 			// @param success: Is the operation successful or not
-			virtual Core::hresult SetLogging(const string &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &returnPayload /* @out */) = 0;
+			virtual Core::hresult SetLogging(const LogLevel &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &returnPayload /* @out */) = 0;
 
 			// @brief To configure the westeros environment arguments for the Miracast Player
 			// @text setWesterosEnvironment
