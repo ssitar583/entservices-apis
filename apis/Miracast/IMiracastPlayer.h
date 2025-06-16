@@ -38,20 +38,21 @@ namespace WPEFramework
 				STATE_INITIATED = 1  /* @text INITIATED */,
 				STATE_INPROGRESS = 2  /* @text INPROGRESS */,
 				STATE_PLAYING = 3  /* @text PLAYING */,
-				STATE_STOPPED = 4  /* @text STOPPED */
+				STATE_STOPPED = 4  /* @text STOPPED */,
+				STATE_PAUSED = 5  /* @text PAUSED */
 			};
 
-			enum ErrorCode : uint8_t
+			enum ReasonCode : uint8_t
 			{
-				ERROR_CODE_SUCCESS	= 200  /* @text SUCCESS */,
-				ERROR_CODE_APP_REQ_TO_STOP = 201  /* @text APP_REQ_TO_STOP */,
-				ERROR_CODE_SRC_DEV_REQ_TO_STOP = 202  /* @text SRC_DEV_REQ_TO_STOP */,
-				ERROR_CODE_RTSP_ERROR = 203  /* @text RTSP_FAILURE */,
-				ERROR_CODE_RTSP_TIMEOUT = 204  /* @text RTSP_TIMEOUT */,
-				ERROR_CODE_RTSP_METHOD_NOT_SUPPORTED = 205  /* @text RTSP_NOT_SUPPORTED */,
-				ERROR_CODE_GST_ERROR = 206  /* @text GST_FAILURE */,
-				ERROR_CODE_INT_FAILURE = 207  /* @text INTERNAL_FAILURE */,
-				ERROR_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text NEW_SRC_DEV_CONNECT_REQ */,
+				REASON_CODE_SUCCESS	= 200  /* @text SUCCESS */,
+				REASON_CODE_APP_REQ_TO_STOP = 201  /* @text APP_REQ_TO_STOP */,
+				REASON_CODE_SRC_DEV_REQ_TO_STOP = 202  /* @text SRC_DEV_REQ_TO_STOP */,
+				REASON_CODE_RTSP_ERROR = 203  /* @text RTSP_FAILURE */,
+				REASON_CODE_RTSP_TIMEOUT = 204  /* @text RTSP_TIMEOUT */,
+				REASON_CODE_RTSP_METHOD_NOT_SUPPORTED = 205  /* @text RTSP_NOT_SUPPORTED */,
+				REASON_CODE_GST_ERROR = 206  /* @text GST_FAILURE */,
+				REASON_CODE_INT_FAILURE = 207  /* @text INTERNAL_FAILURE */,
+				REASON_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text NEW_SRC_DEV_CONNECT_REQ */,
 			};
 
 			enum StopReasonCode : uint16_t
@@ -117,7 +118,7 @@ namespace WPEFramework
 				// @param playerState: Current state of the player (e.g., INITIATED | INPROGRESS | PLAYING | STOPPED/IDLE(Default State).)
 				// @param reasonCode: Reason code for the player state update
 				// @param reason: reason code Decription
-				virtual void OnStateChange(const string &clientName /* @text name */, const string &clientMac /* @text mac */, const State &playerState /* @text state */, const ErrorCode &reasonCode /* @text reason_code */, const string &reason /* @text reason */) {};
+				virtual void OnStateChange(const string &clientName /* @text name */, const string &clientMac /* @text mac */, const State &playerState /* @text state */, const ReasonCode &reasonCode /* @text reason_code */, const string &reason /* @text reason */) {};
 			};
 
 			// @json:omit
