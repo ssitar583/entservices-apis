@@ -77,7 +77,7 @@ namespace WPEFramework {
 			virtual Core::hresult GetFriendlyName(string &friendlyname /* @out */, bool &success /* @out */) = 0;
 			virtual Core::hresult GetApiVersionNumber(uint32_t &version /* @out */, bool &success/* @out */) = 0;
 
-			virtual Core::hresult RegisterApplications(IApplicationInfoIterator* const appInfoList /* @in @opaque */) = 0;
+			virtual Core::hresult RegisterApplications(IApplicationInfoIterator* const appInfoList /* @in */) = 0;
 
 		};
 
