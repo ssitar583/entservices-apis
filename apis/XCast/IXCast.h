@@ -53,7 +53,7 @@ namespace WPEFramework {
 				virtual void OnApplicationHideRequest(const string& appName, const string& appID)  {};
 				virtual void OnApplicationStateRequest(const string& appName, const string& appID)  {};
 				virtual void OnApplicationResumeRequest(const string& appName, const string& appID)  {};
-				virtual void OnUpdatePowerStateRequest(const string& powerState)  {};
+				//virtual void OnUpdatePowerStateRequest(const string& powerState)  {};
 			};
 
 			// ~IXCast() override = default;
