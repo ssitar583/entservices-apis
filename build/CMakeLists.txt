@@ -28,6 +28,11 @@ find_package(JsonGenerator REQUIRED)
 find_package(${NAMESPACE}Core REQUIRED)
 find_package(${NAMESPACE}PrivilegedRequest QUIET)
 
+find_package(PkgConfig REQUIRED) 
+
+pkg_check_modules(GSTREAMERBASE REQUIRED gstreamer-app-1.0)
+pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0)
+
 set(Target ${NAMESPACE}${PROJECT_NAME})
 
 file(GLOB JSON_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../apis/*/*.json" "${CMAKE_CURRENT_SOURCE_DIR}/../apis/*.json")
@@ -63,6 +68,9 @@ target_link_libraries(${Target}
           CompileSettingsDebug::CompileSettingsDebug
         )
 
+target_link_libraries(${Target} PRIVATE ${GSTREAMER_LIBRARIES})
+target_link_libraries(${Target} PRIVATE ${GSTREAMERBASE_LIBRARIES})
+
 set_target_properties(${Target} PROPERTIES
         CXX_STANDARD 11
         CXX_STANDARD_REQUIRED YES
@@ -76,6 +84,8 @@ target_include_directories(${Target} PRIVATE
                                 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../apis>
                                 $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
                                 $<INSTALL_INTERFACE:include/${NAMESPACE}>)
+target_include_directories(${Target} PRIVATE ${GSTREAMER_INCLUDES})
+target_include_directories(${Target} PRIVATE ${GSTREAMERBASE_INCLUDE_DIRS})
 install(
         TARGETS ${Target} EXPORT ${Target}Targets  # for downstream dependencies
         ARCHIVE DESTINATION lib/ COMPONENT libs      # static lib
