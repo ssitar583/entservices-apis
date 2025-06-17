@@ -49,7 +49,7 @@ namespace WPEFramework
             struct FrontPanelBlinkInfo{
                 string ledIndiciator;
                 uint32_t iterations;
-                FrontPanelPattern pattern;
+                std::vector<FrontPanelPattern> pattern;
             };
 
             using IFrontPanelLightsListIterator = RPC::IIteratorType<string, ID_FRONT_PANEL_LIGHTS_LIST_ITERATOR>;
