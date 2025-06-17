@@ -118,7 +118,7 @@ namespace WPEFramework
             // @text setBlink
             // @param blinkInfo: Information about the blink pattern @see FrontPanelBlinkInfo
             // @param success: Is the operation successful or not
-            virtual Core::hresult SetBlink(const IFrontPanelBlinkInfoListIterator &blinkInfo /* @in */, FrontPanelSuccess &success /* @out */) = 0;
+            virtual Core::hresult SetBlink(const FrontPanelBlinkInfo &blinkInfo /* @in */, FrontPanelSuccess &success /* @out */) = 0;
 
             // @brief Sets the brightness of the specified LED
             // @text setBrightness
