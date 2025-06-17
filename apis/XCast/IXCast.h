@@ -53,7 +53,7 @@ namespace WPEFramework {
 				virtual void OnApplicationHideRequest(const string& appName, const string& appID)  {};
 				virtual void OnApplicationStateRequest(const string& appName, const string& appID)  {};
 				virtual void OnApplicationResumeRequest(const string& appName, const string& appID)  {};
-				//virtual void OnUpdatePowerStateRequest(const string& powerState)  {};
+				virtual void OnUpdatePowerStateRequest(const string& powerState)  {};
 			};
 
 			// ~IXCast() override = default;
@@ -63,7 +63,7 @@ namespace WPEFramework {
 
 			virtual Core::hresult ApplicationStateChanged(const string& applicationName, const string& state, const string& applicationId, const string& error) = 0;
 			virtual Core::hresult GetProtocolVersion(string &protocolVersion /* @out */ ) = 0;
-			virtual Core::hresult SetNetworkStandbyMode(bool networkStandbyMode) = 0;
+			//virtual Core::hresult SetNetworkStandbyMode(bool networkStandbyMode) = 0;
 			virtual Core::hresult SetManufacturerName(string manufacturername) = 0;
 			virtual Core::hresult GetManufacturerName(string &manufacturername /* @out */ ) = 0;
 			virtual Core::hresult SetModelName(string modelname) = 0;
