@@ -32,6 +32,11 @@ find_package(ProxyStubGenerator REQUIRED)
 find_package(${NAMESPACE}Core REQUIRED)
 find_package(${NAMESPACE}COM REQUIRED)
 
+find_package(PkgConfig REQUIRED) 
+
+pkg_check_modules(GSTREAMERBASE REQUIRED gstreamer-app-1.0)
+pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0)
+
 set(Target ${NAMESPACE}${PROJECT_NAME})
 
 if(NOT GENERATOR_SEARCH_PATH)
@@ -57,6 +62,9 @@ file(GLOB INTERFACE_DIRS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "${CMAKE_CURRENT_S
 target_include_directories(${Target} PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> 
                                              $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/apis>)
 
+target_include_directories(${Target} PRIVATE ${GSTREAMER_INCLUDES})
+target_include_directories(${Target} PRIVATE ${GSTREAMERBASE_INCLUDE_DIRS})
+
 foreach(dir ${INTERFACE_DIRS})
     target_include_directories(${Target} PRIVATE 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${dir}>
@@ -69,6 +77,8 @@ target_link_libraries(${Target}
           ${NAMESPACE}COM::${NAMESPACE}COM
           CompileSettingsDebug::CompileSettingsDebug
         )
+target_link_libraries(${Target} PRIVATE ${GSTREAMER_LIBRARIES})
+target_link_libraries(${Target} PRIVATE ${GSTREAMERBASE_LIBRARIES})
 
 set_target_properties(${Target} PROPERTIES
         CXX_STANDARD 11
