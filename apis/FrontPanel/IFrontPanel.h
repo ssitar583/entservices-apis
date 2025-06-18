@@ -100,13 +100,13 @@ namespace WPEFramework
             // @text powerLedOff
             // @param index: Index of the LED to switch off
             // @param success: Is the operation successful or not
-            virtual Core::hresult PowerLedOff(string &index /* @in */, FrontPanelSuccess &success /* @out */) = 0;
+            virtual Core::hresult PowerLedOff(const string &index /* @in */, FrontPanelSuccess &success /* @out */) = 0;
 
             // @brief Switches the specified LED on
             // @text powerLedOn
             // @param index: Index of the LED to switch on
             // @param success: Is the operation successful or not
-            virtual Core::hresult PowerLedOn(string &index /* @in */, FrontPanelSuccess &success /* @out */) = 0;
+            virtual Core::hresult PowerLedOn(const string &index /* @in */, FrontPanelSuccess &success /* @out */) = 0;
 
             // @brief Sets whether the clock is in 24 hour format or not
             // @text set24HourClock
