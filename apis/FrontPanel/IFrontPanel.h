@@ -82,7 +82,7 @@ namespace WPEFramework
             // @param supportedLights: List of supported front panel lights
             // @param supportedLightsInfo: Information about the supported front panel lights
             // @param success: Is the operation successful or not
-            virtual Core::hresult GetFrontPanelLights(IFrontPanelLightsListIterator &supportedLights /* @out */, string &supportedLightsInfo /* @out */, bool &success) = 0;
+            virtual Core::hresult GetFrontPanelLights(IFrontPanelLightsListIterator &supportedLights /* @out */, string &supportedLightsInfo /* @out */, bool &success /* @out */) = 0;
 
             // @brief Gets the front panel light preferences
             // @text getPreferences
