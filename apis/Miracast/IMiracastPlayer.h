@@ -118,7 +118,7 @@ namespace WPEFramework
 				// @param playerState: Current state of the player (e.g., INITIATED | INPROGRESS | PLAYING | STOPPED/IDLE(Default State).)
 				// @param reasonCode: Reason code for the player state update
 				// @param reason: reason code Decription
-				virtual void OnStateChange(const string &clientName /* @text name */, const string &clientMac /* @text mac */, const State &playerState /* @text state */, const ReasonCode &reasonCode /* @text reason_code */, const string &reason /* @text reason */) {};
+				virtual void OnStateChange(const string &clientName /* @text name */, const string &clientMac /* @text mac */, const State &playerState /* @text state */, const ReasonCode &reasonCode /* @text reason */, const string &reasonCodeStr /* @text reason_code */) {};
 			};
 
 			// @json:omit
