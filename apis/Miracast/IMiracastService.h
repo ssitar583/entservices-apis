@@ -108,7 +108,7 @@ namespace WPEFramework
 				// @param clientName: Name of the client device
 				// @param errorCode: Error code for the connection failure
 				// @param reason: Reason for the connection failure
-				virtual void OnClientConnectionError(const string &clientMac /* @text mac */, const string &clientName /* @text name */, const ReasonCode &reason /* @text reason */, const string &reasonCodeStr /* @text error_code */) {};
+				virtual void OnClientConnectionError(const string &clientMac /* @text mac */, const string &clientName /* @text name */, const string &reasonCode /* @text error_code */, const ReasonCode &reasonDescription /* @text reason */) {};
 
 				// @brief Miracast Service Plugin raises this Event to request RA or MiracastWidget to launch the Miracast Player
 				// @text onLaunchRequest
@@ -157,7 +157,7 @@ namespace WPEFramework
 			// @param reasonCode: Reason code for the player state update
 			// @param reason: Reason for the player state update
 			// @param success: Is the operation successful or not
-			virtual Core::hresult UpdatePlayerState(const string &clientMac /* @in @text mac */, const PlayerState &playerState /* @in @text state */, const PlayerReasonCode &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
+			virtual Core::hresult UpdatePlayerState(const string &clientMac /* @in @text mac */, const PlayerState &playerState /* @in @text state */, const int &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
 
 			// @brief Enable or Disable or Reduce the Logging level for Miracast
 			// @text setLogging

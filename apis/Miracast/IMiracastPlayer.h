@@ -57,8 +57,8 @@ namespace WPEFramework
 
 			enum StopReasonCode : uint16_t
 			{
-				STOP_REASON_APP_REQ_FOR_EXIT = 301  /* @text APP_REQ_TO_STOP_ON_EXIT */,
-				STOP_REASON_APP_REQ_FOR_NEW_CONNECTION = 302  /* @text APP_REQ_TO_STOP_ON_NEW_CONNECTION */
+				STOP_REASON_APP_REQ_FOR_EXIT = 300  /* @text APP_REQ_TO_STOP_ON_EXIT */,
+				STOP_REASON_APP_REQ_FOR_NEW_CONNECTION = 301  /* @text APP_REQ_TO_STOP_ON_NEW_CONNECTION */
 			};
 
 			enum LogLevel : uint8_t
@@ -118,7 +118,7 @@ namespace WPEFramework
 				// @param playerState: Current state of the player (e.g., INITIATED | INPROGRESS | PLAYING | STOPPED/IDLE(Default State).)
 				// @param reasonCode: Reason code for the player state update
 				// @param reason: reason code Decription
-				virtual void OnStateChange(const string &clientName /* @text name */, const string &clientMac /* @text mac */, const State &playerState /* @text state */, const ReasonCode &reasonCode /* @text reason */, const string &reasonCodeStr /* @text reason_code */) {};
+				virtual void OnStateChange(const string &clientName /* @text name */, const string &clientMac /* @text mac */, const State &playerState /* @text state */, const string &reasonCode /* @text reason_code */, const ReasonCode &reasonDescription /* @text reason */) {};
 			};
 
 			// @json:omit
@@ -144,7 +144,7 @@ namespace WPEFramework
 			// @param reasonCode: Reason code for the player stop request
 			// @param reason: Reason for the player stop request
 			// @param success: Is the operation successful or not
-			virtual Core::hresult StopRequest(const string &clientMac /* @in @text mac */, const string &clientName /* @in @text name */, const StopReasonCode &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
+			virtual Core::hresult StopRequest(const string &clientMac /* @in @text mac */, const string &clientName /* @in @text name */, const int &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
 
 			// @brief Set the Video Rectangle.
 			// @text setVideoRectangle
@@ -153,7 +153,7 @@ namespace WPEFramework
 			// @param width: Width of the rectangle
 			// @param height: Height of the rectangle
 			// @param success: Is the operation successful or not
-			virtual Core::hresult SetVideoRectangle(const int32_t &startX /* @in @text X */, const int32_t &startY /* @in @text Y */, const int32_t &width /* @in @text W */, const int32_t &height /* @in @text H */, Result &returnPayload /* @out */) = 0;
+			virtual Core::hresult SetVideoRectangle(const int &startX /* @in @text X */, const int &startY /* @in @text Y */, const int &width /* @in @text W */, const int &height /* @in @text H */, Result &returnPayload /* @out */) = 0;
 
 			// @brief To Enable/Disable/Reduce the Logging level for Miracast
 			// @text setLogging
