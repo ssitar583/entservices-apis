@@ -30,10 +30,16 @@ namespace WPEFramework {
 		struct EXTERNAL IXCast : virtual public Core::IUnknown {
 			enum { ID = ID_XCAST };
 
+			enum State : uint8_t {
+				RUNNING = 0 /* @text:running */,
+				STOPPED = 1/* @text:stopped */,
+				HIDDEN = 2 /* @text:hidden */
+        	};
+
 			struct EXTERNAL ApplicationInfo {
 				string appName /* @text names */ /* @brief Group of acceptable names for a related application. Application name in request URI must have exact match to one of the names. Otherwise, matching prefix is needed. If the application name in request URI does not match any names or prefixes, then the request shall fail */;
 				string prefixes /* @text prefixes */ /* @brief  If the application name in request URI does not match the list of names, it must contain one of the prefixes.If the application name in request URI does not match any names or prefixes, then the request shall fail */; 
-				string cors /* @text cors */ /* @briefa set of origins allowed for the application. This must not be empty */;
+				string cors /* @text cors */ /* @brief a set of origins allowed for the application. This must not be empty */;
 				string query /* @text query */ /* @brief query string that need to be appended in launch request */;
 				string payload /* @text payload */ /* @brief optional payload string that need to be appended in launch request */;
 				int  allowStop /* @text allowStop */ /* @brief 	is the application (matching name list or prefix list) allowed to stop (no PID presence) after launched */;
@@ -90,7 +96,7 @@ namespace WPEFramework {
 			// @param state: Application state
 			// @param appId: Application instance ID
 			// @param error: Error string, if any
-			virtual Core::hresult ApplicationStateChanged(const string& applicationName /* @in @text appName */, const string& state /* @in @text state */, const string& applicationId /* @in @text appId */, const string& error /* @in @text error */) = 0;
+			virtual Core::hresult ApplicationStateChanged(const string& applicationName /* @in @text appName */, const State& state /* @in @text state */, const string& applicationId /* @in @text appId */, const string& error /* @in @text error */) = 0;
 			/****************************************applicationStateChanged()*****************************/
 
 			/****************************************getProtocolVersion()**********************************/
@@ -194,14 +200,15 @@ namespace WPEFramework {
 			// @text registerApplications
 			// @brief Registers an application
 			// @param appInfoList: Json array with one or more application details to register
-			virtual Core::hresult RegisterApplications(IApplicationInfoIterator* const appInfoList ) = 0;
+			virtual Core::hresult RegisterApplications(IApplicationInfoIterator* const appInfoList  /* @in @text appInfoList */ ) = 0;
 			/****************************************registerApplications()**********************************/
 
+			using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
 			/****************************************unregisterApplications()**********************************/
 			// @text unregisterApplications
 			// @brief Unregisters an application
 			// @param applications: One or more application name to unregister
-			virtual Core::hresult UnregisterApplications(const string &appName /* @in @text applications */) = 0;
+			virtual Core::hresult UnregisterApplications(IStringIterator* const applications /* @in @text applications */) = 0;
 			/****************************************unregisterApplications()**********************************/
 			
 
