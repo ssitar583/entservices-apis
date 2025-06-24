@@ -20,6 +20,7 @@
 #pragma once
 
 #include "Module.h"
+#include <vector>
 
 // @stubgen:include <com/IIteratorType.h>
 
