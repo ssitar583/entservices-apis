@@ -36,6 +36,11 @@ namespace WPEFramework {
 				HIDDEN = 2 /* @text:hidden */
         	};
 
+			enum StandbyBehavior : uint8_t {
+				ACTIVE = 0 /* @text:active */,
+				INACTIVE = 1 /* @text:inactive */
+			};
+
 			struct EXTERNAL ApplicationInfo {
 				string appName /* @text names */ /* @brief Group of acceptable names for a related application. Application name in request URI must have exact match to one of the names. Otherwise, matching prefix is needed. If the application name in request URI does not match any names or prefixes, then the request shall fail */;
 				string prefixes /* @text prefixes */ /* @brief  If the application name in request URI does not match the list of names, it must contain one of the prefixes.If the application name in request URI does not match any names or prefixes, then the request shall fail */; 
@@ -159,7 +164,7 @@ namespace WPEFramework {
 			// @text setStandbyBehavior
 			// @brief Sets the expected xcast behavior in standby mode
 			// @param standbybehavior: whether to remain active or inactive during standby mode (must be one of the following: active, inactive)
-			virtual Core::hresult SetStandbyBehavior(const string &standbybehavior /* @in @text standbybehavior */) = 0;
+			virtual Core::hresult SetStandbyBehavior(const StandbyBehavior &standbybehavior /* @in @text standbybehavior */) = 0;
 			/***************************************** setStandbyBehavior() *********************************/
 
 
@@ -168,7 +173,7 @@ namespace WPEFramework {
 			// @brief Return current standby behavior option string set uisng setStandbyBehavior or default value
 			// @param standbybehavior: whether to remain active or inactive during standby mode (must be one of the following: active, inactive)
 			// @param success: Whether the request succeeded
-			virtual Core::hresult GetStandbyBehavior(string &standbybehavior /* @out @text standbybehavior */, bool &success /* @out */) = 0;
+			virtual Core::hresult GetStandbyBehavior(StandbyBehavior &standbybehavior /* @out @text standbybehavior */, bool &success /* @out */) = 0;
 			/***************************************** getStandbyBehavior() *********************************/
 
 			/****************************************setFriendlyName()**********************************/
@@ -200,7 +205,7 @@ namespace WPEFramework {
 			// @text registerApplications
 			// @brief Registers an application
 			// @param appInfoList: Json array with one or more application details to register
-			virtual Core::hresult RegisterApplications(IApplicationInfoIterator* const appInfoList  /* @in @text appInfoList */ ) = 0;
+			virtual Core::hresult RegisterApplications(IApplicationInfoIterator* const appInfoList ) = 0;
 			/****************************************registerApplications()**********************************/
 
 			using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
