@@ -61,28 +61,12 @@ namespace WPEFramework
 				PLAYER_REASON_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text NEW_SRC_DEV_CONNECT_REQ */,
 			};
 
-			enum LogLevel : uint8_t
-			{
-				LOG_LEVEL_FATAL = 0  /* @text FATAL */,
-				LOG_LEVEL_ERROR = 1  /* @text ERROR */,
-				LOG_LEVEL_WARNING = 2  /* @text WARNING */,
-				LOG_LEVEL_INFO = 3  /* @text INFO */,
-				LOG_LEVEL_VERBOSE = 4  /* @text VERBOSE */,
-				LOG_LEVEL_TRACE = 5  /* @text TRACE */
-			};
-
 			struct EXTERNAL DeviceParameters
 			{
 				string sourceDeviceIP  /* @text source_dev_ip */ /* @brief IP Address of Source Device */;
 				string sourceDeviceMac /* @text source_dev_mac */ /* @brief MAC Address of Source Device */;
 				string sourceDeviceName /* @text source_dev_name */ /* @brief Name of Source Device */;
 				string sinkDeviceIP  /* @text sink_dev_ip */ /* @brief IP Address of Sink Device */;
-			};
-
-			struct EXTERNAL SeparateLogger
-			{
-				string logfileName  /* @text logfilename */ /* @brief Name of the logFile */;
-				string logStatus /* @text status */ /* @brief Whether ENABLE or DISABLE the separate logging */;
 			};
 
 			struct EXTERNAL Result
@@ -158,13 +142,6 @@ namespace WPEFramework
 			// @param reason: Reason for the player state update
 			// @param success: Is the operation successful or not
 			virtual Core::hresult UpdatePlayerState(const string &clientMac /* @in @text mac */, const PlayerState &playerState /* @in @text state */, const int &reasonCode /* @in @text reason_code */, Result &returnPayload /* @out */) = 0;
-
-			// @brief Enable or Disable or Reduce the Logging level for Miracast
-			// @text setLogging
-			// @param logLevel: The logging level to be set (e.g., "DEBUG", "INFO", "WARN", "ERROR")
-			// @param separateLogger: Contains the separate logger properties
-			// @param success: Is the operation successful or not
-			virtual Core::hresult SetLogging(const LogLevel &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &returnPayload /* @out */) = 0;
 
 			// @brief Sets the status of the MiracastService backend discovery
 			// @text setP2PBackendDiscovery

@@ -61,16 +61,6 @@ namespace WPEFramework
 				STOP_REASON_APP_REQ_FOR_NEW_CONNECTION = 301  /* @text APP_REQ_TO_STOP_ON_NEW_CONNECTION */
 			};
 
-			enum LogLevel : uint8_t
-			{
-				LOG_LEVEL_FATAL = 0  /* @text FATAL */,
-				LOG_LEVEL_ERROR = 1  /* @text ERROR */,
-				LOG_LEVEL_WARNING = 2  /* @text WARNING */,
-				LOG_LEVEL_INFO = 3  /* @text INFO */,
-				LOG_LEVEL_VERBOSE = 4  /* @text VERBOSE */,
-				LOG_LEVEL_TRACE = 5  /* @text TRACE */
-			};
-
 			struct EXTERNAL DeviceParameters
 			{
 				string sourceDeviceIP  /* @text source_dev_ip */ /* @brief IP Address of Source Device */;
@@ -85,12 +75,6 @@ namespace WPEFramework
 				int32_t startY  /* @text Y */ /* @brief Y coordinate of the rectangle */;
 				int32_t width  /* @text W */ /* @brief Width of the rectangle */;
 				int32_t height  /* @text H */ /* @brief Height of the rectangle */;
-			};
-
-			struct EXTERNAL SeparateLogger
-			{
-				string logfileName  /* @text logfilename */ /* @brief Name of the logFile */;
-				string logStatus /* @text status */ /* @brief Whether ENABLE or DISABLE the separate logging */;
 			};
 
 			struct EXTERNAL Result
@@ -154,13 +138,6 @@ namespace WPEFramework
 			// @param height: Height of the rectangle
 			// @param success: Is the operation successful or not
 			virtual Core::hresult SetVideoRectangle(const int &startX /* @in @text X */, const int &startY /* @in @text Y */, const int &width /* @in @text W */, const int &height /* @in @text H */, Result &returnPayload /* @out */) = 0;
-
-			// @brief To Enable/Disable/Reduce the Logging level for Miracast
-			// @text setLogging
-			// @param clienMac: MacAddress of the client device
-			// @param clienName: Name of the client device
-			// @param success: Is the operation successful or not
-			virtual Core::hresult SetLogging(const LogLevel &logLevel /* @in @text level */, const SeparateLogger &separateLogger /* @in @text separate_logger */, Result &returnPayload /* @out */) = 0;
 
 			// @brief To configure the westeros environment arguments for the Miracast Player
 			// @text setWesterosEnvironment
