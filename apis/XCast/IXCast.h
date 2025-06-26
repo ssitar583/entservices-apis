@@ -31,15 +31,24 @@ namespace WPEFramework {
 			enum { ID = ID_XCAST };
 
 			enum State : uint8_t {
-				RUNNING = 0 /* @text:running */,
-				STOPPED = 1/* @text:stopped */,
-				HIDDEN = 2 /* @text:hidden */
+				RUNNING = 0 /* @text running */,
+				STOPPED = 1/* @text stopped */,
+				HIDDEN = 2 /* @text suspended */
         	};
 
 			enum StandbyBehavior : uint8_t {
-				ACTIVE = 0 /* @text:active */,
-				INACTIVE = 1 /* @text:inactive */
+				ACTIVE = 0 /* @text active */,
+				INACTIVE = 1 /* @text inactive */
 			};
+			
+			enum ErrorCode : uint16_t {
+				NONE = 200 /* @text none */ ,
+				FORBIDDEN = 403 /* @text forbidden */ ,
+				UNAVAILABLE = 404 /* @text unavailable */ ,
+				INVALID = 400 /* @text invalid */,
+				INTERNAL = 500 /* @text internal */
+			};
+
 
 			struct EXTERNAL ApplicationInfo {
 				string appName /* @text names */ /* @brief Group of acceptable names for a related application. Application name in request URI must have exact match to one of the names. Otherwise, matching prefix is needed. If the application name in request URI does not match any names or prefixes, then the request shall fail */;
@@ -51,57 +60,57 @@ namespace WPEFramework {
 			};
 
 			using IApplicationInfoIterator = RPC::IIteratorType<ApplicationInfo,ID_XCAST_APPLICATION_INFO_ITERATOR>;
-			
+			using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
+
 			//@event
 			struct EXTERNAL INotification : virtual public Core::IUnknown {
 				enum { ID = ID_XCAST_NOTIFICATION };
 
-
 				// @text onApplicationLaunchRequest
 				// @brief Triggered when the cast service receives a launch request from a client with launch params
-				// @param appName: Registered application name
+				// @param applicationName: Registered application name
 				// @param strPayLoad: Payload string to be passed to the application
 				// @param strQuery: Query string to be appended in launch request
 				// @param strAddDataUrl: Additional data URL to be passed to the application
-				virtual void OnApplicationLaunchRequestWithLaunchParam(const string& appName, const string& strPayLoad, const string& strQuery, const string& strAddDataUrl) {};
+				virtual void OnApplicationLaunchRequestWithLaunchParam(const string& appName /* @text applicationName */ , const string& strPayLoad /* @text strPayLoad */, const string& strQuery /* @text strQuery */, const string& strAddDataUrl /* @text strAddDataUrl */) {};
 				// @text onApplicationLaunchRequest
 				// @brief Triggered when the cast service receives a launch request from a client with launch params
-				// @param appName: Registered application name
+				// @param applicationName: Registered application name
 				// @param parameter: Application launch string
-				virtual void OnApplicationLaunchRequest(const string& appName, const string& parameter)  {};
+				virtual void OnApplicationLaunchRequest(const string& appName /* @text applicationName */ , const string& parameter /* @text parameters */ )  {};
 				// @text onApplicationStopRequest
 				// @brief 	Triggered when the cast service receives a stop request from a client
-				// @param appName: 	Registered application name
-				// @param appID: 	Application instance ID
-				virtual void OnApplicationStopRequest(const string& appName, const string& appID)  {};
+				// @param applicationName: 	Registered application name
+				// @param applicationId: 	Application instance ID
+				virtual void OnApplicationStopRequest(const string& appName /* @text applicationName */, const string& appID /* @text applicationId */)  {};
 				// @text onApplicationHideRequest
 				// @brief Triggered when the cast service receives a hide request from a client
-				// @param appName: Registered application name
-				// @param appID: Application instance ID
-				virtual void OnApplicationHideRequest(const string& appName, const string& appID)  {};
+				// @param applicationName: Registered application name
+				// @param applicationId: Application instance ID
+				virtual void OnApplicationHideRequest(const string& appName /* @text applicationName */ , const string& appID /* @text applicationId */ )  {};
 				// @text onApplicationStateRequest
 				// @brief 	Triggered when the cast service needs an update of the application state
-				// @param appName: Registered application name
-				// @param appID: Application instance ID
-				virtual void OnApplicationStateRequest(const string& appName, const string& appID)  {};
+				// @param applicationName: Registered application name
+				// @param applicationId: Application instance ID
+				virtual void OnApplicationStateRequest(const string& appName /* @text applicationName */ , const string& appID /* @text applicationId */ )  {};
 				// @text onApplicationResumeRequest
 				// @brief Triggered when the cast service receives a resume request from a client
-				// @param appName: Registered application name
-				// @param appID: Application instance ID
-				virtual void OnApplicationResumeRequest(const string& appName, const string& appID)  {};
+				// @param applicationName: Registered application name
+				// @param applicationId: Application instance ID
+				virtual void OnApplicationResumeRequest(const string& appName /* @text applicationName */ , const string& appID /* @text applicationId */)  {};
 			};
 
 			virtual Core::hresult Register(IXCast::INotification* sink /* @in */) = 0;
 			virtual Core::hresult Unregister(IXCast::INotification* sink /* @in */) = 0;	
 
 			/****************************************applicationStateChanged()*****************************/
-			// @text applicationStateChanged
+			// @text onApplicationStateChanged
 			// @brief Triggered when the cast service receives an application state change notification from a client
-			// @param appName: Registered application name
+			// @param applicationName: Registered application name
 			// @param state: Application state
-			// @param appId: Application instance ID
+			// @param applicationId: Application instance ID
 			// @param error: Error string, if any
-			virtual Core::hresult ApplicationStateChanged(const string& applicationName /* @in @text appName */, const State& state /* @in @text state */, const string& applicationId /* @in @text appId */, const string& error /* @in @text error */) = 0;
+			virtual Core::hresult ApplicationStateChanged(const string& applicationName /* @in @text applicationName */, const State& state /* @in @text state */, const string& applicationId /* @in @text applicationId */, const ErrorCode& error /* @in @text error */) = 0;
 			/****************************************applicationStateChanged()*****************************/
 
 			/****************************************getProtocolVersion()**********************************/
@@ -111,7 +120,6 @@ namespace WPEFramework {
 			// @param success: 	Whether the request succeeded
 			virtual Core::hresult GetProtocolVersion(string &protocolVersion /* @out @text version */, bool &success /* @out */) = 0;
 			/***************************************** getProtocolVersion() **********************************/
-
 
 			/****************************************setManufacturerName()**********************************/
 			// @text setManufacturerName
@@ -143,7 +151,6 @@ namespace WPEFramework {
 			virtual Core::hresult GetModelName(string &modelname /* @out @text model */, bool &success /* @out */) = 0;
 			/***************************************** getModelName() *********************************/
 
-
 			/****************************************setEnabled()**********************************/
 			// @text setEnabled
 			// @brief Enable or disable XCAST service
@@ -159,14 +166,12 @@ namespace WPEFramework {
 			virtual Core::hresult GetEnabled(bool &enabled /* @out @text enabled */, bool &success /* @out */) = 0;
 			/***************************************** getEnabled() **********************************/
 
-
 			/****************************************setStandbyBehavior()**********************************/
 			// @text setStandbyBehavior
 			// @brief Sets the expected xcast behavior in standby mode
 			// @param standbybehavior: whether to remain active or inactive during standby mode (must be one of the following: active, inactive)
 			virtual Core::hresult SetStandbyBehavior(const StandbyBehavior &standbybehavior /* @in @text standbybehavior */) = 0;
 			/***************************************** setStandbyBehavior() *********************************/
-
 
 			/****************************************getStandbyBehavior()**********************************/
 			// @text getStandbyBehavior
@@ -191,7 +196,6 @@ namespace WPEFramework {
 			virtual Core::hresult GetFriendlyName(string &friendlyname /* @out @text friendlyname */, bool &success /* @out */) = 0;
 			/***************************************** getFriendlyName() *********************************/
 
-
 			/****************************************getApiVersionNumber()**********************************/
 			// @text getApiVersionNumber
 			// @brief Gets the API version number
@@ -200,15 +204,13 @@ namespace WPEFramework {
 			virtual Core::hresult GetApiVersionNumber(uint32_t &version /* @out @text version */, bool &success/* @out */) = 0;
 			/****************************************getApiVersionNumber()**********************************/
 
-			
 			/****************************************registerApplications()**********************************/
 			// @text registerApplications
 			// @brief Registers an application
-			// @param appInfoList: Json array with one or more application details to register
-			virtual Core::hresult RegisterApplications(IApplicationInfoIterator* const appInfoList ) = 0;
+			// @param applications: Json array with one or more application details to register
+			virtual Core::hresult RegisterApplications(IApplicationInfoIterator* const appInfoList /* @text applications */ ) = 0;
 			/****************************************registerApplications()**********************************/
 
-			using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
 			/****************************************unregisterApplications()**********************************/
 			// @text unregisterApplications
 			// @brief Unregisters an application
