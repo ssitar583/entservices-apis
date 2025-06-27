@@ -55,12 +55,6 @@ namespace WPEFramework
                 REASON_CODE_NEW_SRC_DEV_CONNECT_REQ = 208  /* @text NEW_SRC_DEV_CONNECT_REQ */,
             };
 
-            enum StopReasonCode : uint16_t
-            {
-                STOP_REASON_APP_REQ_FOR_EXIT = 300  /* @text APP_REQ_TO_STOP_ON_EXIT */,
-                STOP_REASON_APP_REQ_FOR_NEW_CONNECTION = 301  /* @text APP_REQ_TO_STOP_ON_NEW_CONNECTION */
-            };
-
             struct EXTERNAL DeviceParameters
             {
                 string sourceDeviceIP  /* @text source_dev_ip */ /* @brief IP Address of Source Device */;
@@ -71,10 +65,10 @@ namespace WPEFramework
 
             struct EXTERNAL VideoRectangle
             {
-                int32_t startX /* @text X */ /* @brief X coordinate of the rectangle */;
-                int32_t startY  /* @text Y */ /* @brief Y coordinate of the rectangle */;
-                int32_t width  /* @text W */ /* @brief Width of the rectangle */;
-                int32_t height  /* @text H */ /* @brief Height of the rectangle */;
+                int startX /* @text X */ /* @brief X coordinate of the rectangle */;
+                int startY  /* @text Y */ /* @brief Y coordinate of the rectangle */;
+                int width  /* @text W */ /* @brief Width of the rectangle */;
+                int height  /* @text H */ /* @brief Height of the rectangle */;
             };
 
             struct EXTERNAL Result
@@ -102,24 +96,20 @@ namespace WPEFramework
                 // @param playerState: Current state of the player (e.g., INITIATED | INPROGRESS | PLAYING | STOPPED/IDLE(Default State).)
                 // @param reasonCode: Reason code for the player state update
                 // @param reason: reason code Decription
-                virtual void OnStateChange(const string &clientName /* @text name */, const string &clientMac /* @text mac */, const State &playerState /* @text state */, const string &reasonCode /* @text reason_code */, const ReasonCode &reasonDescription /* @text reason */) {};
+                virtual void OnStateChange(const string &clientName /* @text name */, const string &clientMac /* @text mac */, const State playerState /* @text state */, const string &reasonCode /* @text reason_code */, const ReasonCode reasonDescription /* @text reason */) {};
             };
 
             // @json:omit
             virtual Core::hresult Register(Exchange::IMiracastPlayer::INotification *notification) = 0;
             // @json:omit
             virtual Core::hresult Unregister(Exchange::IMiracastPlayer::INotification *notification) = 0;
-            // @json:omit
-            virtual Core::hresult Initialize(PluginHost::IShell* service) = 0;
-            // @json:omit
-            virtual Core::hresult Deinitialize(PluginHost::IShell* service) = 0;
 
             // @brief To set the Miracast Player State to Play after the Miracast session like RTSP communication and GStreamer Playback
             // @text playRequest
             // @param deviceParam: Contains Source and Sink Device related properties
             // @param videoRect: Video rectangle to be used for Miracast playback (x, y, width, height)
             // @param success: Is the operation successful or not
-            virtual Core::hresult PlayRequest(const DeviceParameters &deviceParam /* @in @text device_parameters */, const VideoRectangle &videoRect /* @in @text video_rectangle */, Result &result /* @out */) = 0;
+            virtual Core::hresult PlayRequest(const DeviceParameters &deviceParam /* @text device_parameters */, const VideoRectangle videoRect /* @text video_rectangle */, Result &result /* @out */) = 0;
 
             // @brief To stop the Miracast Player to tear down the RTSP communication, stop/close the GStreamer pipeline, clean up, and reset the player state
             // @text stopRequest
@@ -128,7 +118,7 @@ namespace WPEFramework
             // @param reasonCode: Reason code for the player stop request
             // @param reason: Reason for the player stop request
             // @param success: Is the operation successful or not
-            virtual Core::hresult StopRequest(const string &clientMac /* @in @text mac */, const string &clientName /* @in @text name */, const int &reasonCode /* @in @text reason_code */, Result &result /* @out */) = 0;
+            virtual Core::hresult StopRequest(const string &clientMac /* @text mac */, const string &clientName /* @text name */, const int reasonCode /* @text reason_code */, Result &result /* @out */) = 0;
 
             // @brief Set the Video Rectangle.
             // @text setVideoRectangle
@@ -137,13 +127,13 @@ namespace WPEFramework
             // @param width: Width of the rectangle
             // @param height: Height of the rectangle
             // @param success: Is the operation successful or not
-            virtual Core::hresult SetVideoRectangle(const int &startX /* @in @text X */, const int &startY /* @in @text Y */, const int &width /* @in @text W */, const int &height /* @in @text H */, Result &result /* @out */) = 0;
+            virtual Core::hresult SetVideoRectangle(const int startX /* @text X */, const int startY /* @text Y */, const int width /* @text W */, const int height /* @text H */, Result &result /* @out */) = 0;
 
             // @brief To configure the westeros environment arguments for the Miracast Player. This will be deprecated and SetEnvArguments will be used instead.
             // @text setWesterosEnvironment
             // @param westerosArgs: Westeros environment arguments to be set
             // @param success: Is the operation successful or not
-            virtual Core::hresult SetWesterosEnvironment( IEnvArgumentsIterator * const westerosArgs /* @in @text westerosArgs */, Result &result /* @out */) = 0;
+            virtual Core::hresult SetWesterosEnvironment( IEnvArgumentsIterator * const westerosArgs /* @text westerosArgs */, Result &result /* @out */) = 0;
 
             // @brief To reset the westeros environment arguments for the Miracast Player. This will be deprecated and UnsetEnvArguments will be used instead.
             // @text unsetWesterosEnvironment
@@ -154,7 +144,7 @@ namespace WPEFramework
             // @text setEnvArguments
             // @param envArgs: environment arguments to be set
             // @param success: Is the operation successful or not
-            virtual Core::hresult SetEnvArguments( IEnvArgumentsIterator * const envArgs /* @in @text envArgs */, Result &result /* @out */) = 0;
+            virtual Core::hresult SetEnvArguments( IEnvArgumentsIterator * const envArgs /* @text envArgs */, Result &result /* @out */) = 0;
 
             // @brief To reset the environment arguments for the Miracast Player
             // @text unsetEnvArguments

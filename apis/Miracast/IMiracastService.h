@@ -92,28 +92,24 @@ namespace WPEFramework
                 // @param clientName: Name of the client device
                 // @param errorCode: Error code for the connection failure
                 // @param reason: Reason for the connection failure
-                virtual void OnClientConnectionError(const string &clientMac /* @text mac */, const string &clientName /* @text name */, const string &reasonCode /* @text error_code */, const ReasonCode &reasonDescription /* @text reason */) {};
+                virtual void OnClientConnectionError(const string &clientMac /* @text mac */, const string &clientName /* @text name */, const string &reasonCode /* @text error_code */, const ReasonCode reasonDescription /* @text reason */) {};
 
                 // @brief Miracast Service Plugin raises this Event to request RA or MiracastWidget to launch the Miracast Player
                 // @text onLaunchRequest
                 // @param DeviceParameters: Contains Source and Sink Device related properties
-                virtual void OnLaunchRequest(const DeviceParameters deviceParameters/* @text device_parameters*/) {};
+                virtual void OnLaunchRequest(const DeviceParameters &deviceParameters/* @text device_parameters*/) {};
             };
 
             // @json:omit
             virtual Core::hresult Register(Exchange::IMiracastService::INotification *notification) = 0;
             // @json:omit
             virtual Core::hresult Unregister(Exchange::IMiracastService::INotification *notification) = 0;
-            // @json:omit
-            virtual Core::hresult Initialize(PluginHost::IShell* service) = 0;
-            // @json:omit
-            virtual Core::hresult Deinitialize(PluginHost::IShell* service) = 0;
 
             // @brief To enable or disable the Miracast feature
             // @text setEnable
             // @param enabled: Is the MiracastService discovery enabled or not
             // @param success: Is the operation successful or not
-            virtual Core::hresult SetEnabled(const bool &enabled /* @in @text enabled */, Result &result /* @out */) = 0;
+            virtual Core::hresult SetEnabled(const bool enabled /* @text enabled */, Result &result /* @out */) = 0;
 
             // @brief To get the enable status of the Miracast feature
             // @text getEnable
@@ -125,14 +121,14 @@ namespace WPEFramework
             // @text acceptClientConnection
             // @param requestStatus: It should be "Accept" or "Reject"
             // @param success: Is the operation successful or not
-            virtual Core::hresult AcceptClientConnection(const string &requestStatus /* @in @text requestStatus */, Result &result /* @out */) = 0;
+            virtual Core::hresult AcceptClientConnection(const string &requestStatus /* @text requestStatus */, Result &result /* @out */) = 0;
 
             // @brief To abort the ongoing connection after accepted connection request
             // @text stopClientConnection
             // @param clientMac: MacAddress of the client device
             // @param clientName: Name of the client device
             // @param success: Is the operation successful or not
-            virtual Core::hresult StopClientConnection(const string &clientMac /* @in @text mac */, const string &clientName /* @in @text name */, Result &result /* @out */) = 0;
+            virtual Core::hresult StopClientConnection(const string &clientMac /* @text mac */, const string &clientName /* @text name */, Result &result /* @out */) = 0;
 
             // @brief Update the Miracast Player State to the Miracast Service Plugin
             // @text updatePlayerState
@@ -141,13 +137,13 @@ namespace WPEFramework
             // @param reasonCode: Reason code for the player state update
             // @param reason: Reason for the player state update
             // @param success: Is the operation successful or not
-            virtual Core::hresult UpdatePlayerState(const string &clientMac /* @in @text mac */, const PlayerState &playerState /* @in @text state */, const int &reasonCode /* @in @text reason_code */, Result &result /* @out */) = 0;
+            virtual Core::hresult UpdatePlayerState(const string &clientMac /* @text mac */, const PlayerState playerState /* @text state */, const int reasonCode /* @text reason_code */, Result &result /* @out */) = 0;
 
             // @brief Sets the status of the MiracastService backend discovery
             // @text setP2PBackendDiscovery
             // @param enabled: Is the MiracastService backend discovery enabled or not
             // @param success: Is the operation successful or not
-            virtual Core::hresult SetP2PBackendDiscovery(const bool &enabled /* @in @text enabled */, Result &result /* @out */) = 0;
+            virtual Core::hresult SetP2PBackendDiscovery(const bool enabled /* @text enabled */, Result &result /* @out */) = 0;
         };
     } // namespace Exchange
 } // namespace WPEFramework
