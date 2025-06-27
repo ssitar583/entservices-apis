@@ -110,7 +110,7 @@ namespace WPEFramework {
 			// @param state: Application state
 			// @param applicationId: Application instance ID
 			// @param error: Error string, if any
-			virtual Core::hresult ApplicationStateChanged(const string& applicationName /* @in @text applicationName */, const State& state /* @in @text state */, const string& applicationId /* @in @text applicationId */, const ErrorCode& error /* @in @text error */) = 0;
+			virtual Core::hresult ApplicationStateChanged(const string& applicationName /* @in @text applicationName */, const State& state /* @in @text state */, const string& applicationId /* @in @text applicationId */, const ErrorCode& error /* @in @text error */, bool& success /* @out */) = 0;
 			/****************************************applicationStateChanged()*****************************/
 
 			/****************************************getProtocolVersion()**********************************/
@@ -125,7 +125,7 @@ namespace WPEFramework {
 			// @text setManufacturerName
 			// @brief Sets the manufacturer name of the device
 			// @param manufacturer: The Manufacturer name of the device which used to update in dd.xml
-			virtual Core::hresult SetManufacturerName(const string &manufacturername /* @in @text manufacturer */) = 0;
+			virtual Core::hresult SetManufacturerName(const string &manufacturername /* @in @text manufacturer */, bool& success /* @out */) = 0;
 			/***************************************** setManufacturerName() **********************************/
 
 			/****************************************getManufacturerName()**********************************/
@@ -140,7 +140,7 @@ namespace WPEFramework {
 			// @text setModelName
 			// @brief Sets the model name of the device
 			// @param model: The Model name of the device which used to update in dd.xml
-			virtual Core::hresult SetModelName(const string &modelname /* @in @text model */) = 0;
+			virtual Core::hresult SetModelName(const string &modelname /* @in @text model */, bool& success /* @out */) = 0;
 			/***************************************** setModelName() **********************************/
 
 			/****************************************getModelName()**********************************/
@@ -155,7 +155,7 @@ namespace WPEFramework {
 			// @text setEnabled
 			// @brief Enable or disable XCAST service
 			// @parm enabled: true for enabled or false for disabled
-			virtual Core::hresult SetEnabled(const bool& enabled /* @in @text enabled */) = 0;
+			virtual Core::hresult SetEnabled(const bool& enabled /* @in @text enabled */, bool& success /* @out */) = 0;
 			/***************************************** setEnabled() **********************************/
 
 			/****************************************getEnabled()**********************************/
@@ -170,7 +170,7 @@ namespace WPEFramework {
 			// @text setStandbyBehavior
 			// @brief Sets the expected xcast behavior in standby mode
 			// @param standbybehavior: whether to remain active or inactive during standby mode (must be one of the following: active, inactive)
-			virtual Core::hresult SetStandbyBehavior(const StandbyBehavior &standbybehavior /* @in @text standbybehavior */) = 0;
+			virtual Core::hresult SetStandbyBehavior(const StandbyBehavior &standbybehavior /* @in @text standbybehavior */, bool& success /* @out */) = 0;
 			/***************************************** setStandbyBehavior() *********************************/
 
 			/****************************************getStandbyBehavior()**********************************/
@@ -185,7 +185,7 @@ namespace WPEFramework {
 			// @text setFriendlyName
 			// @brief Sets the friendly name of the device
 			// @param friendlyname: The friendly name of the device which used to display on the client device list
-			virtual Core::hresult SetFriendlyName(const string &friendlyname /* @in @text friendlyname */) = 0;
+			virtual Core::hresult SetFriendlyName(const string &friendlyname /* @in @text friendlyname */, bool& success /* @out */) = 0;
 			/***************************************** setFriendlyName() **********************************/
 
 			/****************************************getFriendlyName()**********************************/
@@ -208,14 +208,14 @@ namespace WPEFramework {
 			// @text registerApplications
 			// @brief Registers an application
 			// @param applications: Json array with one or more application details to register
-			virtual Core::hresult RegisterApplications(IApplicationInfoIterator* const appInfoList /* @text applications */ ) = 0;
+			virtual Core::hresult RegisterApplications(IApplicationInfoIterator* const appInfoList /* @text applications */ , bool& success /* @out */) = 0;
 			/****************************************registerApplications()**********************************/
 
 			/****************************************unregisterApplications()**********************************/
 			// @text unregisterApplications
 			// @brief Unregisters an application
 			// @param applications: One or more application name to unregister
-			virtual Core::hresult UnregisterApplications(IStringIterator* const applications /* @in @text applications */) = 0;
+			virtual Core::hresult UnregisterApplications(IStringIterator* const applications /* @in @text applications */, bool& success /* @out */) = 0;
 			/****************************************unregisterApplications()**********************************/
 			
 
