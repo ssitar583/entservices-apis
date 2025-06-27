@@ -34,7 +34,7 @@ namespace WPEFramework {
 				RUNNING = 0 /* @text running */,
 				STOPPED = 1/* @text stopped */,
 				HIDDEN = 2 /* @text suspended */
-        	};
+      };
 
 			enum StandbyBehavior : uint8_t {
 				ACTIVE = 0 /* @text active */,
@@ -51,9 +51,9 @@ namespace WPEFramework {
 
 
 			struct EXTERNAL ApplicationInfo {
-				string appName /* @text names */ /* @brief Group of acceptable names for a related application. Application name in request URI must have exact match to one of the names. Otherwise, matching prefix is needed. If the application name in request URI does not match any names or prefixes, then the request shall fail */;
-				string prefixes /* @text prefixes */ /* @brief  If the application name in request URI does not match the list of names, it must contain one of the prefixes.If the application name in request URI does not match any names or prefixes, then the request shall fail */; 
-				string cors /* @text cors */ /* @brief a set of origins allowed for the application. This must not be empty */;
+				string appName /* @text name */ /* @brief  Application name in request URI must have exact match to one of the names. Otherwise, matching prefix is needed. If the application name in request URI does not match any names or prefixes, then the request shall fail */;
+				string prefixes /* @text prefix */ /* @brief  If the application name in request URI does not match the appname given here, it must contain some prefix.If the application name in request URI does not match the appnames or prefix, then the request shall fail */; 
+				string cors /* @text cors */ /* @brief origin allowed for the application. This must not be empty */;
 				string query /* @text query */ /* @brief query string that need to be appended in launch request */;
 				string payload /* @text payload */ /* @brief optional payload string that need to be appended in launch request */;
 				int  allowStop /* @text allowStop */ /* @brief 	is the application (matching name list or prefix list) allowed to stop (no PID presence) after launched */;
@@ -72,12 +72,12 @@ namespace WPEFramework {
 				// @param strPayLoad: Payload string to be passed to the application
 				// @param strQuery: Query string to be appended in launch request
 				// @param strAddDataUrl: Additional data URL to be passed to the application
-				virtual void OnApplicationLaunchRequestWithLaunchParam(const string& appName /* @text applicationName */ , const string& strPayLoad /* @text strPayLoad */, const string& strQuery /* @text strQuery */, const string& strAddDataUrl /* @text strAddDataUrl */) {};
+				virtual void OnApplicationLaunchRequestWithParam(const string& appName /* @text applicationName */ , const string& strPayLoad /* @text strPayLoad */, const string& strQuery /* @text strQuery */, const string& strAddDataUrl /* @text strAddDataUrl */) {};
 				// @text onApplicationLaunchRequest
 				// @brief Triggered when the cast service receives a launch request from a client with launch params
 				// @param applicationName: Registered application name
 				// @param parameter: Application launch string
-				virtual void OnApplicationLaunchRequest(const string& appName /* @text applicationName */ , const string& parameter /* @text parameters */ )  {};
+				virtual void OnApplicationLaunchRequest(const string& appName /* @text applicationName */ , const string& parameter /* @text parameter */ )  {};
 				// @text onApplicationStopRequest
 				// @brief 	Triggered when the cast service receives a stop request from a client
 				// @param applicationName: 	Registered application name
@@ -88,11 +88,11 @@ namespace WPEFramework {
 				// @param applicationName: Registered application name
 				// @param applicationId: Application instance ID
 				virtual void OnApplicationHideRequest(const string& appName /* @text applicationName */ , const string& appID /* @text applicationId */ )  {};
-				// @text onApplicationStateRequest
+				// @text onApplicationCurrentStateRequest
 				// @brief 	Triggered when the cast service needs an update of the application state
 				// @param applicationName: Registered application name
 				// @param applicationId: Application instance ID
-				virtual void OnApplicationStateRequest(const string& appName /* @text applicationName */ , const string& appID /* @text applicationId */ )  {};
+				virtual void OnApplicationCurrentStateRequest(const string& appName /* @text applicationName */ , const string& appID /* @text applicationId */ )  {};
 				// @text onApplicationResumeRequest
 				// @brief Triggered when the cast service receives a resume request from a client
 				// @param applicationName: Registered application name
@@ -103,15 +103,15 @@ namespace WPEFramework {
 			virtual Core::hresult Register(IXCast::INotification* sink /* @in */) = 0;
 			virtual Core::hresult Unregister(IXCast::INotification* sink /* @in */) = 0;	
 
-			/****************************************applicationStateChanged()*****************************/
-			// @text onApplicationStateChanged
+			/****************************************UpdateApplicationState()*****************************/
+			// @text updateApplicationState
 			// @brief Triggered when the cast service receives an application state change notification from a client
 			// @param applicationName: Registered application name
 			// @param state: Application state
 			// @param applicationId: Application instance ID
 			// @param error: Error string, if any
-			virtual Core::hresult ApplicationStateChanged(const string& applicationName /* @in @text applicationName */, const State& state /* @in @text state */, const string& applicationId /* @in @text applicationId */, const ErrorCode& error /* @in @text error */, bool& success /* @out */) = 0;
-			/****************************************applicationStateChanged()*****************************/
+			virtual Core::hresult UpdateApplicationState(const string& applicationName /* @in @text applicationName */, const State& state /* @in @text state */, const string& applicationId /* @in @text applicationId */, const ErrorCode& error /* @in @text error */, bool& success /* @out */) = 0;
+			/****************************************UpdateApplicationState()*****************************/
 
 			/****************************************getProtocolVersion()**********************************/
 			// @text getProtocolVersion
@@ -195,14 +195,6 @@ namespace WPEFramework {
 			// @param success: Whether the request succeeded
 			virtual Core::hresult GetFriendlyName(string &friendlyname /* @out @text friendlyname */, bool &success /* @out */) = 0;
 			/***************************************** getFriendlyName() *********************************/
-
-			/****************************************getApiVersionNumber()**********************************/
-			// @text getApiVersionNumber
-			// @brief Gets the API version number
-			// @param version: a version number
-			// @param success: Whether the request succeeded
-			virtual Core::hresult GetApiVersionNumber(uint32_t &version /* @out @text version */, bool &success/* @out */) = 0;
-			/****************************************getApiVersionNumber()**********************************/
 
 			/****************************************registerApplications()**********************************/
 			// @text registerApplications
