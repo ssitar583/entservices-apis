@@ -55,6 +55,9 @@ namespace WPEFramework
             using IFrontPanelLightsListIterator = RPC::IIteratorType<string, ID_FRONT_PANEL_LIGHTS_LIST_ITERATOR>;
             using IFrontPanelBlinkInfoListIterator = RPC::IIteratorType<FrontPanelBlinkInfo, ID_FRONT_PANEL_BLINK_INFO_LIST_ITERATOR>;
 
+            // @json:omit
+            virtual Core::hresult Configure(PluginHost::IShell* service) = 0;
+
             // @brief Gets the status of the Front Panel
             // @text getBrightness
             // @param index: Index of the brightness level
