@@ -609,24 +609,32 @@ class HeaderFileParser:
     def generate_response_object(self, method_info):
         """
         Makes a response JSON. Creates an example dynamically.
+        Pattern:
+        1. If no @out, result: null
+        2. If one @out, result: <type example> (key is override name if present)
+        3. If multiple @out, result: { key: <type example>, ... } (keys are override names if present)
         """
         response = {
             "jsonrpc": "2.0",
             "id": 42,
-            "result": "null"
+            "result": None
         }
-        if method_info['results'] != []:
-            response['result'] = {}
-            for result in method_info['results']:
-                # Use custom_name only for @out params
-                if result.get('direction') == 'out' and result.get('custom_name'):
-                    result_name = result['custom_name']
-                else:
-                    result_name = result['name']
-                result_type = result.get('type')
-                result_desc = result.get('description')
-                response['result'][result_name] = self.get_symbol_example(
-                    f"{result['name']}-{result_type}", result_desc)
+        # Only consider @out results
+        out_results = [r for r in method_info['results'] if r.get('direction') == 'out']
+        if not out_results:
+            response['result'] = None
+        elif len(out_results) == 1:
+            r = out_results[0]
+            result_name = r.get('custom_name') or r['name']
+            unique_id = f"{r['name']}-{r['type']}"
+            response['result'] = self.get_symbol_example(unique_id, r.get('custom_description') or r.get('description'))
+        else:
+            result_obj = {}
+            for r in out_results:
+                result_name = r.get('custom_name') or r['name']
+                unique_id = f"{r['name']}-{r['type']}"
+                result_obj[result_name] = self.get_symbol_example(unique_id, r.get('custom_description') or r.get('description'))
+            response['result'] = result_obj
         return response
 
     def get_symbol_example(self, unique_id, description):
