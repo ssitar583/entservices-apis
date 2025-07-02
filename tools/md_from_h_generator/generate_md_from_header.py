@@ -36,6 +36,7 @@ def generate_md_from_header(header_file):
     classname, _ = os.path.splitext(filename)
 
     log_file_path = './tools/md_from_h_generator/logs/' + classname + '.txt'
+    os.makedirs(os.path.dirname(log_file_path), exist_ok=True)
     logger = Logger(log_file_path)
 
     header_structure = HeaderFileParser(header_file, logger)
@@ -43,7 +44,7 @@ def generate_md_from_header(header_file):
 
     # Remove the leading 'I' from the api's class name
     output_file_path = './tools/md_from_h_generator/generated_docs/' + header_structure.classname + 'Plugin.md'
-
+    os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
     with open(output_file_path, 'w', encoding='utf-8') as file:
         file.write(generate_header_toc(header_structure.classname, header_structure))
         file.write(generate_header_description_markdown(header_structure.classname, getattr(header_structure, 'plugindescription', '')))
