@@ -34,7 +34,7 @@ namespace WPEFramework {
 				RUNNING = 0 /* @text running */,
 				STOPPED = 1/* @text stopped */,
 				HIDDEN = 2 /* @text suspended */
-     	 	};
+     	 		};
 
 			enum StandbyBehavior : uint8_t {
 				ACTIVE = 0 /* @text active */,
@@ -103,8 +103,8 @@ namespace WPEFramework {
 				virtual void OnApplicationResumeRequest(const string& appName /* @text applicationName */ , const string& appID /* @text applicationId */)  {};
 			};
 
-			virtual Core::hresult Register(IXCast::INotification* sink /* @in */) = 0;
-			virtual Core::hresult Unregister(IXCast::INotification* sink /* @in */) = 0;	
+			virtual Core::hresult Register(IXCast::INotification* sink ) = 0;
+			virtual Core::hresult Unregister(IXCast::INotification* sink) = 0;	
 
 			/****************************************UpdateApplicationState()*****************************/
 			// @text updateApplicationState
@@ -114,7 +114,7 @@ namespace WPEFramework {
 			// @param applicationId: Application instance ID
 			// @param error: Error string, if any
 			// @param success: 	Whether the request succeeded
-			virtual Core::hresult UpdateApplicationState(const string& applicationName /* @in @text applicationName */, const State& state /* @in @text state */, const string& applicationId /* @in @text applicationId */, const ErrorCode& error /* @in @text error */, XCastSuccess& success /* @out */) = 0;
+			virtual Core::hresult UpdateApplicationState(const string& applicationName /* @text applicationName */, const State& state /* @text state */, const string& applicationId /* @text applicationId */, const ErrorCode& error /* @text error */, XCastSuccess& success /* @out */) = 0;
 			/****************************************UpdateApplicationState()*****************************/
 
 			/****************************************getProtocolVersion()**********************************/
@@ -130,7 +130,7 @@ namespace WPEFramework {
 			// @brief Sets the manufacturer name of the device
 			// @param manufacturer: The Manufacturer name of the device which used to update in dd.xml
 			// @param success: 	Whether the request succeeded
-			virtual Core::hresult SetManufacturerName(const string &manufacturername /* @in @text manufacturer */, XCastSuccess& success /* @out */) = 0;
+			virtual Core::hresult SetManufacturerName(const string &manufacturername /* @text manufacturer */, XCastSuccess& success /* @out */) = 0;
 			/***************************************** setManufacturerName() **********************************/
 
 			/****************************************getManufacturerName()**********************************/
@@ -146,7 +146,7 @@ namespace WPEFramework {
 			// @brief Sets the model name of the device
 			// @param model: The Model name of the device which used to update in dd.xml
 			// @param success: Whether the request succeeded
-			virtual Core::hresult SetModelName(const string &modelname /* @in @text model */, XCastSuccess& success /* @out */) = 0;
+			virtual Core::hresult SetModelName(const string &modelname /* @text model */, XCastSuccess& success /* @out */) = 0;
 			/***************************************** setModelName() **********************************/
 
 			/****************************************getModelName()**********************************/
@@ -162,7 +162,7 @@ namespace WPEFramework {
 			// @brief Enable or disable XCAST service
 			// @parm enabled: true for enabled or false for disabled
 			// @param success: 	Whether the request succeeded
-			virtual Core::hresult SetEnabled(const bool& enabled /* @in @text enabled */, XCastSuccess& success /* @out */) = 0;
+			virtual Core::hresult SetEnabled(const bool& enabled /* @text enabled */, XCastSuccess& success /* @out */) = 0;
 			/***************************************** setEnabled() **********************************/
 
 			/****************************************getEnabled()**********************************/
@@ -178,7 +178,7 @@ namespace WPEFramework {
 			// @brief Sets the expected xcast behavior in standby mode
 			// @param standbybehavior: whether to remain active or inactive during standby mode (must be one of the following: active, inactive)
 			// @param success: 	Whether the request succeeded
-			virtual Core::hresult SetStandbyBehavior(const StandbyBehavior &standbybehavior /* @in @text standbybehavior */, XCastSuccess& success /* @out */) = 0;
+			virtual Core::hresult SetStandbyBehavior(const StandbyBehavior &standbybehavior /* @text standbybehavior */, XCastSuccess& success /* @out */) = 0;
 			/***************************************** setStandbyBehavior() *********************************/
 
 			/****************************************getStandbyBehavior()**********************************/
@@ -194,7 +194,7 @@ namespace WPEFramework {
 			// @brief Sets the friendly name of the device
 			// @param friendlyname: The friendly name of the device which used to display on the client device list
 			// @param success: 	Whether the request succeeded
-			virtual Core::hresult SetFriendlyName(const string &friendlyname /* @in @text friendlyname */, XCastSuccess& success /* @out */) = 0;
+			virtual Core::hresult SetFriendlyName(const string &friendlyname /* @text friendlyname */, XCastSuccess& success /* @out */) = 0;
 			/***************************************** setFriendlyName() **********************************/
 
 			/****************************************getFriendlyName()**********************************/
@@ -218,7 +218,7 @@ namespace WPEFramework {
 			// @brief Unregisters an application
 			// @param applications: One or more application name to unregister
 			// @param success: 	Whether the request succeeded
-			virtual Core::hresult UnregisterApplications(IStringIterator* const applications /* @in @text applications */, XCastSuccess& success /* @out */) = 0;
+			virtual Core::hresult UnregisterApplications(IStringIterator* const applications /* @text applications */, XCastSuccess& success /* @out */) = 0;
 			/****************************************unregisterApplications()**********************************/
 			
 
