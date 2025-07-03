@@ -449,7 +449,7 @@ class HeaderFileParser:
             symbol_description = doxy_tag_param_info.get(symbol_name, '')
             custom_description = None
             if symbol_inline_comment:
-                text_match = re.search(r'@text:([\w\-]+)', symbol_inline_comment)
+                text_match = re.search(r'@text\s*:?\s*([\w\-]+)', symbol_inline_comment)
                 if text_match:
                     override_name = text_match.group(1)
                     custom_name = override_name
@@ -507,7 +507,7 @@ class HeaderFileParser:
                 custom_name = None
                 direction = None
                 if param_inline_comment:
-                    text_match = re.search(r'@text:([\w\-]+)', param_inline_comment)
+                    text_match = re.search(r'@text\s*:?\s*([\w\-]+)', param_inline_comment)
                     if text_match:
                         custom_name = text_match.group(1)
                     if '@in' in param_inline_comment:
@@ -558,38 +558,42 @@ class HeaderFileParser:
         Generates request and response JSONs for each method and event. Directly modifies the
         methods, properties, and events registries.
         """
+        id_num = 0
         for method_name, method_info in self.methods.items():
-            method_info['request'] = self.generate_request_object(method_name, method_info)
-            method_info['response'] = self.generate_response_object(method_info)
+            method_info['request'] = self.generate_request_object(method_name, method_info, id_num)
+            method_info['response'] = self.generate_response_object(method_info, id_num)
+            id_num += 1
         for event_name, event_info in self.events.items():
-            event_info['request'] = self.generate_request_object(event_name, event_info)
+            event_info['request'] = self.generate_request_object(event_name, event_info, id_num)
+            id_num += 1
         for prop_name, prop_info in self.properties.items():
             # properties can have both get and set requests and responses
             if 'read' in prop_info['property']:
                 if prop_info['params'] != []:
                     prop_info['results'] = prop_info['params']
                     prop_info['params'] = []
-                prop_info['get_request'] = self.generate_request_object(prop_name, prop_info)
-                prop_info['get_response'] = self.generate_response_object(prop_info)
+                prop_info['get_request'] = self.generate_request_object(prop_name, prop_info, id_num)
+                prop_info['get_response'] = self.generate_response_object(prop_info, id_num)
             if 'write' in prop_info['property']:
                 if prop_info['results'] != []:
                     prop_info['params'] = prop_info['results']
                     prop_info['results'] = []
-                prop_info['set_request'] = self.generate_request_object(prop_name, prop_info)
-                prop_info['set_response'] = self.generate_response_object(prop_info)
+                prop_info['set_request'] = self.generate_request_object(prop_name, prop_info, id_num)
+                prop_info['set_response'] = self.generate_response_object(prop_info, id_num)
+            id_num += 1
 
     def to_camel_case(self, name):
         """Convert UpperCamelCase to lowerCamelCase."""
         return name[0].lower() + name[1:] if name and name[0].isupper() else name
 
-    def generate_request_object(self, method_name, method_info):
+    def generate_request_object(self, method_name, method_info, id_num):
         """
         Makes a request JSON. Creates an example dynamically.
         """
         camel_method_name = self.to_camel_case(method_name)
         request = {
             "jsonrpc": "2.0",
-            "id": 42,
+            "id": id_num,
             "method": f"org.rdk.{self.classname}.{camel_method_name}",
         }
         if method_info['params'] != []:
@@ -601,12 +605,15 @@ class HeaderFileParser:
                 else:
                     param_name = param['name']
                 param_type = param.get('type')
-                param_desc = param.get('description')
+                if param.get('custom_description'):
+                    param_desc = param['custom_description']
+                else:
+                    param_desc = param.get('description')
                 request["params"][param_name] = self.get_symbol_example(
                     f"{param['name']}-{param_type}", param_desc)
         return request
 
-    def generate_response_object(self, method_info):
+    def generate_response_object(self, method_info, id_num):
         """
         Makes a response JSON. Creates an example dynamically.
         Pattern:
@@ -616,7 +623,7 @@ class HeaderFileParser:
         """
         response = {
             "jsonrpc": "2.0",
-            "id": 42,
+            "id": id_num,
             "result": None
         }
         # Only consider @out results
