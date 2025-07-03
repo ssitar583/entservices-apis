@@ -50,21 +50,21 @@ def generate_md_from_header(header_file):
         file.write(generate_header_description_markdown(header_structure.classname, getattr(header_structure, 'plugindescription', '')))
         if len(header_structure.methods.values()) > 0:
             file.write(generate_methods_toc(header_structure.methods, header_structure.classname))
-            for idx, (method_name, method_info) in enumerate(header_structure.methods.items(), start=1):
+            for method_name, method_info in header_structure.methods.items():
                 file.write(generate_method_markdown(
-                    method_name, method_info, header_structure.symbols_registry, header_structure.classname, idx, header_structure.events))
+                    method_name, method_info, header_structure.symbols_registry, header_structure.classname, header_structure.events))
         file.write("\n")
         if len(header_structure.properties.values()) > 0:
             file.write(generate_properties_toc(header_structure.properties, header_structure.classname))
-            for idx, (prop_name, prop_info) in enumerate(header_structure.properties.items(), start=1):
+            for prop_name, prop_info in header_structure.properties.items():
                 file.write(generate_property_markdown(
                     prop_name, prop_info, header_structure.symbols_registry, header_structure.classname))
         file.write("\n")
         if len(header_structure.events.values()) > 0:
             file.write(generate_notifications_toc(header_structure.events, header_structure.classname))
-            for idx, (event_name, event_info) in enumerate(header_structure.events.items(), start=1):
+            for event_name, event_info in header_structure.events.items():
                 file.write(generate_notification_markdown(
-                    event_name, event_info, header_structure.symbols_registry, header_structure.classname, idx))
+                    event_name, event_info, header_structure.symbols_registry, header_structure.classname))
     logger.write_log()
     logger.close()
 
