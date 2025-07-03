@@ -198,7 +198,7 @@ def flatten_canonical_dict(canonical_dict, parent_prefix):
         rows.append((f"{parent_prefix}.{name}", info['type'], desc))
     return rows
 
-def generate_request_section(request, method_type, classname=None, example_id=42):
+def generate_request_section(request, method_type, classname=None):
     """
     Generate the request section for a method.
     """
@@ -210,18 +210,16 @@ def generate_request_section(request, method_type, classname=None, example_id=42
     # Set the id
     if isinstance(request, dict):
         request = dict(request)  # shallow copy
-        request['id'] = example_id
     request_json = json.dumps(_convert_json_types(request), indent=4)
     markdown = EXAMPLE_REQUEST_TEMPLATE.format(request_json=request_json, method_type=method_type)
     return markdown
 
-def generate_response_section(response, method_type, classname=None, example_id=42):
+def generate_response_section(response, method_type, classname=None):
     """
     Generate the response section for a method.
     """
     if isinstance(response, dict):
         response = dict(response)
-        response['id'] = example_id
     response_json = json.dumps(_convert_json_types(response), indent=4)
     markdown = EXAMPLE_RESPONSE_TEMPLATE.format(response_json=response_json, method_type=method_type)
     return markdown
@@ -237,18 +235,31 @@ def generate_parameters_section(params, symbol_registry):
         for param in params:
             param_key = f"{param['name']}-{param['type']}"
             flattened_params = symbol_registry[param_key]['flattened_description']
-            for key, value in flattened_params.items():
-                # Always use override name and description for top-level param if present
-                if key == f".{param['name']}":
-                    display_name = param.get('custom_name') if param.get('custom_name') else param['name']
-                    description = param.get('custom_description') if param.get('custom_description') else value['description']
-                    field_name = f"params.{display_name}"
-                else:
-                    field_name = 'params' + key
-                    description = value['description']
-                markdown += f"| {field_name} | {value['type']} | {re.sub(r'e\\.g\\.\\s*\\".*?(?<!\\\\)\\"|ex\\:\\s*.*?(?=\\.|$)', '', description)} |\n"
+            for param_name, param_data in flattened_params.items():
+                cleaned_description = re.sub(r'e\.g\.\s*\".*?(?<!\\)\"|ex\:\s*.*?(?=\.|$)', '', param_data['description'])
+                if param['custom_name']:
+                    param_name = param_name.replace(param['name'], param['custom_name'])
+                markdown += f"| params{param_name} | {param_data['type']} | {cleaned_description if cleaned_description else '-'} |\n"
     else:
         markdown += "This method takes no parameters.\n"
+    return markdown
+
+def generate_results_section(results, symbol_registry):
+    """
+    Generate the results section for a method.
+    """
+    markdown = "### Results\n"
+    if results:
+        markdown += """| Name | Type | Description |\n| :-------- | :-------- | :-------- |\n"""
+        for result in results:
+            flattened_results = symbol_registry[f"{result['name']}-{result['type']}"]['flattened_description']
+            for result_name, result_data in flattened_results.items():
+                cleaned_description = re.sub(r'e\.g\.\s*\".*?(?<!\\)\"|ex\:\s*.*?(?=\.|$)', '', result_data['description'])
+                if result['custom_name']:
+                    result_name = result_name.replace(result['name'], result['custom_name'])
+                markdown += f"| result{result_name} | {result_data['type']} | {cleaned_description} |\n"
+    else:
+        markdown += "This method returns no results.\n"
     return markdown
 
 def generate_parameters_section_from_canonical(canonical_params):
@@ -274,7 +285,7 @@ def generate_results_section_from_canonical(canonical_results):
         markdown += "This method returns no results.\n"
     return markdown
 
-def generate_method_markdown(method_name, method_info, symbol_registry, classname, example_id, all_events=None):
+def generate_method_markdown(method_name, method_info, symbol_registry, classname, all_events=None):
     """
     Generate the markdown for a specific method.
     """
@@ -282,11 +293,11 @@ def generate_method_markdown(method_name, method_info, symbol_registry, classnam
     markdown = METHOD_MARKDOWN_TEMPLATE.format(method_name=camel_method, method_description=method_info['brief'] or method_info['details'])
     markdown += generate_events_section(method_info['events'], all_events)
     # Use canonical dicts for tables
-    markdown += generate_parameters_section_from_canonical(method_info.get('canonical_params', {}))
-    markdown += generate_results_section_from_canonical(method_info.get('canonical_results', {}))
+    markdown += generate_parameters_section(method_info['params'], symbol_registry)
+    markdown += generate_results_section(method_info['results'], symbol_registry)
     markdown += "\n### Examples\n"
-    markdown += generate_request_section(method_info['request'], '', classname, example_id)
-    markdown += generate_response_section(method_info['response'], '', classname, example_id)
+    markdown += generate_request_section(method_info['request'], '', classname)
+    markdown += generate_response_section(method_info['response'], '', classname)
     return markdown
 
 def generate_events_section(events, all_events=None):
@@ -366,7 +377,7 @@ def generate_notifications_toc(events, classname):
         toc += f"| [{camel_event}](#event.{camel_event}) | {event_body['brief'] or event_body['details']} |\n"
     return toc
 
-def generate_notification_markdown(event_name, event_info, symbol_registry, classname, example_id):
+def generate_notification_markdown(event_name, event_info, symbol_registry, classname):
     """
     Generate the markdown for a specific event.
     """
@@ -382,7 +393,6 @@ def generate_notification_markdown(event_name, event_info, symbol_registry, clas
             request['method'] = '.'.join(parts)
     if isinstance(request, dict):
         request = dict(request)
-        request['id'] = example_id
     request_json = json.dumps(_convert_json_types(request), indent=4)
     markdown += EXAMPLE_NOTIFICATION_TEMPLATE.format(request_json=request_json)
     return markdown
