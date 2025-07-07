@@ -56,7 +56,7 @@ The table below lists configuration options of the plugin.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| callsign | string | Plugin instance name (default: org.rdk.{classname}) |
+| callsign | string | Plugin instance name (default: *org.rdk.{classname}*) |
 | classname | string | Class name: *{classname}* |
 | locator | string | Library name: *libWPEFramework{classname}.so* |
 | autostart | boolean | Determines if the plugin shall be started automatically along with the framework |
