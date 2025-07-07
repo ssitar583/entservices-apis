@@ -69,7 +69,7 @@
             }
         },
        "reserveTTSResourceForApps": {
-            "summary": "Reserves the Text To speech Resource for specified clients.",
+            "summary": "Reserves the Text To speech Resource for specified clients",
             "params": {
                 "type": "object",
                 "properties":{
