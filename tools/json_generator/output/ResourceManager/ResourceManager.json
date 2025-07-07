@@ -73,7 +73,7 @@
             "params": {
                 "type": "object",
                 "properties":{
-                    "appIds": {
+                    "appids": {
                         "summary": "A list of application callsigns",
                         "type": "array",
                         "items": {
@@ -84,7 +84,7 @@
                     }
                 },
                 "required": [
-                    "appIds"
+                    "appids"
                 ]
             },
             "result": {
