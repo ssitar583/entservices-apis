@@ -72,6 +72,7 @@ namespace WPEFramework {
 			virtual uint32_t setModelName(string modelname) const = 0;
 			virtual uint32_t getModelName(string &modelname /* @out */ ) const = 0;
 
+
 		};
 
 	} // Exchange
