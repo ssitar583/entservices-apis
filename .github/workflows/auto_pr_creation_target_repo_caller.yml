@@ -1,7 +1,8 @@
 name: Auto PR Creation Caller
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
       - test_develop 
 
@@ -20,4 +21,4 @@ jobs:
     #runs-on: ubuntu-latest
     #steps:
      # - name: Print placeholder instead of actual logic
-     #   run: echo "This is a placeholder for the actual logic."
+     #   run: echo "This is a placeholder for the actual logic." 
