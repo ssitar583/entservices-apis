@@ -91,11 +91,11 @@ namespace WPEFramework {
 				// @param applicationName: Registered application name
 				// @param applicationId: Application instance ID
 				virtual void OnApplicationHideRequest(const string& appName /* @text applicationName */ , const string& appID /* @text applicationId */ )  {};
-				// @text onApplicationCurrentStateRequest
+				// @text onApplicationStateRequest
 				// @brief 	Triggered when the cast service needs an update of the application state
 				// @param applicationName: Registered application name
 				// @param applicationId: Application instance ID
-				virtual void OnApplicationCurrentStateRequest(const string& appName /* @text applicationName */ , const string& appID /* @text applicationId */ )  {};
+				virtual void OnApplicationStateRequest(const string& appName /* @text applicationName */ , const string& appID /* @text applicationId */ )  {};
 				// @text onApplicationResumeRequest
 				// @brief Triggered when the cast service receives a resume request from a client
 				// @param applicationName: Registered application name
@@ -106,16 +106,16 @@ namespace WPEFramework {
 			virtual Core::hresult Register(IXCast::INotification* sink ) = 0;
 			virtual Core::hresult Unregister(IXCast::INotification* sink) = 0;	
 
-			/****************************************UpdateApplicationState()*****************************/
-			// @text updateApplicationState
+			/****************************************SetApplicationState()*****************************/
+			// @text setApplicationState
 			// @brief Triggered when the cast service receives an application state change notification from a client
 			// @param applicationName: Registered application name
 			// @param state: Application state
 			// @param applicationId: Application instance ID
 			// @param error: Error string, if any
 			// @param success: 	Whether the request succeeded
-			virtual Core::hresult UpdateApplicationState(const string& applicationName /* @text applicationName */, const State& state /* @text state */, const string& applicationId /* @text applicationId */, const ErrorCode& error /* @text error */, XCastSuccess& success /* @out */) = 0;
-			/****************************************UpdateApplicationState()*****************************/
+			virtual Core::hresult SetApplicationState(const string& applicationName /* @text applicationName */, const State& state /* @text state */, const string& applicationId /* @text applicationId */, const ErrorCode& error /* @text error */, XCastSuccess& success /* @out */) = 0;
+			/****************************************SetApplicationState()*****************************/
 
 			/****************************************getProtocolVersion()**********************************/
 			// @text getProtocolVersion
