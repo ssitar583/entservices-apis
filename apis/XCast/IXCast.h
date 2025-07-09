@@ -24,6 +24,8 @@
 
 // @stubgen:include <com/IIteratorType.h>
 
+
+
 namespace WPEFramework {
 	namespace Exchange {
 		struct EXTERNAL IXCast : virtual public Core::IUnknown {
