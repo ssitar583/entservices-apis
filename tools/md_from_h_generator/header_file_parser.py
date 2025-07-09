@@ -36,7 +36,7 @@ class HeaderFileParser:
         ('text',    'doxygen', re.compile(r'(?:\/\*+|\*|//) (?:@text|@alt)\s+(.*?)(?=\s*\*\/|$)')),
         ('brief',   'doxygen', re.compile(r'(?:\/\*+|\*|//) @brief\s*(.*?)(?=\s*\*\/|$)')),
         ('details', 'doxygen', re.compile(r'(?:\/\*+|\*|//) @details\s*(.*?)(?=\s*\*\/|$)')),
-        ('params',  'doxygen', re.compile(r'(?:\/\*+|\*|//)\s*@param(?:\[.*\])?\s+([^\s:]+)\s*:?\s*(.*?)(?=\s*\*\/|$)')),
+        ('params',  'doxygen', re.compile(r'(?:\/\*+|\*|//)\s*@param(\[.*\])?\s+([^\s:(]+)(?:\(([^)]*)\))?\s*:?\s*(.*?)(?=\s*\*\/|$)')),
         ('return',  'doxygen', re.compile(r'(?:\/\*+|\*|//) @return(?:s)?\s*(.*?)(?=\s*\*\/|$)')),
         ('see',     'doxygen', re.compile(r'(?:\/\*+|\*|//) @see\s*(.*?)(?=\s*\*\/|$)')),
         ('omit',    'doxygen', re.compile(r'(?:\/\*+|\*|//)\s*(@json:omit|@omit)')),
@@ -66,8 +66,8 @@ class HeaderFileParser:
         'iter_typedef': re.compile(r'typedef\s+RPC::IIteratorType\s*\<\s*([\w\d\:]+)\s*\,\s*(?:[\w\d\:]+)\s*\>\s*([\w\d]+)\s*;'),
         'enum': re.compile(r'enum\s+([\w\d]+)\s*(?:\:\s*([\w\d\:\*]*))?\s*\{(.*)\}\;?'),
         'enum_mem': re.compile(r'([\w\d\[\]]+)\s*(?:\=\s*([\w\d]+))?\s*(?:(?:(?:\/\*)|(?:\/\/))(.*)(?:\*\/)?)?'),
-        'struct': re.compile(r'struct\s+(?:EXTERNAL\s+)?([\w\d]+)\s*\{(.*)\}\;?'),
-        'struct_mem': re.compile(r'([\w\d\:\*]+)\s+([\w\d\[\]]+)\s*(?:(?:(?:\/\*)|(?:\/\/))(.*)(?:\*\/)?)?'),
+        'struct': re.compile(r'struct\s+(?:EXTERNAL\s+)?([\w\d]+)\s*\{([\s\S]*?)\}\;?'),
+        'struct_mem': re.compile(r'([\w\d\:\*]+)\s+([\w\d\[\]]+)\;?\s*(?:(?:(?:\/\*)|(?:\/\/))(.*)(?:\*\/)?)?'),
         'method': re.compile(r'virtual\s+([\w\d\:]+)\s+([\w\d\:]+)\s*\((.*)\)\s*(?:(?:(?:const\s*)?\=\s*0)|(?:{\s*})\s*)\;?'),
         'method_param': re.compile(r'([\w\d\:\*]+)\s+([\w\d\[\]]+)\s*(?:\/\*(.*)\*\/)?')
     }
@@ -239,10 +239,10 @@ class HeaderFileParser:
             return line, 0, within_struct_def
         # accumulate the struct's data members until the closing brace is reached
         if struct_braces_count > 0:
-            line = self.clean_and_validate_cpp_obj_line(line, ';', curr_line_num, 'Struct member')
-            struct_object += line
+            line = self.clean_and_validate_cpp_obj_line(line, '\n', curr_line_num, 'Struct member')
+            struct_object += (line + '\n')
         elif struct_braces_count <= 0:
-            struct_object += line
+            struct_object += (line + '\n')
             self.register_struct(struct_object)
             # reset the struct helper object once the struct is registered
             within_struct_def = False
@@ -260,9 +260,11 @@ class HeaderFileParser:
             self.doxy_tags['text'] = groups[0]
             self.latest_tag = 'text'
         elif line_tag == 'params':
-            self.latest_param = groups[0]
+            self.latest_param = groups[1]
             self.latest_tag = 'params'
-            self.doxy_tags.setdefault('params', {})[self.latest_param] = groups[1]
+            self.doxy_tags.setdefault('params', {})[self.latest_param] = {'description': groups[3], 
+                                                                          'direction': groups[0], 
+                                                                          'optionality': groups[2]}
         elif line_tag == 'see':
             self.doxy_tags.setdefault('see', {})[groups[0]] = ''
             self.latest_tag = 'see'
@@ -271,7 +273,7 @@ class HeaderFileParser:
                 return
             # Multiline support: append to last tag
             if self.latest_tag == 'params':
-                self.doxy_tags['params'][self.latest_param] += (' ' + groups[0])
+                self.doxy_tags['params'][self.latest_param]['description'] += (' ' + groups[0])
             elif self.latest_tag and self.latest_tag in self.doxy_tags and self.latest_tag != 'plugindescription':
                 self.doxy_tags[self.latest_tag] += (' ' + groups[0])
             line_tag = self.latest_tag
@@ -359,9 +361,10 @@ class HeaderFileParser:
             struct_name, struct_body = match.groups()
             self.structs_registry[struct_name] = {}
             # process each data member
-            for member_def in struct_body.split(';'):
+            for member_def in struct_body.split('\n'):
                 member_def = member_def.strip()
                 member_match = self.CPP_COMPONENT_REGEX['struct_mem'].match(member_def)
+                
                 if member_match:
                     member_type, member_name, description = member_match.groups()
                     description = self.clean_description(description)
@@ -446,7 +449,9 @@ class HeaderFileParser:
             self.logger.log("INFO", f"Processing param: symbol_name={symbol_name}, symbol_type={symbol_type}, custom_name={custom_name}, direction={direction}, symbol_inline_comment={symbol_inline_comment}")
             if symbol_type == 'RPC::IStringIterator':
                 self.register_iterator(symbol_type)
-            symbol_description = doxy_tag_param_info.get(symbol_name, '')
+            symbol_description = doxy_tag_param_info.get(symbol_name, {}).get('description', '')
+            symbol_optionality = doxy_tag_param_info.get(symbol_name, {}).get('optionality', '')
+            symbol_direction = doxy_tag_param_info.get(symbol_name, {}).get('direction', '')
             custom_description = None
             if symbol_inline_comment:
                 text_match = re.search(r'@text\s*:?\s*([\w\-]+)', symbol_inline_comment)
@@ -457,17 +462,17 @@ class HeaderFileParser:
                     self.logger.log("INFO", f"Found @text override: override_name={override_name}, norm_override={norm_override}")
                     # Prefer description from normalized doxygen @param for override name
                     if norm_override in normalized_param_info:
-                        custom_description = normalized_param_info[norm_override]
+                        custom_description = normalized_param_info[norm_override].get('description', '')
                         self.logger.log("INFO", f"Found custom_description for override: {custom_description}")
                     else:
                         self.logger.log("INFO", f"Override param name '{override_name}' not found in @param tags for method param '{symbol_name}'.")
                         self.logger.log("WARNING", f"Override param name '{override_name}' not found in @param tags for method param '{symbol_name}'.")
                     # Fallback to original param name if not found
                     if not custom_description and normalize_key(symbol_name) in normalized_param_info:
-                        custom_description = normalized_param_info[normalize_key(symbol_name)]
+                        custom_description = normalized_param_info[normalize_key(symbol_name)].get('description', '')
                         self.logger.log("INFO", f"Fallback to original param name: {custom_description}")
             if not custom_description and normalize_key(symbol_name) in normalized_param_info:
-                custom_description = normalized_param_info[normalize_key(symbol_name)]
+                custom_description = normalized_param_info[normalize_key(symbol_name)].get('description', '')
                 self.logger.log("INFO", f"No override, using original param name: {custom_description}")
             if custom_description:
                 custom_description = re.sub(r'e\.g\.\s*\".*?(?<!\\)\"|e\.g\.\s*[^.]+', '', custom_description).strip()
@@ -479,7 +484,8 @@ class HeaderFileParser:
                 'description': symbol_description,
                 'custom_name': custom_name,
                 'custom_description': custom_description,
-                'direction': direction
+                'direction': direction,
+                'optionality': symbol_optionality
             }
             if symbol_inline_comment and '@inout' in symbol_inline_comment:
                 params.append(symbol_info)

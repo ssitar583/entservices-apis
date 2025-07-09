@@ -56,7 +56,7 @@ The table below lists configuration options of the plugin.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| callsign | string | Plugin instance name (default: *org.rdk.{classname}*) |
+| callsign | string | Plugin instance name (default: org.rdk.{classname}) |
 | classname | string | Class name: *{classname}* |
 | locator | string | Library name: *libWPEFramework{classname}.so* |
 | autostart | boolean | Determines if the plugin shall be started automatically along with the framework |
@@ -239,7 +239,8 @@ def generate_parameters_section(params, symbol_registry):
                 cleaned_description = re.sub(r'e\.g\.\s*\".*?(?<!\\)\"|ex\:\s*.*?(?=\.|$)', '', param_data['description'])
                 if param['custom_name']:
                     param_name = param_name.replace(param['name'], param['custom_name'])
-                markdown += f"| params{param_name} | {param_data['type']} | {cleaned_description if cleaned_description else '-'} |\n"
+                optionality = f"<sup>({param['optionality']})</sup>" if param['optionality'] == 'optional' else ''
+                markdown += f"| params{'?' if optionality else ''}{param_name} | {param_data['type']} | {optionality}{cleaned_description if cleaned_description else '-'} |\n"
     else:
         markdown += "This method takes no parameters.\n"
     return markdown
@@ -251,13 +252,15 @@ def generate_results_section(results, symbol_registry):
     markdown = "### Results\n"
     if results:
         markdown += """| Name | Type | Description |\n| :-------- | :-------- | :-------- |\n"""
+        # markdown += f"| result | object |  |\n"
         for result in results:
             flattened_results = symbol_registry[f"{result['name']}-{result['type']}"]['flattened_description']
             for result_name, result_data in flattened_results.items():
                 cleaned_description = re.sub(r'e\.g\.\s*\".*?(?<!\\)\"|ex\:\s*.*?(?=\.|$)', '', result_data['description'])
                 if result['custom_name']:
                     result_name = result_name.replace(result['name'], result['custom_name'])
-                markdown += f"| result{result_name} | {result_data['type']} | {cleaned_description} |\n"
+                optionality = f"<sup>({result['optionality']})</sup>" if result['optionality'] == 'optional' else ''
+                markdown += f"| result{'?' if optionality else ''}{result_name} | {result_data['type']} | {optionality}{cleaned_description if cleaned_description else '-'} |\n"
     else:
         markdown += "This method returns no results.\n"
     return markdown
