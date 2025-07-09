@@ -137,9 +137,10 @@ virtual void onInitialize();
 - **Usage**:
   - Use this tag for each parameter of the method. Each parameter and tag must be declared on a new line.
   - The description following the tag shall be listed in the parameters/results table
-  - Parameter/symbol examples should be defined here (see [Providing Symbol Examples](#providing_examples))
+  - Optional parameters can be specified using `@param [param_name](optional)`
+  - Parameter/symbol examples should be defined here (see [Providing Symbol Examples](#providing_examples), for providing examples and descriptions for `struct` as well)
   - Specify the parameter name and its description. Format can include colon i.e. `@param [param_name]: [description]` or `@param [para_name] [description]`
-  - IMPORTANTLY, in addition to using the param tag, mark each parameter with inline 'in/out' information in the parameter list. If a parameter does not have inline in/out information, it defaults to 'in'.
+  - IMPORTANTLY, in addition to using the param tag, each parameter that is an output should be marked with an inline '@out' tag in the parameter list. The '@in' tag is optional for input parameters. If a parameter does not have inline in/out information, it defaults to 'in'.
   - Additionally a parameter name override can be specified by combining `@in` or `@out` followed by `@text:varible-override-name` in the function declaration.
 
 ### Example:
@@ -150,15 +151,17 @@ virtual void onInitialize();
  ...
  * @param configPath: The config file path for initialization e.g. "../build/test.conf"
  * @param status The status of the initialization. Set to true if completed.
+ * @param configDetails(optional): Details of the configuration
  */
-virtual uint32_t initialize(const string& configPath /* @in @text:config-path */, bool status /* @out @text:status-response */);
+virtual uint32_t initialize(const string& configPath /* @in @text:config-path-override-name */, bool status /* @out @text:status-response */, string& configDetails /* @in */);
 ```
 
 ***Generated Markdown Example:***
 > ### Parameters
 > | Name | Type | Description |
 > | :-------- | :-------- | :-------- |
-> | config-path | string | The config file path for initialization |
+> | config-path-override-name | string | The config file path for initialization |
+> | configDetails | string | <sup>(optional)</sup> Details of the configuration |
 > ### Results
 > | Name | Type | Description |
 > | :-------- | :-------- | :-------- |
@@ -282,13 +285,13 @@ The following demonstrates how examples are set for method parameters:
 >```
 
 ### Setting Examples for Struct Members
-The following demonstrates how examples are set for struct members:
+The following demonstrates how examples are set for struct members. Struct members can be commented with single-line comments (`//`) or block-comments (`/*...*/`).
 
 ***Header File Example:***
 ```cpp
 struct USBDevice {
-    uint8_t  deviceClass    /* @brief USB class of the device as per USB specification e.g. "10" */ ;
-    uint8_t  deviceSubclass /* @brief USB sub class of the device as per USB specification e.g. "6" */;
+    uint8_t  deviceClass;    // @brief USB class of the device as per USB specification e.g. "10"
+    uint8_t  deviceSubclass; // @brief USB sub class of the device as per USB specification e.g. "6"
     string   deviceName     /* @brief Name of the USB device e.g. "001/003"*/;
     string   devicePath     /* @brief the path to be used for the USB device e.g."/dev/sdX" */;
 };

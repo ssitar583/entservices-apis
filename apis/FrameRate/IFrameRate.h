@@ -40,9 +40,9 @@ namespace WPEFramework
                 // @text onFpsEvent
                 // @details Triggered at the end of each interval as defined by the `setCollectionFrequency` method
                 // after `startFpsCollection` method and once after the `stopFpsCollection` method is invoked
-                // @param average: The average FPS e.g. 60
-                // @param min: The minimum FPS e.g. 30
-                // @param max: The maximum FPS e.g. 120
+                // @param average: The average FPS e.g. "60"
+                // @param min: The minimum FPS e.g. "30"
+                // @param max: The maximum FPS e.g. "120"
                 virtual void OnFpsEvent(const int average /* @in */, const int min /* @in */, const int max /* @in */) {};
 
                 // @text onDisplayFrameRateChanging
@@ -67,23 +67,23 @@ namespace WPEFramework
             // @text getDisplayFrameRate
             // @details Retrieves the current display frame rate as a string in the format "WIDTHxHEIGHTpxFPS"
             // @param framerate: The current display frame rate. e.g. "3840x2160px60"
-            // @param success: Indicates if the operation was successful e.g. True
+            // @param success: Indicates if the operation was successful e.g. "True"
             // @returns Core::hresult
             virtual Core::hresult GetDisplayFrameRate(string& framerate /* @out */, bool& success /* @out */) = 0;
 
             /** Gets framerate mode */
             // @text getFrmMode
             // @details Retrieves the current auto framerate mode as an integer. Expeted values are 0 or 1.
-            // @param auto-frm-mode: The current auto framerate mode. e.g. 1
-            // @param success: Indicates if the operation was successful. e.g. True
+            // @param framerateMode: The current auto framerate mode. e.g. 1
+            // @param success: Indicates if the operation was successful. e.g. "True"
             // @returns Core::hresult
             virtual Core::hresult GetFrmMode(int &framerateMode /* @out @text:auto-frm-mode */, bool& success /* @out */) = 0;
 
             /** Sets the FPS data collection interval */
             // @text setCollectionFrequency
             // @details Sets the interval for FPS data collection in milliseconds. Default is 10000ms and min is 100ms
-            // @param frequency: The collection frequency in ms. e.g. 1000
-            // @param success: Indicates if the operation was successful. e.g. True
+            // @param frequency: The collection frequency in ms. e.g. "1000"
+            // @param success: Indicates if the operation was successful. e.g. "True"
             // @returns Core::hresult
             virtual Core::hresult SetCollectionFrequency(const int frequency /* @in */, bool& success /* @out */) = 0;
 
@@ -91,15 +91,15 @@ namespace WPEFramework
             // @text setDisplayFrameRate
             // @details Sets the display framerate to the specified value in the format "WIDTHxHEIGHTpxFPS".
             // @param framerate: The display framerate to set. e.g. "3840px2160px30"
-            // @param success: Indicates if the operation was successful. e.g. True
+            // @param success: Indicates if the operation was successful. e.g. "True"
             // @returns Core::hresult
             virtual Core::hresult SetDisplayFrameRate(const string& framerate /* @in */, bool& success /* @out */) = 0;
 
             /** Sets the auto framerate mode */
             // @text setFrmMode
             // @details Sets the auto framerate mode to the specified value. Expected values are 0(disable) or 1(enable).
-            // @param frmmode: The framerate mode to set. e.g. 1
-            // @param success: Indicates if the operation was successful. e.g. True
+            // @param frmmode: The framerate mode to set. e.g. "1"
+            // @param success: Indicates if the operation was successful. e.g. "True"
             // @returns Core::hresult
             virtual Core::hresult SetFrmMode(const int frmmode /* @in */, bool& success /* @out */) = 0;
 
@@ -107,14 +107,14 @@ namespace WPEFramework
             // @text startFpsCollection
             // @details Starts collecting FPS data at the configured interval set by the method `SetCollectionFrequency`.
             // @see onFpsEvent
-            // @param success: Indicates if the operation was successful. e.g. True
+            // @param success: Indicates if the operation was successful. e.g. "True"
             // @returns Core::hresult
             virtual Core::hresult StartFpsCollection(bool& success /* @out */) = 0;
 
             /** Stops the FPS data collection */
             // @text stopFpsCollection
             // @details Stops the FPS data collection.
-            // @param success: Indicates if the operation was successful. e.g. True
+            // @param success: Indicates if the operation was successful. e.g. "True"
             // @returns Core::hresult
             virtual Core::hresult StopFpsCollection(bool& success /* @out */) = 0;
 
@@ -122,8 +122,8 @@ namespace WPEFramework
             // @text updateFps
             // @details Updates the current FPS value to the specified value represented as integer.
             // @see onFpsEvent
-            // @param newFpsValue: The new FPS value. e.g. 60
-            // @param success: Indicates if the operation was successful. e.g. True
+            // @param newFpsValue: The new FPS value. e.g. "60"
+            // @param success: Indicates if the operation was successful. e.g. "True"
             // @returns Core::hresult
             virtual Core::hresult UpdateFps(const int newFpsValue /* @in */, bool& success /* @out */) = 0;
         };

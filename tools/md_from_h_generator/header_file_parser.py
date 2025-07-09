@@ -273,7 +273,7 @@ class HeaderFileParser:
                 return
             # Multiline support: append to last tag
             if self.latest_tag == 'params':
-                self.doxy_tags['params'][self.latest_param]['description'] += (' ' + groups[0])
+                self.doxy_tags['params'][self.latest_param] += (' ' + groups[0])
             elif self.latest_tag and self.latest_tag in self.doxy_tags and self.latest_tag != 'plugindescription':
                 self.doxy_tags[self.latest_tag] += (' ' + groups[0])
             line_tag = self.latest_tag
@@ -877,6 +877,7 @@ class HeaderFileParser:
         if description:
             description = description.strip()
             description = re.sub(r'^@\S+', '', description)
+            description = description[:-1] if description.endswith(';') else description
             description = description[:-2] if description.endswith("*/") else description
         return description
 
