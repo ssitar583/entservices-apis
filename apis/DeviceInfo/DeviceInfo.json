@@ -148,13 +148,55 @@
     "distributorid": {
       "type": "string",
       "enum": [
-        "distributor1"
+        "comcast",
+        "xglobal",
+        "sky-de",
+        "sky-italia",
+        "sky-uk",
+        "sky-uk-dev",
+        "sky-deu",
+        "sky-deu-dev",
+        "sky-it",
+        "sky-it-dev",
+        "cox",
+        "cox-hospitality",
+        "cox-dev",
+        "cox-qa",
+        "MIT",
+        "shaw",
+        "shaw-dev",
+        "rogers",
+        "rogers-dev",
+        "videotron",
+        "charter",
+        "charter-dev"
       ],
       "enumids": [
-        "PARTNERID"
+        "COMCAST",
+        "XGLOBAL",
+        "SKY_DE",
+        "SKY_ITALIA",
+        "SKY_UK",
+        "SKY_UK_DEV",
+        "SKY_DEU",
+        "SKY_DEU_DEV",
+        "SKY_IT",
+        "SKY_IT_DEV",
+        "COX",
+        "COX_HOSPITALITY",
+        "COX_DEV",
+        "COX_QA",
+        "MIT",
+        "SHAW",
+        "SHAW_DEV",
+        "ROGERS",
+        "ROGERS_DEV",
+        "VIDEOTRON",
+        "CHARTER",
+        "CHARTER_DEV"
       ],
       "description": "Partner ID or distributor ID for device",
-      "example": "aplhanumerical string"
+      "example": "comcast"
     },
     "audiocapability": {
       "type": "string",
@@ -269,7 +311,7 @@
           },
           "serialnumber": {
             "description": "Device serial number",
-            "example": "aplhanumerical string",
+            "example": "WPEuCfrLF45",
             "type": "string"
           },
           "time": {
@@ -372,7 +414,7 @@
         "properties": {
           "imagename": {
             "type": "string",
-            "example": "alphanumerical string"
+            "example": "PX051AEI_VBN_2203_sprint_20220331225312sdy_NG"
           },
           "sdk": {
             "type": "string",
@@ -406,7 +448,7 @@
         "properties": {
           "serialnumber": {
             "type": "string",
-            "example": "alphanumerical string"
+            "example": "PAW400003744"
           }
         },
         "required": [
@@ -516,7 +558,7 @@
         "properties": {
           "model": {
             "type": "string",
-            "example": "alphanumerical string"
+            "example": "Pace Xi5"
           }
         },
         "required": [
