@@ -31,7 +31,7 @@ namespace WPEFramework
         {
             enum { ID = ID_AV_INPUT };
 
-            enum class InputDeviceType : uint8_t {
+            enum InputDeviceType : uint8_t {
                 HDMI,
                 COMPOSITE
             };
@@ -72,54 +72,51 @@ namespace WPEFramework
                 uint8_t id;
                 string gameFeature;
                 bool allmMode;
-            }
+            };
 
             using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
-            using IInputDeviceIterator = RPC::IIteratorType<InputDevice, RPC::ID_AV_INPUT_DEVICE_LIST_ITERATOR>;
+			using IInputDeviceIterator = RPC::IIteratorType<InputDevice, ID_AV_INPUT_DEVICE_LIST_ITERATOR>;
 
             // @event
-            struct EXTERNAL INotification : virtual public Core::IUnknown 
+            struct EXTERNAL INotification : virtual public Core::IUnknown
             {
                 enum { ID = ID_AV_INPUT_NOTIFICATION };
 
-                // @text onDevicesChanged
-                // @brief Triggered when the list of input devices changes
-                // @param devices - in - vector of InputDevice
-                virtual void OnDevicesChanged(const std::vector<InputDevice>& devices) {};
 
                 // @text onSignalChanged
                 // @brief Triggered when the signal status of an input device changes
                 // @param id - in - The ID of the input device that changed
                 // @param info - in - The new signal information of the input device
-                virtual void OnSignalChanged(uint8_t id, InputSignalInfo info) {};
+                virtual void OnSignalChanged(uint8_t id, const InputSignalInfo &info) {};
 
                 // @text onInputStatusChanged
                 // @brief Triggered when the input status of an input device changes
                 // @param id - in - The ID of the input device that changed
                 // @param info - in - The new input status information of the input device
-                virtual void OnInputStatusChanged(uint8_t id, InputSignalInfo info) {};
+                virtual void OnInputStatusChanged(uint8_t id, const InputSignalInfo &info) {};
 
                 // @text videoStreamInfoUpdate
                 // @brief Triggered when the video mode of an input device changes
                 // @param id - in - The ID of the input device that changed
                 // @param videoMode - in - The new video mode information of the input device
-                virtual void videoStreamInfoUpdate(uint8_t id, InputVideoMode& videoMode) {};
+                virtual void videoStreamInfoUpdate(uint8_t id, const InputVideoMode &videoMode) {};
 
                 // @text gameFeatureStatusUpdate
                 // @brief Triggered when the game feature status of an input device changes
                 // @param id - in - The ID of the input device that changed
                 // @param status - in - The new game feature status of the input device
-                virtual void gameFeatureStatusUpdate(uint8_t id, GameFeatureStatus status) {};
+                virtual void gameFeatureStatusUpdate(uint8_t id, const GameFeatureStatus &status) {};
 
                 // @text aviContentTypeUpdate
                 // @brief Triggered when the AVI content type of an input device changes
                 // @param id - in - The ID of the input device that changed
                 // @param contentType - in - The new AVI content type of the input device
                 virtual void aviContentTypeUpdate(uint8_t id, int contentType) {};
+
             };
 
-            virtual Core::hresult Register(IDeviceDiagnostics::INotification* notification /* @in */) = 0;
-            virtual Core::hresult Unregister(IDeviceDiagnostics::INotification* notification /* @in */) = 0;
+            virtual Core::hresult Register(IAVInput::INotification* notification /* @in */) = 0;
+            virtual Core::hresult Unregister(IAVInput::INotification* notification /* @in */) = 0;
 
             // @text numberOfInputs
             // @brief Returns an integer that specifies the number of available inputs
@@ -148,34 +145,34 @@ namespace WPEFramework
             // @param spd - out - The SPD infoFrame packet information read from the device
             virtual Core::hresult getRawSPD(uint8_t id /* @in */, string& spd /* @out */) = 0;
 
-            // @text getRawSPD
+            // @text getSPD
             // @brief Returns the Source Data Product Descriptor (SPD) infoFrame packet information for the specified HDMI Input device
             // @param spd - out - The SPD infoFrame packet information read from the device
-            virtual Core::hresult getSPD(uint8_t* id /* @in */, string& spd /* @out */) = 0;
+            virtual Core::hresult getSPD(uint8_t id /* @in */, string& spd /* @out */) = 0;
 
             // @text setEdidVersion
             // @brief Sets an HDMI EDID version
             // @param id - in - The ID of the input device to set the EDID version for
             // @param version - in - The EDID version to set
-            virtual Core::hresult setEdidVersion((uint8_t* id /* @in */, string& version /* @in */) = 0;
+            virtual Core::hresult setEdidVersion(uint8_t id /* @in */, const string& version /* @in */) = 0;
 
             // @text getEdidVersion
             // @brief Returns the EDID version
             // @param id - in - The ID of the input device to get the EDID version for
             // @param version - out - The EDID version
-            virtual Core::hresult getEdidVersion(uint8_t* id /* @in */, string& version /* @out */) = 0;
+            virtual Core::hresult getEdidVersion(uint8_t id /* @in */, string& version /* @out */) = 0;
 
             // @text setEdid2AllmSupport
             // @brief Sets an HDMI ALLM bit in EDID
             // @param id - in - The ID of the input device to set the ALLM bit for
             // @param allm - in - The ALLM bit value to set
-            virtual Core::hresult setEdid2AllmSupport(uint8_t id /* @in */, bool& allm /* @in */) = 0;
+            virtual Core::hresult setEdid2AllmSupport(uint8_t id /* @in */, const bool& allm /* @in */) = 0;
 
             // @text getEdid2AllmSupport
             // @brief Returns the ALLM bit in EDID
             // @param id - in - The ID of the input device to get the ALLM
             // @param allm - out - The ALLM bit value
-            virtual Core::hresult getEdid2AllmSupport(uint8_t* id /* @in */, bool& allm /* @out */) = 0;
+            virtual Core::hresult getEdid2AllmSupport(uint8_t id /* @in */, bool& allm /* @out */) = 0;
 
             // @text setVRRSupport
             // @brief Sets an HDMI VRR support bit in EDID
@@ -187,7 +184,7 @@ namespace WPEFramework
             // @brief Returns the VRR support bit in EDID
             // @param id - in - The ID of the input device to get the VRR
             // @param vrrSupport - out - The VRR support bit value
-            virtual Core::hresult getVRRSupport(uint8_t* id /* @in */, bool& vrrSupport /* @out */) = 0;
+            virtual Core::hresult getVRRSupport(uint8_t id /* @in */, bool& vrrSupport /* @out */) = 0;
 
             // @text getVRRFrameRate
             // @brief Returns the VRR frame rate for the specified HDMI Input device
@@ -210,7 +207,7 @@ namespace WPEFramework
             // @text startInput
             // @brief Starts the specified input device
             // @param id - in - The ID of the input device to start
-            virtual Core::hresult startInput(uint8_t* id /* @in */, InputDeviceType type /* @in */, boolean* audioMix /* @in */, VideoPlaneType* planeType /* @in */, bool* topMostPlane /* @in */) = 0;
+            virtual Core::hresult startInput(uint8_t id /* @in */, InputDeviceType type /* @in */, bool audioMix /* @in */, const VideoPlaneType& planeType /* @in */, bool topMostPlane /* @in */) = 0;
 
             // @text stopInput
             // @brief Stops the specified input device
@@ -246,7 +243,8 @@ namespace WPEFramework
             // @brief Returns the status of a specific game feature for the specified input device
             // @param feature - in - The game feature to check the status of
             // @param status - out - The status of the game feature
-            virtual Core::hresult getGameFeatureStatus(uint8_t* id /* @in */, const string& feature /* @in */, bool& mode /* @out */) = 0;
+            virtual Core::hresult getGameFeatureStatus(uint8_t id /* @in */, const string& feature /* @in */, bool& mode /* @out */) = 0;
+
         };
     } // namespace Exchange
 } // namespace WPEFramework
