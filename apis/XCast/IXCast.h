@@ -24,7 +24,7 @@
 
 // @stubgen:include <com/IIteratorType.h>
 
-//Test2
+//Test3
 
 namespace WPEFramework {
 	namespace Exchange {
