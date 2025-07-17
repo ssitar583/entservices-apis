@@ -67,13 +67,13 @@
 
                 // @brief Triggered when routing though the HDMI ARC port is successfully established.
                 // @text arcInitiationEvent
-                // @param success: Is the operation successful or not
-                virtual void ArcInitiationEvent(const string success /* @in */) {};
+                // @param status: Is the operation successful or not
+                virtual void ArcInitiationEvent(const string status /* @in */) {};
 
                 // @brief Triggered when routing though the HDMI ARC port terminates.
                 // @text arcTerminationEvent
-                // @param success: Is the operation successful or not
-                virtual void ArcTerminationEvent(const string success /* @in */) {};
+                // @param status: Is the operation successful or not
+                virtual void ArcTerminationEvent(const string status /* @in */) {};
 
                 // @brief Triggered when the active source device changes.
                 // @text onActiveSourceChange
