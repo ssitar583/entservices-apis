@@ -332,6 +332,11 @@
             // @param success: Is the operation successful or not
             virtual Core::hresult SetLatencyInfo(const string &videoLatency /* @in */, const string &lowLatencyMode /* @in */, const string &audioOutputCompensated /* @in */, const string &audioOutputDelay /* @in */, HdmiCecSinkSuccess &success /* @out */) = 0;
 
+            // @brief Requests the audio device power status.
+            // @text requestAudioDevicePowerStatus
+            // @param success: Is the operation successful or not
+            virtual Core::hresult RequestAudioDevicePowerStatus(HdmiCecSinkSuccess &success /* @out */) = 0;
+
          };
 
  } // namespace Exchange
