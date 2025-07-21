@@ -138,7 +138,9 @@ namespace WPEFramework
             // @text readEDID
             // @brief Reads the EDID from the specified input device
             // @param edid - out - The EDID message read from the device
-            virtual Core::hresult readEDID(string &edid /* @out */) = 0;
+            // @param id - in - The ID of the input device to write EDID to
+            // @param edid - out - The EDID message to read
+            virtual Core::hresult readEDID(uint8_t id /* @in */, string &edid /* @out */) = 0;
 
             // @text getRawSPD
             // @brief Returns the Source Data Product Descriptor (SPD) infoFrame packet information for the specified HDMI Input device as raw bits
