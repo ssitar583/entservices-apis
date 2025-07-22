@@ -26,7 +26,7 @@
 
 namespace WPEFramework {
 	namespace Exchange {
-		/* @json 1.0.0 @text:keep */
+		/* @json 2.0.0 @text:keep */
 		struct EXTERNAL IXCast : virtual public Core::IUnknown {
 			enum { ID = ID_XCAST };
 
