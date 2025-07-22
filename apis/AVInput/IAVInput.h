@@ -22,6 +22,50 @@
 
 // @stubgen:include <com/IIteratorType.h>
 
+struct InputDevice
+{
+    uint8_t id;
+    string locator;
+    bool connected;
+};
+
+struct MixerLevels
+{
+    uint8_t primaryVolume;
+    uint8_t playerVolume;
+};
+
+enum VideoPlaneType
+{
+    PRIMARY = 0,
+    SECONDARY = 1
+};
+
+struct InputSignalInfo
+{
+    uint8_t id;
+    string locator;
+    string status;
+};
+
+struct InputVideoMode
+{
+    uint8_t id;
+    string locator;
+    uint32_t width;
+    uint32_t height;
+    bool progressive;
+    uint32_t frameRateN;
+    uint32_t frameRateD;
+};
+
+struct GameFeatureStatus
+{
+    uint8_t id;
+    string gameFeature;
+    bool allmMode;
+};
+
 namespace WPEFramework
 {
     namespace Exchange
@@ -32,50 +76,6 @@ namespace WPEFramework
             enum
             {
                 ID = ID_AV_INPUT
-            };
-
-            struct InputDevice
-            {
-                uint8_t id;
-                string locator;
-                bool connected;
-            };
-
-            struct MixerLevels
-            {
-                uint8_t primaryVolume;
-                uint8_t playerVolume;
-            };
-
-            enum VideoPlaneType
-            {
-                PRIMARY = 0,
-                SECONDARY = 1
-            };
-
-            struct InputSignalInfo
-            {
-                uint8_t id;
-                string locator;
-                string status;
-            };
-
-            struct InputVideoMode
-            {
-                uint8_t id;
-                string locator;
-                uint32_t width;
-                uint32_t height;
-                bool progressive;
-                uint32_t frameRateN;
-                uint32_t frameRateD;
-            };
-
-            struct GameFeatureStatus
-            {
-                uint8_t id;
-                string gameFeature;
-                bool allmMode;
             };
 
             using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
