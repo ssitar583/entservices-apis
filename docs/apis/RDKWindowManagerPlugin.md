@@ -2,8 +2,6 @@
 <a name="RDKWindowManager_Plugin"></a>
 # RDKWindowManager Plugin
 
-**Version: [1.0.0]()**
-
 A org.rdk.RDKWindowManager plugin for Thunder framework.
 
 ### Table of Contents
@@ -1371,4 +1369,4 @@ Sent when the app removes focus.
     }
 }
 ```
-    
+

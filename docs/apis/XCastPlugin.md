@@ -2,8 +2,6 @@
 <a name="XCast_Plugin"></a>
 # XCast Plugin
 
-**Version: [1.0.0]()**
-
 A org.rdk.Xcast plugin for Thunder framework.
 
 ### Table of Contents
