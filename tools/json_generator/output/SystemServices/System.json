@@ -745,7 +745,7 @@
         },
         "getMilestones": {
 	        "deprecated" : true,
-            "referenceUrl" : "https://rdkcentral.github.io/rdkservices/#/api/DeviceDiagnosticsPlugin?id=getmilestones",
+            "referenceUrl" : "https://rdkcentral.github.io/entservices-apis/#/apis/DeviceDiagnosticsPlugin?id=getmilestones",
             "summary": "Returns the list of milestones.",
             "result": {
                 "type": "object",

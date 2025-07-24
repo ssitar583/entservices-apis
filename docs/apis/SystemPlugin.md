@@ -968,7 +968,7 @@ This method takes no parameters.
 
 Returns the list of milestones.
 
-> This API is **deprecated** and may be removed in the future. It is no longer recommended for use in new implementations. [Refer this link for the new api](https://rdkcentral.github.io/rdkservices/#/api/DeviceDiagnosticsPlugin?id=getmilestones)
+> This API is **deprecated** and may be removed in the future. It is no longer recommended for use in new implementations. [Refer this link for the new api](https://rdkcentral.github.io/entservices-apis/#/apis/DeviceDiagnosticsPlugin?id=getmilestones)
 
 ### Events
 
