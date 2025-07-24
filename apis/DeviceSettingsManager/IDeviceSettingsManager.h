@@ -27,7 +27,7 @@
 namespace WPEFramework {
     namespace Exchange {
     struct EXTERNAL IDeviceSettingsManager : virtual public Core::IUnknown {
-        enum { ID = ID_DEVICESETTINGS_PROXY };
+        enum { ID = ID_DEVICESETTINGS_MANAGER };
 
         enum DisplayEvent {
             DS_DISPLAY_EVENT_CONNECTED     = 0, ///< Display connected event
@@ -145,7 +145,7 @@ namespace WPEFramework {
 
         enum HDMIVideoAspectRatio : uint8_t {
             DS_HDMIIN_ASPECT_RATIO_4X3     = 0 /* @text Video Aspect Ratio 4X3 */,
-            DS_HDMIIN_ASPECT_RATIO_16x9    = 1 /* @text Video Aspect Ratio 16x9 */,
+            DS_HDMIIN_ASPECT_RATIO_16X9    = 1 /* @text Video Aspect Ratio 16x9 */,
             DS_HDMIIN_ASPECT_RATIO_MAX     = 2
         };
 
@@ -277,7 +277,7 @@ namespace WPEFramework {
 
         // @event
         struct EXTERNAL IHDMIHotPlugNotification : virtual public Core::IUnknown {
-            enum { ID = ID_DEVICESETTINGS_PROXY_HDMIHOTPLUG_NOTIFICATION };
+            enum { ID = ID_DEVICESETTINGS_MANAGER_HDMIHOTPLUG_NOTIFICATION };
             // @brief HDMI Hotplug event
             // @text OnHDMIHotPlug
             // @param displayEvent: CONNECTED or DISCONNECTED
@@ -289,7 +289,7 @@ namespace WPEFramework {
 
         // @event
         struct EXTERNAL IRxSenseNotification : virtual public Core::IUnknown {
-            enum { ID = ID_DEVICESETTINGS_PROXY_RXSENSE_NOTIFICATION };
+            enum { ID = ID_DEVICESETTINGS_MANAGER_RXSENSE_NOTIFICATION };
             // @brief RX Sense event
             // @text OnRxSense
             // @param displayEvent: RX Sense On or Off
@@ -301,7 +301,7 @@ namespace WPEFramework {
 
         // @event
         struct EXTERNAL IHDCPStatusNotification : virtual public Core::IUnknown {
-            enum { ID = ID_DEVICESETTINGS_PROXY_HDCP_STATUS_NOTIFICATION };
+            enum { ID = ID_DEVICESETTINGS_MANAGER_HDCP_STATUS_NOTIFICATION };
             // @brief HDCP Protocol version change
             // @text OnHDCPProtocolChangeStatus
             virtual void OnHDCPProtocolChangeStatus() { };
@@ -312,7 +312,7 @@ namespace WPEFramework {
 
         // @event
         struct EXTERNAL IDSAudioNotification : virtual public Core::IUnknown {
-            enum { ID = ID_DEVICESETTINGS_PROXY_AUDIO_NOTIFICATION };
+            enum { ID = ID_DEVICESETTINGS_MANAGER_AUDIO_NOTIFICATION };
 
             // @brief Associated Audio mixing changed
             // @text onAssociatedAudioMixingChanged
@@ -375,7 +375,7 @@ namespace WPEFramework {
 
         // @event
         struct EXTERNAL IHDMIInNotification : virtual public Core::IUnknown {
-            enum { ID = ID_DEVICESETTINGS_PROXY_HDMIIN_NOTIFICATION };
+            enum { ID = ID_DEVICESETTINGS_MANAGER_HDMIIN_NOTIFICATION };
             // @brief HDMI Event Hot Plug
             // @text onHDMIInEventHotPlug
             // @param port: port 0 or 1 et al
@@ -423,7 +423,7 @@ namespace WPEFramework {
 
         // @event
         struct EXTERNAL IDSVideoPortStatusNotification : virtual public Core::IUnknown {
-            enum { ID = ID_DEVICESETTINGS_PROXY_VIDEOPORT_NOTIFICATION };
+            enum { ID = ID_DEVICESETTINGS_MANAGER_VIDEOPORT_NOTIFICATION };
             // @brief On Resolution Pre changed
             // @text OnResolutionPreChange
             // @param resolution: resolution
@@ -450,7 +450,7 @@ namespace WPEFramework {
 
         // @event
         struct EXTERNAL IDSVideoDeviceNotification : virtual public Core::IUnknown {
-            enum { ID = ID_DEVICESETTINGS_PROXY_VIDEODEVICE_NOTIFICATION };
+            enum { ID = ID_DEVICESETTINGS_MANAGER_VIDEODEVICE_NOTIFICATION };
 
             // @brief Zoom settings changed
             // @text OnZoomSettingsChanged
@@ -473,7 +473,7 @@ namespace WPEFramework {
 
         // @event
         struct EXTERNAL IDSHostNotification : virtual public Core::IUnknown {
-            enum { ID = ID_DEVICESETTINGS_PROXY_HOST_NOTIFICATION };
+            enum { ID = ID_DEVICESETTINGS_MANAGER_HOST_NOTIFICATION };
 
             // @brief Sleep mode changed
             // @text onSleepModeChanged
@@ -486,7 +486,7 @@ namespace WPEFramework {
 
         // @event
         struct EXTERNAL IDSCompositeInNotification : virtual public Core::IUnknown {
-            enum { ID = ID_DEVICESETTINGS_PROXY_COMPOSITEIN_NOTIFICATION };
+            enum { ID = ID_DEVICESETTINGS_MANAGER_COMPOSITEIN_NOTIFICATION };
 
             // @brief Composite In Hotplug event
             // @text onCompositeInHotPlug
@@ -512,7 +512,7 @@ namespace WPEFramework {
 
         // @event
         struct EXTERNAL IDSFPDNotification : virtual public Core::IUnknown {
-            enum { ID = ID_DEVICESETTINGS_PROXY_FPD_NOTIFICATION };
+            enum { ID = ID_DEVICESETTINGS_MANAGER_FPD_NOTIFICATION };
 
             // @brief On Front Panel display time format changed
             // @text OnFPDTimeFormatChanged
