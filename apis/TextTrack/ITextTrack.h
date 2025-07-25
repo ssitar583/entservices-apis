@@ -21,7 +21,7 @@
 
 #include "Module.h"
 
-#define ITEXTTRACK_VERSION 2
+#define ITEXTTRACK_VERSION 3
 
 namespace WPEFramework {
 namespace Exchange {
@@ -308,6 +308,7 @@ struct EXTERNAL ITextTrackClosedCaptionsStyle : virtual public Core::IUnknown {
 
 /*
  * This is the COM-RPC interface for global TTML style overrides.
+ * Added in version 2
  */
 /* @json 1.0.0 @text:keep */
 struct EXTERNAL ITextTrackTtmlStyle : virtual public Core::IUnknown {
@@ -517,11 +518,26 @@ struct EXTERNAL ITextTrack : virtual public Core::IUnknown {
      * overridden. For styling options, see https://www.w3.org/TR/2018/REC-ttml1-20181108/#styling-vocabulary-style
      * The format of the styling string is "attr:value;attr:value;attr:value" (see vocabulary; NB: not all styling is supported)
      * Styles not mentioned in the list will not be affected.
+     * Added in version 2
      * @param sessionId Is the session as returned in the ITextTrack interface.
      * @param style Contains the list of styles to be overridden
      * @text applyCustomTtmlStyleOverridesToSession
      */
     virtual Core::hresult ApplyCustomTtmlStyleOverridesToSession(const uint32_t sessionId, const string &style) { return Core::ERROR_NOT_SUPPORTED; }
+
+    /**
+     * @brief Associate CC HAL with the given session
+     * @details This will cause TextTrack to subscribe to data from CC HAL and display
+     * these in the given session. Depending on the support on the platform, this may
+     * not be possible to do.
+     * It is not possible to cancel the association.
+     * After associating the CC HAL, you should not call SendSessionData.
+     * Added in version 3
+     * @param sessionId is the session
+     * @param handle is a textual representation of the video decoder handle
+     * @text associateClosedCaptionsHalDecoder
+     */
+    virtual Core::hresult AssociateClosedCaptionsHalDecoder(const uint32_t sessionId, const string &handle) { return Core::ERROR_NOT_SUPPORTED; }
 
 };
 } // namespace Exchange
