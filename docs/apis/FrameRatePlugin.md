@@ -2,8 +2,6 @@
 <a name="FrameRate_Plugin"></a>
 # FrameRate Plugin
 
-**Version: [1.0.0]()**
-
 A org.rdk.FrameRate plugin for Thunder framework.
 
 ### Table of Contents
@@ -76,7 +74,7 @@ This method takes no parameters.
 | :-------- | :-------- | :-------- |
 | result | object |  |
 | result.framerate | string | The display framerate setting (width x height x framerate) |
-| result.success | boolean | Indicates success |
+| result.success | boolean | Whether the request succeeded |
 
 ### Example
 
@@ -122,7 +120,7 @@ This method takes no parameters.
 | :-------- | :-------- | :-------- |
 | result | object |  |
 | result.auto-frm-mode | integer | `0` for auto framerate mode disabled, `1` for auto framerate mode enabled (must be one of the following: *0*, *1*) |
-| result.success | boolean | Indicates success |
+| result.success | boolean | Whether the request succeeded |
 
 ### Example
 
@@ -169,7 +167,8 @@ No Events
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | boolean | Always true |
+| result | object |  |
+| result.success | boolean | Whether the request succeeded |
 
 ### Example
 
@@ -192,7 +191,9 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": true
+    "result": {
+        "success": true
+    }
 }
 ```
 
@@ -218,7 +219,8 @@ Sets the display framerate values.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | boolean | Always true |
+| result | object |  |
+| result.success | boolean | Whether the request succeeded |
 
 ### Example
 
@@ -241,7 +243,9 @@ Sets the display framerate values.
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": true
+    "result": {
+        "success": true
+    }
 }
 ```
 
@@ -265,7 +269,8 @@ No Events
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | boolean | Always true |
+| result | object |  |
+| result.success | boolean | Whether the request succeeded |
 
 ### Example
 
@@ -288,7 +293,9 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": true
+    "result": {
+        "success": true
+    }
 }
 ```
 
@@ -310,7 +317,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | boolean | Always true |
+| result | object |  |
+| result.success | boolean | Whether the request succeeded |
 
 ### Example
 
@@ -330,7 +338,9 @@ This method takes no parameters.
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": true
+    "result": {
+        "success": true
+    }
 }
 ```
 
@@ -352,7 +362,8 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | boolean | Always true |
+| result | object |  |
+| result.success | boolean | Whether the request succeeded |
 
 ### Example
 
@@ -372,7 +383,9 @@ This method takes no parameters.
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": true
+    "result": {
+        "success": true
+    }
 }
 ```
 
@@ -396,7 +409,8 @@ No Events
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | boolean | Always true |
+| result | object |  |
+| result.success | boolean | Whether the request succeeded |
 
 ### Example
 
@@ -419,7 +433,9 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": true
+    "result": {
+        "success": true
+    }
 }
 ```
 
