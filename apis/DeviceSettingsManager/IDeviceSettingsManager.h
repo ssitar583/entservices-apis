@@ -187,7 +187,7 @@ namespace WPEFramework {
         };
 
         struct HDMIVideoPortResolution {
-            std::string name;
+            string name;
             HDMIInTVResolution pixelResolution;
             HDMIVideoAspectRatio aspectRatio;
             HDMIInVideoStereoScopicMode stereoScopicMode;
