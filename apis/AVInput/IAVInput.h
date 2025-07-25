@@ -91,9 +91,8 @@ namespace WPEFramework
 
                 // @text onSignalChanged
                 // @brief Triggered when the signal status of an input device changes
-                // @param id - in - The ID of the input device
                 // @param info - in - The new signal information of the input device
-                virtual void OnSignalChanged(uint8_t id, const InputSignalInfo &info) {};
+                virtual void OnSignalChanged(const InputSignalInfo &info) {};
 
                 // @text onInputStatusChanged
                 // @brief Triggered when the input status of an input device changes
@@ -103,17 +102,17 @@ namespace WPEFramework
                 // @text videoStreamInfoUpdate
                 // @brief Triggered when the video mode of an input device changes
                 // @param videoMode - in - The new video mode information of the input device
-                virtual void videoStreamInfoUpdate(const InputVideoMode &videoMode) {};
+                virtual void VideoStreamInfoUpdate(const InputVideoMode &videoMode) {};
 
                 // @text gameFeatureStatusUpdate
                 // @brief Triggered when the game feature status of an input device changes
                 // @param status - in - The new game feature status of the input device
-                virtual void gameFeatureStatusUpdate(const GameFeatureStatus &status) {};
+                virtual void GameFeatureStatusUpdate(const GameFeatureStatus &status) {};
 
                 // @text aviContentTypeUpdate
                 // @brief Triggered when the AVI content type of an input device changes
                 // @param contentType - in - The new AVI content type of the input device
-                virtual void aviContentTypeUpdate(int contentType) {};
+                virtual void AviContentTypeUpdate(int contentType) {};
             };
 
             virtual Core::hresult Register(IAVInput::INotification *notification /* @in */) = 0;
