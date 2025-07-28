@@ -2,9 +2,9 @@
   "$schema": "https://raw.githubusercontent.com/rdkcentral/entservices-apis/refs/heads/main/tools/md_generator/json2md/schemas/interface.schema.json",
   "jsonrpc": "2.0",
   "info": {
-    "title": "PertsistentStore API",
-    "class": "PersistentStore",
-    "description": "Persistent Store JSON-RPC interface"
+    "title": "SharedStorage API",
+    "class": "SharedStorage",
+    "description": "SharedStorage JSON-RPC interface"
   },
   "common": {
     "$ref": "../common/common.json"
@@ -46,7 +46,7 @@
       "example": 100
     },
     "success": {
-      "summary": "Legacy parameter (always true)",
+      "summary": "Whether the request succeeded",
       "type": "boolean",
       "default": true,
       "example": true
@@ -128,15 +128,7 @@
     "flushCache": {
       "summary": "Flushes the device cache",
       "result": {
-        "type": "object",
-        "properties": {
-          "success": {
-            "$ref": "#/definitions/success"
-          }
-        },
-        "required": [
-          "success"
-        ]
+        "$ref": "#/common/results/void"
       },
       "errors": [
         {
@@ -253,10 +245,14 @@
                 "size"
               ]
             }
+          },
+	  "success": {
+            "$ref": "#/definitions/success"
           }
         },
         "required": [
-          "storageList"
+          "storageList",
+	  "success"
         ]
       },
       "errors": [
@@ -397,7 +393,7 @@
         ]
       },
       "result": {
-        "$ref": "#/common/results/void"
+        "$ref": "#/common/success"
       },
       "errors": [
         {

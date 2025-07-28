@@ -1,8 +1,8 @@
 <!-- Generated automatically, DO NOT EDIT! -->
-<a name="PersistentStore_Plugin"></a>
-# PersistentStore Plugin
+<a name="SharedStorage_Plugin"></a>
+# SharedStorage Plugin
 
-A org.rdk.PersistentStore plugin for Thunder framework.
+A org.rdk.SharedStorage plugin for Thunder framework.
 
 ### Table of Contents
 
@@ -20,7 +20,7 @@ A org.rdk.PersistentStore plugin for Thunder framework.
 <a name="Description"></a>
 # Description
 
-The `PersistentStore` plugin allows you to persist key/value pairs by namespace.
+The `SharedStorage` plugin allows you to persist key/value pairs by namespace.
 
 The plugin is designed to be loaded and executed within the Thunder framework. For more information about the framework refer to [[Thunder](#Thunder)].
 
@@ -31,17 +31,17 @@ The table below lists configuration options of the plugin.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| callsign | string | Plugin instance name (default: *org.rdk.PersistentStore*) |
-| classname | string | Class name: *org.rdk.PersistentStore* |
-| locator | string | Library name: *libWPEFrameworkPersistentStore.so* |
+| callsign | string | Plugin instance name (default: *org.rdk.SharedStorage*) |
+| classname | string | Class name: *org.rdk.SharedStorage* |
+| locator | string | Library name: *libWPEFrameworkSharedStorage.so* |
 | autostart | boolean | Determines if the plugin shall be started automatically along with the framework |
 
 <a name="Methods"></a>
 # Methods
 
-The following methods are provided by the org.rdk.PersistentStore plugin:
+The following methods are provided by the org.rdk.SharedStorage plugin:
 
-PersistentStore interface methods:
+SharedStorage interface methods:
 
 | Method | Description |
 | :-------- | :-------- |
@@ -80,7 +80,7 @@ No Events
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | result | object |  |
-| result.success | boolean | Legacy parameter (always true) |
+| result.success | boolean | Whether the request succeeded |
 
 ### Errors
 
@@ -96,7 +96,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "method": "org.rdk.PersistentStore.deleteKey",
+    "method": "org.rdk.SharedStorage.deleteKey",
     "params": {
         "namespace": "ns1",
         "key": "key1",
@@ -139,7 +139,7 @@ No Events
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | result | object |  |
-| result.success | boolean | Legacy parameter (always true) |
+| result.success | boolean | Whether the request succeeded |
 
 ### Errors
 
@@ -155,7 +155,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "method": "org.rdk.PersistentStore.deleteNamespace",
+    "method": "org.rdk.SharedStorage.deleteNamespace",
     "params": {
         "namespace": "ns1",
         "scope": "device"
@@ -192,8 +192,7 @@ This method takes no parameters.
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | object |  |
-| result.success | boolean | Legacy parameter (always true) |
+| result | null | Always null |
 
 ### Errors
 
@@ -209,7 +208,7 @@ This method takes no parameters.
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "method": "org.rdk.PersistentStore.flushCache"
+    "method": "org.rdk.SharedStorage.flushCache"
 }
 ```
 
@@ -219,9 +218,7 @@ This method takes no parameters.
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": {
-        "success": true
-    }
+    "result": null
 }
 ```
 
@@ -249,7 +246,7 @@ No Events
 | result | object |  |
 | result.keys | array |  |
 | result.keys[#] | string | Key |
-| result.success | boolean | Legacy parameter (always true) |
+| result.success | boolean | Whether the request succeeded |
 
 ### Errors
 
@@ -265,7 +262,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "method": "org.rdk.PersistentStore.getKeys",
+    "method": "org.rdk.SharedStorage.getKeys",
     "params": {
         "namespace": "ns1",
         "scope": "device"
@@ -311,7 +308,7 @@ No Events
 | result | object |  |
 | result.namespaces | array |  |
 | result.namespaces[#] | string | Namespace |
-| result.success | boolean | Legacy parameter (always true) |
+| result.success | boolean | Whether the request succeeded |
 
 ### Errors
 
@@ -327,7 +324,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "method": "org.rdk.PersistentStore.getNamespaces",
+    "method": "org.rdk.SharedStorage.getNamespaces",
     "params": {
         "scope": "device"
     }
@@ -374,6 +371,7 @@ No Events
 | result.storageList[#] | object |  |
 | result.storageList[#].namespace | string | Namespace |
 | result.storageList[#].size | number | Size in bytes |
+| result.success | boolean | Whether the request succeeded |
 
 ### Errors
 
@@ -389,7 +387,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "method": "org.rdk.PersistentStore.getStorageSizes",
+    "method": "org.rdk.SharedStorage.getStorageSizes",
     "params": {
         "scope": "device"
     }
@@ -408,7 +406,8 @@ No Events
                 "namespace": "ns1",
                 "size": 100
             }
-        ]
+        ],
+        "success": true
     }
 }
 ```
@@ -437,7 +436,7 @@ No Events
 | :-------- | :-------- | :-------- |
 | result | object |  |
 | result.value | string | Value |
-| result.success | boolean | Legacy parameter (always true) |
+| result.success | boolean | Whether the request succeeded |
 | result?.ttl | number | <sup>*(optional)*</sup> Time in seconds |
 
 ### Errors
@@ -457,7 +456,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "method": "org.rdk.PersistentStore.getValue",
+    "method": "org.rdk.SharedStorage.getValue",
     "params": {
         "namespace": "ns1",
         "key": "key1",
@@ -505,7 +504,7 @@ No Events
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
 | result | object |  |
-| result.success | boolean | Legacy parameter (always true) |
+| result.success | boolean | Whether the request succeeded |
 
 ### Errors
 
@@ -523,7 +522,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "method": "org.rdk.PersistentStore.setValue",
+    "method": "org.rdk.SharedStorage.setValue",
     "params": {
         "namespace": "ns1",
         "key": "key1",
@@ -568,7 +567,7 @@ No Events
 
 | Name | Type | Description |
 | :-------- | :-------- | :-------- |
-| result | null | Always null |
+| result | boolean | Whether the request succeeded |
 
 ### Errors
 
@@ -585,7 +584,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "method": "org.rdk.PersistentStore.setNamespaceStorageLimit",
+    "method": "org.rdk.SharedStorage.setNamespaceStorageLimit",
     "params": {
         "namespace": "ns1",
         "storageLimit": 100,
@@ -600,7 +599,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "result": null
+    "result": true
 }
 ```
 
@@ -643,7 +642,7 @@ No Events
 {
     "jsonrpc": "2.0",
     "id": 42,
-    "method": "org.rdk.PersistentStore.getNamespaceStorageLimit",
+    "method": "org.rdk.SharedStorage.getNamespaceStorageLimit",
     "params": {
         "namespace": "ns1",
         "scope": "device"
@@ -668,9 +667,9 @@ No Events
 
 Notifications are autonomous events, triggered by the internals of the implementation, and broadcasted via JSON-RPC to all registered observers. Refer to [[Thunder](#Thunder)] for information on how to register for a notification.
 
-The following events are provided by the org.rdk.PersistentStore plugin:
+The following events are provided by the org.rdk.SharedStorage plugin:
 
-PersistentStore interface events:
+SharedStorage interface events:
 
 | Event | Description |
 | :-------- | :-------- |
