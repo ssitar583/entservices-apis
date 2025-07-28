@@ -62,6 +62,13 @@ struct GameFeatureStatus
     bool allmMode;
 };
 
+struct InputDevice
+{
+    int id /* @text id */;
+    string locator /* @text locator */;
+    bool connected /* @text connected */;
+};
+
 namespace WPEFramework
 {
     namespace Exchange
@@ -72,13 +79,6 @@ namespace WPEFramework
             enum
             {
                 ID = ID_AV_INPUT
-            };
-
-            struct EXTERNAL InputDevice // <pca> TODO: See if we can move this out </pca>
-            {
-                int id /* @text id */;
-                string locator /* @text locator */;
-                bool connected /* @text connected */;
             };
 
             using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
@@ -92,30 +92,35 @@ namespace WPEFramework
                     ID = ID_AV_INPUT_NOTIFICATION
                 };
 
+                // @text onDevicesChanged
+                // @brief Triggered whenever a new HDMI/Composite device is connected to an HDMI/Composite Input
+                // @param info - in - The new signal information of the input device
+                virtual void OnDevicesChanged(const IInputDeviceIterator *&devices) {};
+
                 // @text onSignalChanged
-                // @brief Triggered when the signal status of an input device changes
+                // @brief Triggered whenever the signal status changes for an HDMI/Composite Input
                 // @param info - in - The new signal information of the input device
                 virtual void OnSignalChanged(const InputSignalInfo &info) {};
 
                 // @text onInputStatusChanged
-                // @brief Triggered when the input status of an input device changes
+                // @brief Triggered whenever the status changes for an HDMI/Composite Input
                 // @param info - in - The new input status information of the input device
                 virtual void OnInputStatusChanged(const InputSignalInfo &info) {};
 
                 // @text videoStreamInfoUpdate
-                // @brief Triggered when the video mode of an input device changes
+                // @brief Triggered whenever there is an update in HDMI/Composite Input video stream info
                 // @param videoMode - in - The new video mode information of the input device
                 virtual void VideoStreamInfoUpdate(const InputVideoMode &videoMode) {};
 
                 // @text gameFeatureStatusUpdate
-                // @brief Triggered when the game feature status of an input device changes
+                // @brief Triggered whenever game feature(ALLM) status changes for an HDMI Input
                 // @param status - in - The new game feature status of the input device
                 virtual void GameFeatureStatusUpdate(const GameFeatureStatus &status) {};
 
-                // @text aviContentTypeUpdate
-                // @brief Triggered when the AVI content type of an input device changes
+                // @text hdmiContentTypeUpdate
+                // @brief Triggered whenever AV Infoframe content type changes for an HDMI Input
                 // @param contentType - in - The new AVI content type of the input device
-                virtual void AviContentTypeUpdate(int contentType) {};
+                virtual void HdmiContentTypeUpdate(const int contentType) {};
             };
 
             virtual Core::hresult Register(IAVInput::INotification *notification /* @in */) = 0;
