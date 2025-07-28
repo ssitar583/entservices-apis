@@ -32,11 +32,13 @@ class HeaderFileParser:
     # List of regexes to match different components of the header file
     REGEX_LINE_LIST = [
         ('plugindescription', 'doxygen', re.compile(r'(?:\/\*+|\*|//)\s*@plugindescription\s+(.*?)(?=\s*\*\/|$)')),
+        ('configuration', 'doxygen', re.compile(r'(?:\/\*+|\*|//)\s*@docs:config\s+([\w\.\?]+)\s+(\w+)\s*(.*?)(?=\s*\*\/|$)')),
     ] + [
         ('text',    'doxygen', re.compile(r'(?:\/\*+|\*|//) (?:@text|@alt)\s+(.*?)(?=\s*\*\/|$)')),
         ('brief',   'doxygen', re.compile(r'(?:\/\*+|\*|//) @brief\s*(.*?)(?=\s*\*\/|$)')),
         ('details', 'doxygen', re.compile(r'(?:\/\*+|\*|//) @details\s*(.*?)(?=\s*\*\/|$)')),
         ('params',  'doxygen', re.compile(r'(?:\/\*+|\*|//)\s*@param(\[.*\])?\s+([^\s:(]+)(?:\(([^)]*)\))?\s*:?\s*(.*?)(?=\s*\*\/|$)')),
+        ('errors',  'doxygen', re.compile(r'(?:\/\*+|\*|//) @errors\s*(\d+?)\s*(\w+)\s*(.*?)?(?=\s*\*\/|$)')),
         ('return',  'doxygen', re.compile(r'(?:\/\*+|\*|//) @return(?:s)?\s*(.*?)(?=\s*\*\/|$)')),
         ('see',     'doxygen', re.compile(r'(?:\/\*+|\*|//) @see\s*(.*?)(?=\s*\*\/|$)')),
         ('omit',    'doxygen', re.compile(r'(?:\/\*+|\*|//)\s*(@json:omit|@omit)')),
@@ -72,7 +74,7 @@ class HeaderFileParser:
         'method_param': re.compile(r'([\w\d\:\*]+)\s+([\w\d\[\]]+)\s*(?:\/\*(.*)\*\/)?')
     }
 
-    def __init__(self, header_file_path: str, logger: Logger):
+    def __init__(self, header_file_path: str, plugin_name: str, logger: Logger, ):
         """
         Initializes data structures to track different components of a C++ header file, then
         parses said header file to extract methods, structs, enums, and iterators.
@@ -84,7 +86,7 @@ class HeaderFileParser:
         # objects to hold the different components and properties of the header file
         self.header_file_path = header_file_path
         # All the header files will begin with "I", strip it to get the classname.
-        self.classname = os.path.splitext(os.path.basename(self.header_file_path))[0][1:]
+        self.classname = plugin_name
         self.methods = {}
         self.properties = {}
         self.events = {}
@@ -92,6 +94,7 @@ class HeaderFileParser:
         self.iterators_registry = {}
         self.enums_registry = {}
         self.symbols_registry = {}
+        self.configuration_options = {}
         self.logger = logger
 
         # helper objects for holding doxygen tag information while parsing
@@ -256,6 +259,8 @@ class HeaderFileParser:
         """
         if line_tag == 'plugindescription':
             self.plugindescription = groups[0]
+        elif line_tag == 'configuration':
+            self.configuration_options[groups[0]] = {'type': groups[1], 'description': groups[2]}
         elif line_tag == 'text':
             self.doxy_tags['text'] = groups[0]
             self.latest_tag = 'text'
@@ -268,6 +273,10 @@ class HeaderFileParser:
         elif line_tag == 'see':
             self.doxy_tags.setdefault('see', {})[groups[0]] = ''
             self.latest_tag = 'see'
+        elif line_tag == 'errors':
+            self.doxy_tags.setdefault('errors', {})[groups[1]] = {'code': groups[0],
+                                                                  'description': groups[2]}
+            self.latest_tag = 'errors'
         elif line_tag == 'comment':
             if groups[0] == '/':
                 return
@@ -417,6 +426,7 @@ class HeaderFileParser:
             'events': doxy_tags.get('see', {}),
             'params': params,
             'results': results,
+            'errors': doxy_tags.get('errors', {}),
             'return_type': method_return_type
         }
         if 'property' in doxy_tags:
@@ -876,9 +886,11 @@ class HeaderFileParser:
         """
         if description:
             description = description.strip()
-            description = re.sub(r'^@\S+', '', description)
+            description = re.sub(r'@\S+', '', description)
             description = description[:-1] if description.endswith(';') else description
             description = description[:-2] if description.endswith("*/") else description
+            description = re.sub(r'\*/', ' ', description)
+            description = re.sub(r'/\*', ' ', description)
         return description
 
     def build_canonical_dict(self, param_or_result_list):
