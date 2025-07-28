@@ -65,30 +65,12 @@ namespace WPEFramework
             // @param success: Is the operation successful or not
             virtual Core::hresult GetBrightness(const string &index, int32_t &brightness /* @out */, bool &success /* @out */) = 0;
 
-            // @brief Gets the clock brightness of the Front Panel
-            // @text getClockBrightness
-            // @param brightness: Brightness level of the clock
-            // @param success: Is the operation successful or not
-            virtual Core::hresult GetClockBrightness(uint32_t &brightness /* @out */, bool &success /* @out */) = 0;
-
             // @brief Gets the front panel lights
             // @text getFrontPanelLights
             // @param supportedLights: List of supported front panel lights
             // @param supportedLightsInfo: Information about the supported front panel lights
             // @param success: Is the operation successful or not
             virtual Core::hresult GetFrontPanelLights(IFrontPanelLightsListIterator*& supportedLights /* @out */, string &supportedLightsInfo /* @out @opaque */, bool &success /* @out */) = 0;
-
-            // @brief Gets the front panel light preferences
-            // @text getPreferences
-            // @param preferences: Preferences of the front panel lights
-            // @param success: Is the operation successful or not
-            virtual Core::hresult GetPreferences(string &preferences /* @out @opaque */, bool &success /* @out */) = 0;
-
-            // @brief Gets whether clock is 24 hour format or not
-            // @text is24HourClock
-            // @param is24Hour: Is the clock in 24 hour format or not
-            // @param success: Is the operation successful or not
-            virtual Core::hresult Is24HourClock(bool &is24Hour /* @out */, bool &success /* @out */) = 0;
 
             // @brief Switches the specified LED off
             // @text powerLedOff
@@ -101,12 +83,6 @@ namespace WPEFramework
             // @param index: Index of the LED to switch on
             // @param success: Is the operation successful or not
             virtual Core::hresult PowerLedOn(const string &index, FrontPanelSuccess &success /* @out */) = 0;
-
-            // @brief Sets whether the clock is in 24 hour format or not
-            // @text set24HourClock
-            // @param is24Hour: Is the clock in 24 hour format or not
-            // @param success: Is the operation successful or not
-            virtual Core::hresult Set24HourClock(const bool &is24Hour, FrontPanelSuccess &success /* @out */) = 0;
 
             // @brief Sets the blink pattern for the specified LED
             // @text setBlink
@@ -121,20 +97,6 @@ namespace WPEFramework
             // @param success: Is the operation successful or not
             virtual Core::hresult SetBrightness(const string &index, const int32_t &brightness, FrontPanelSuccess &success /* @out */) = 0;
 
-            // @brief Sets the clock brightness of the Front Panel
-            // @text setClockBrightness
-            // @param brightness: Brightness level of the clock to set
-            // @param success: Is the operation successful or not
-            virtual Core::hresult SetClockBrightness(const uint32_t &brightness, FrontPanelSuccess &success /* @out */) = 0;
-
-
-            // @brief Allows you to set a test pattern on the STB clock (88 88).
-            // @text setClockTestPattern
-            // @param show: Whether to show the test pattern or not
-            // @param timeInterval: Time interval in milliseconds for which the test pattern should be shown
-            // @param success: Is the operation successful or not
-            virtual Core::hresult SetClockTestPattern(const bool &show, const uint32_t &timeInterval, FrontPanelSuccess &success /* @out */) = 0;
-
             // @brief Sets the LED with the specified color and brightness
             // @text setLED
             // @param ledIndiciator: LED indicator to set
@@ -144,13 +106,6 @@ namespace WPEFramework
             // @param blue: Blue component of the LED color
             // @param success: Is the operation successful or not
             virtual Core::hresult SetLED(const string &ledIndiciator, const uint32_t &brightness, const uint32_t &red, const uint32_t &green, const uint32_t &blue, FrontPanelSuccess &success /* @out */) = 0;
-
-            // @brief Sets the preferences for the front panel lights
-            // @text setPreferences
-            // @param preferences: Preferences of the front panel lights
-            // @param success: Is the operation successful or not
-            virtual Core::hresult SetPreferences(const string &preferences /* @opaque */, FrontPanelSuccess &success /* @out */) = 0;
-
 
         };
 } // namespace Exchange
