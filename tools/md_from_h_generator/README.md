@@ -220,10 +220,11 @@ virtual uint32_t internalMethod();
  */
 virtual uint32_t PortName (string& name /* @out */) const = 0;
 ```
+---
 
 ### 9. `@plugindescription`
 - **Purpose**: Provides option to override the generic plugin description text
-- **Required**: No (Mandatory tag if method is a property)
+- **Required**: No
 - **Usage**:
   - Use this tag for overriding the generic plugin description.
 
@@ -234,7 +235,7 @@ virtual uint32_t PortName (string& name /* @out */) const = 0;
         /* @json 1.0.0 @text:keep */
         // @plugindescription This plugin provides so and so functionalities
         struct EXTERNAL IClassName : virtual public Core::IUnknown
-        {
+    }
 ```
 
 ***Generated Markdown Example:***
@@ -247,6 +248,60 @@ virtual uint32_t PortName (string& name /* @out */) const = 0;
 > The plugin is designed to be loaded and executed within the Thunder framework. For more information about the framework refer > > to [[Thunder](#ref.Thunder)].
 >
 > <a id="head.Configuration"></a>
+
+---
+
+### 10. `@errors`
+- **Purpose**: Describes the errors which this method can return.
+- **Required**: No
+- **Usage**:
+  - Use this tag to detail the error code, error message type, and error description
+
+**Example**:
+```cpp
+    namespace Exchange
+    {
+        // @errors 1 ERROR_GENERAL General Error
+        virtual Core::hresult DefaultResolution(const string& videoDisplay /* @out */)
+    }
+```
+
+***Generated Markdown Example:***
+> ### Errors
+> | Code | Messafe | Description |
+> | :-------- | :-------- | :-------- |
+> | 1 | `ERROR_GENERAL` | General error |
+
+---
+
+### 11. `@docs:configuration`
+- **Purpose**: Provides option to include the plugin's configuration options
+- **Required**: No
+- **Usage**:
+  - Use this to describe a configuration option for the plugin. Include the option's name, type, and description. Do not need to include options for the plugin's callsign, classname, locator, or autostart.
+
+**Example**:
+```cpp
+    namespace Exchange
+    {
+        /* @json 1.0.0 @text:keep */
+        // @plugindescription This plugin provides so and so functionalities
+        // @docs:config configuration string 
+        // @docs:config configuration.loggername string Logger name used by backend
+        struct EXTERNAL IClassName : virtual public Core::IUnknown
+    }
+```
+
+***Generated Markdown Example:***
+> ### Configuration
+> | Name	| Type	| Description |
+> | :-------- | :-------- | :-------- |
+> | callsign	| string	| Plugin instance name (default: *org.rdk.Analytics*) |
+> | classname	| string	| Class name: *org.rdk.Analytics* |
+> | locator	| string	| Library name: *libWPEFrameworkAnalytics.so* |
+> | autostart	| boolean	| Determines if the plugin shall be started automatically along with the framework |
+> | configuration	| object | |
+> | configuration.loggername	| string	| Logger name used by backend |
 
 ---
 
