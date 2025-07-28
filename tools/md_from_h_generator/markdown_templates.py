@@ -176,6 +176,19 @@ def generate_header_description_markdown(classname, plugindescription=None):
         description_line
     ).format(classname=classname)
 
+def generate_configuration_options_section(configuration_options):
+    """
+    Generate the configuration options section for the markdown file.
+    """
+    markdown = ''
+    if configuration_options:
+        # markdown += "| Name | Type | Description |\n| :-------- | :-------- | :-------- |\n"
+        for option_name, option_type_and_desc in configuration_options.items():
+            option_type = option_type_and_desc['type']
+            option_desc = option_type_and_desc['description']
+            markdown += f"| {option_name} | {option_type} | {option_desc} |\n"
+    return markdown
+
 def generate_methods_toc(methods, classname):
     """
     Generate the methods table of contents for the markdown file.
@@ -240,7 +253,7 @@ def generate_parameters_section(params, symbol_registry):
                 if param['custom_name']:
                     param_name = param_name.replace(param['name'], param['custom_name'])
                 optionality = f"<sup>({param['optionality']})</sup>" if param['optionality'] == 'optional' else ''
-                markdown += f"| params{'?' if optionality else ''}{param_name} | {param_data['type']} | {optionality}{cleaned_description if cleaned_description else '-'} |\n"
+                markdown += f"| params{'?' if optionality else ''}{param_name} | {param_data['type']} | {optionality}{cleaned_description if cleaned_description else ''} |\n"
     else:
         markdown += "This method takes no parameters.\n"
     return markdown
@@ -260,9 +273,21 @@ def generate_results_section(results, symbol_registry):
                 if result['custom_name']:
                     result_name = result_name.replace(result['name'], result['custom_name'])
                 optionality = f"<sup>({result['optionality']})</sup>" if result['optionality'] == 'optional' else ''
-                markdown += f"| result{'?' if optionality else ''}{result_name} | {result_data['type']} | {optionality}{cleaned_description if cleaned_description else '-'} |\n"
+                markdown += f"| result{'?' if optionality else ''}{result_name} | {result_data['type']} | {optionality}{cleaned_description if cleaned_description else ''} |\n"
     else:
         markdown += "This method returns no results.\n"
+    return markdown
+
+def generate_errors_section(errors):
+    """
+    Generate the errors section for a method.
+    """
+    markdown = ''
+    if errors:
+        markdown = "### Errors\n"
+        markdown += """| Code | Message | Description |\n| :-------- | :-------- | :-------- |\n"""
+        for error_name, error_code_and_desc in errors.items():
+            markdown += f"| {error_code_and_desc['code']} | {error_name} | {error_code_and_desc['description'] if error_code_and_desc['description'] else ''} |\n"
     return markdown
 
 def generate_parameters_section_from_canonical(canonical_params):
@@ -298,6 +323,7 @@ def generate_method_markdown(method_name, method_info, symbol_registry, classnam
     # Use canonical dicts for tables
     markdown += generate_parameters_section(method_info['params'], symbol_registry)
     markdown += generate_results_section(method_info['results'], symbol_registry)
+    markdown += generate_errors_section(method_info['errors'])
     markdown += "\n### Examples\n"
     markdown += generate_request_section(method_info['request'], '', classname)
     markdown += generate_response_section(method_info['response'], '', classname)
