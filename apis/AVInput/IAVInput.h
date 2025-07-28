@@ -22,6 +22,9 @@
 
 // @stubgen:include <com/IIteratorType.h>
 
+#define HDMI 0
+#define COMPOSITE 1
+
 struct MixerLevels
 {
     uint8_t primaryVolume;
