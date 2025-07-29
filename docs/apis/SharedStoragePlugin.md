@@ -2,8 +2,6 @@
 <a name="SharedStorage_Plugin"></a>
 # SharedStorage Plugin
 
-**Version: [1.0.0]()**
-
 A org.rdk.SharedStorage plugin for Thunder framework.
 
 ### Table of Contents
