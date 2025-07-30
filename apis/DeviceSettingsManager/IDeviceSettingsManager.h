@@ -88,17 +88,15 @@ namespace WPEFramework {
         };
 
         enum FPDTimeFormat : uint8_t {
-            DS_FPD_TIMEFORMAT_UNKNOWN = 0,
-            DS_FPD_TIMEFORMAT_12_HOUR = 1,
-            DS_FPD_TIMEFORMAT_24_HOUR = 2
-            // TODO: not available in rdk-halif-device_settings
+            DS_FPD_TIMEFORMAT_12_HOUR = 0,
+            DS_FPD_TIMEFORMAT_24_HOUR,
+            DS_FPD_TIMEFORMAT_MAX
         };
 
         enum SleepMode : uint8_t {
-            DS_HOST_SLEEPMODE_UNKNOWN = 0,
-            DS_HOST_SLEEPMODE_LIGHT   = 1,
-            DS_HOST_SLEEPMODE_DEEP    = 2,
-            // TODO: not available in rdk-halif-device_settings
+            DS_HOST_SLEEPMODE_LIGHT = 0,
+            DS_HOST_SLEEPMODE_DEEP,
+            DS_HOST_SLEEPMODE_MAX
         };
 
         enum HDMIInPort : int8_t {
@@ -269,10 +267,10 @@ namespace WPEFramework {
         struct CompositeInStatus {
             bool isPresented;
             CompositeInPort activePort;
-
-            // TODO: this is a single enum in rdk-halif-device_settings - https://github.com/rdkcentral/rdk-halif-device_settings/blob/16515f3b8fdbc683164dd58e50a0f7d6ff995d1f/include/dsCompositeInTypes.h#L120C5-L120C24
+            /* Structure can not have array in this interface file. So separated the booleans. 
+               https://github.com/rdkcentral/rdk-halif-device_settings/blob/16515f3b8fdbc683164dd58e50a0f7d6ff995d1f/include/dsCompositeInTypes.h#L120 */
             bool isPort0Connected;
-            bool isPort1Connected; /* Can't have array in structures..so separating the booleans */
+            bool isPort1Connected; 
         };
 
         // @event
