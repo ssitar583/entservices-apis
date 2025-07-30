@@ -62,13 +62,6 @@ struct GameFeatureStatus
     bool allmMode;
 };
 
-struct InputDevice
-{
-    int id /* @text id */;
-    string locator /* @text locator */;
-    bool connected /* @text connected */;
-};
-
 namespace WPEFramework
 {
     namespace Exchange
@@ -79,6 +72,13 @@ namespace WPEFramework
             enum
             {
                 ID = ID_AV_INPUT
+            };
+
+            struct EXTERNAL InputDevice
+            {
+                int id /* @text id */;
+                string locator /* @text locator */;
+                bool connected /* @text connected */;
             };
 
             using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
@@ -95,7 +95,11 @@ namespace WPEFramework
                 // @text onDevicesChanged
                 // @brief Triggered whenever a new HDMI/Composite device is connected to an HDMI/Composite Input
                 // @param info - in - The new signal information of the input device
-                virtual void OnDevicesChanged(const IInputDeviceIterator *&devices) {};
+                // <pca> debug
+                // virtual void OnDevicesChanged(IInputDeviceIterator *const devices -/--*- -@-in- -*--/-) {};
+                // <pca> YAH: Getting "ProxyStubGenerator: ERROR: IAVInput.h: IAVInput.h(100): 'const Core::JSON::ArrayType < InputDevice >': undefined type" </pca>
+                virtual void OnDevicesChanged(const Core::JSON::ArrayType<InputDevice> devices) {};
+                //  </pca>
 
                 // @text onSignalChanged
                 // @brief Triggered whenever the signal status changes for an HDMI/Composite Input
