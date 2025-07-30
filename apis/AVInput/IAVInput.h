@@ -74,7 +74,7 @@ namespace WPEFramework
                 ID = ID_AV_INPUT
             };
 
-            struct EXTERNAL InputDevice
+            struct InputDevice
             {
                 int id /* @text id */;
                 string locator /* @text locator */;
@@ -95,11 +95,7 @@ namespace WPEFramework
                 // @text onDevicesChanged
                 // @brief Triggered whenever a new HDMI/Composite device is connected to an HDMI/Composite Input
                 // @param info - in - The new signal information of the input device
-                // <pca> debug
-                // virtual void OnDevicesChanged(IInputDeviceIterator *const devices -/--*- -@-in- -*--/-) {};
-                // <pca> YAH: Getting "ProxyStubGenerator: ERROR: IAVInput.h: IAVInput.h(100): 'const Core::JSON::ArrayType < InputDevice >': undefined type" </pca>
-                virtual void OnDevicesChanged(const Core::JSON::ArrayType<InputDevice> devices) {};
-                //  </pca>
+                virtual void OnDevicesChanged(IInputDeviceIterator *const devices /* @in */) {};
 
                 // @text onSignalChanged
                 // @brief Triggered whenever the signal status changes for an HDMI/Composite Input
