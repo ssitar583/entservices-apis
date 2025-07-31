@@ -26,6 +26,14 @@ jobs:
           sudo apt-get install -y git-flow
           npm install -g auto-changelog
 
+      - name: Check all linked PRs are merged (if any)
+        run: |
+          python3 .github/check_all_linked_prs_merged.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          
       - name: Clone the project and start release
         run: |
           set -e
@@ -64,7 +72,7 @@ jobs:
             patch=0
           elif [[ "$VERSION_TYPE" == "minor" ]]; then
             minor=$((minor + 1))
-            patch=0
+            patch=0 
           elif [[ "$VERSION_TYPE" == "patch" ]]; then
             patch=$((patch + 1))
           else
@@ -75,7 +83,7 @@ jobs:
           echo "Using version from PR description: $RELEASE_VERSION"
           echo "RELEASE_VERSION=$RELEASE_VERSION"
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
-          # Check if tag already exists
+          # # Check if tag already exists
           if git rev-parse "refs/tags/$RELEASE_VERSION" >/dev/null 2>&1; then
             echo "Tag $RELEASE_VERSION already exists. Skipping release."
             exit 0
@@ -85,7 +93,7 @@ jobs:
           git add CHANGELOG.md
           git commit -m "$RELEASE_VERSION release changelog updates"
           git flow release publish
-
+          
       - name: Finish release and push (default git-flow messages)
         run: |
           set -e
