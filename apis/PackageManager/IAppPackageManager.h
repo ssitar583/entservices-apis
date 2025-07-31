@@ -232,7 +232,7 @@ namespace Exchange {
 
         // @brief ListPackages
         // @text listPackages
-        virtual Core::hresult ListPackages(string& packagesJson /* @out */) = 0;
+        virtual Core::hresult ListPackages(string& packagesJson /* @out @opaque */) = 0;
 
         // @brief Config
         // @text config
