@@ -3,6 +3,8 @@ import re
 import glob
 import sys
 
+IDS_FILE_BASENAME = 'Ids.h'
+
 def load_ids(ids_file_path):
     with open(ids_file_path, 'r') as file:
         lines = file.readlines()
@@ -272,6 +274,8 @@ def main(changed_files_path):
     issues = []
     for file_path in changed_files:
         if file_path.startswith('apis/') and file_path.endswith('.h'):
+            if os.path.basename(file_path) == IDS_FILE_BASENAME:
+                continue
             validate_header(file_path, issues, ids_lines)
     
     if issues:
